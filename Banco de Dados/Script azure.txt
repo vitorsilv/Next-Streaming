@@ -1,0 +1,52 @@
+create table streamer (
+idStreamer int primary key identity (1,1),
+nome varchar (45) not null,
+cpf char (11) not null,
+telefone int not null,
+email varchar (80) not null,
+senha varchar (20) not null,
+rua varchar (50) not null,
+numero int not null,
+complemento varchar (30),
+estado varchar (2) not null,
+cidade varchar (20) not null,
+cep int not null
+);
+
+create table maquina (
+idMaquina int primary key identity (50,1) not null,
+ram float,
+disco float,
+cpuMaquina float,
+processamento float
+);
+
+create table aplicacao (
+idApp int primary key identity (100,1),
+idStreamer int, 
+idMaquina int,
+foreign key (idStreamer) references streamer (idStreamer),
+foreign key (idMaquina) references maquina (idMaquina)
+);
+
+create table alerta (
+idAlerta int primary key identity (150,1),
+dataAlerta date, 
+hora time,
+descricao varchar (80)
+);
+
+create table dados (
+idDados int primary key identity (200,1),
+idApp int,
+idAlerta int,
+dataDados date,
+horaDados time,
+ram float,
+disco float,
+cpuMaquina float,
+processamento float,
+foreign key (idApp) references aplicacao (idApp),
+foreign key (idAlerta) references alerta (idAlerta) 
+);
+
