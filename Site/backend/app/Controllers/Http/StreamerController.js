@@ -140,6 +140,35 @@ class StreamerController {
    * @param {Response} ctx.response
    */
   async destroy ({ params, request, response }) {
+    try{
+      const streamer = await Streamer.find(params.id)
+      if(streamer===null){
+        let response = {
+          data: null,
+          result:false,
+          message:"Usuário não existe"
+        }
+
+        return response;
+      }else{
+      await streamer.delete()
+      let response = {
+        data: streamer,
+        result:true,
+        message:"Usuário deletado com sucesso!"
+      }
+
+      return response;
+      }
+    }catch(err){
+      let response = {
+        data: null,
+        result:false,
+        message:err.message
+      }
+
+      return response;
+    }
   }
 }
 
