@@ -85,10 +85,10 @@ module.exports = {
   mssql: {
     client: "mssql",
     connection: {
-      host: Env.get("APPSETTING_DB_HOST", "srvSeuServidor.database.windows.net"),
-      user: Env.get("APPSETTING_DB_USER", "seuUsuario"),
-      password: Env.get("APPSETTING_DB_PASSWORD", "suaSenha"),
-      database: Env.get("APPSETTING_DB_DATABASE", "seuBanco"),
+      host: Env.get("APPSETTING_DB_HOST", "banco01191117.database.windows.net"),
+      user: Env.get("APPSETTING_DB_USER", "Gustavo01191117"),
+      password: Env.get("APPSETTING_DB_PASSWORD", "#Gf50422207802"),
+      database: Env.get("APPSETTING_DB_DATABASE", "Banco01191117"),
       options: {
         encrypt: true
       }
