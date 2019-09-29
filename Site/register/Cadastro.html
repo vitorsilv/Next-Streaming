@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="utf-8">
+	    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
+	 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	 <link rel="stylesheet" type="text/css" href="https://cdn.materialdesignicons.com/3.6.95/css/materialdesignicons.min.css">
+	 <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+	 <link rel="stylesheet" type="text/css" href="style.css">
+	 <script type="text/javascript" src="funcoes.js"></script> 
+	 <link rel="shortcut icon" href="../img/favicon.png">
+
+	<title>Next Streaming</title>
+</head>
+<body>
+		<div class="login-container d-flex align-items-center justfy-content-center">
+			<form id="myForm" class="login-form text-center">
+				<h1 class="mb-5 font-weight-light text-uppercase text-white">Cadastrar</h1>
+
+					<div class="form-group">
+
+						<input type="text" class="form-control rounded-pill form-control-lg" name="nome" id="nome" placeholder="Nome" required>
+					</div>
+
+					<div class="form-group">
+
+						<input type="email" class="form-control rounded-pill form-control-lg" name="email" id="email" placeholder="Email" required>
+					</div>
+
+					<div class="form-group">
+
+						<input type="text" class="form-control rounded-pill form-control-lg" name="telefone" id="telefone" placeholder="Telefone" onkeypress="return SomenteNumero(event)" required>
+					</div>
+
+					<div class="form-group">
+
+						<input type="password" class="form-control rounded-pill form-control-lg" name="senha" id="senha" placeholder="Senha" required>
+						<span><i class="mdi mdi-eye" id="icone" aria-hidden="true"></i></span>
+					</div>
+
+					<div class="form-group">
+
+						<input type="password" class="form-control rounded-pill form-control-lg" name="confsenha" id="confsenha" placeholder="Confirmar Senha" required>
+						<span><i class="mdi mdi-eye" id="icone1" aria-hidden="true"></i></span>
+					</div>
+					<div class="esqueci-link d-flex align-items-center justify-content-center">
+						<a href="../login/Login.html">Já tenho uma Conta</a>
+					</div>	
+					<button type="submit" class="btn mt-5 btn-custom btn-primary btn-block rounded-pill btn-lg">Cadastrar</button>
+			</form>
+		</div>
+	
+</body>
+</html>
+
+<script type="text/javascript">
+const o = document.querySelector(`#icone`);
+const o1 = document.querySelector(`#icone1`);
+const p = document.querySelector(`#senha`);
+const p1 = document.querySelector(`#confsenha`);
+
+o.addEventListener('click',function(){
+	if(p.type == 'text'){
+		p.type = 'password';
+		icone.className = 'mdi mdi-eye';
+	}else{
+		p.type = 'text';
+		icone.className = 'mdi mdi-eye-off';
+	}
+});
+
+o1.addEventListener('click',function(){
+	if(p1.type == 'text'){
+		p1.type = 'password';
+		icone1.className = 'mdi mdi-eye';
+	}else{
+		p1.type = 'text';
+		icone1.className = 'mdi mdi-eye-off';
+	}
+});
+
+
+function SomenteNumero(e){
+    var tecla=(window.event)?event.keyCode:e.which;   
+    if((tecla>47 && tecla<58)) return true;
+    else{
+    	if (tecla==8 || tecla==0) return true;
+	else  return false;
+    }
+}
+
+
+</script>
+
+
+
+
