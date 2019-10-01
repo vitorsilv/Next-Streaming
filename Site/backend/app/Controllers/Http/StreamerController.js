@@ -46,7 +46,29 @@ class StreamerController {
    * @param {Response} ctx.response
    */
   async store ({ request, response }) {
-    let { nome,cpf,telefone,email,senha,rua,numero,complemento,estado,cidade,cep } = request.body;
+    let { nome,
+          cpf,
+          telefone,
+          email,
+          senha,
+          confsenha,
+          rua,
+          numero,
+          complemento,
+          uf,
+          bairro,
+          cidade,
+          cep
+        } = request.body;
+    if(senha!=confsenha){
+      let response = {
+        data: null,
+        result:false,
+        message:"Senhas não conferem"
+      }
+
+      return response;
+    }
     const streamer = new Streamer()
       streamer.nome = nome
       streamer.cpf = cpf
@@ -56,7 +78,8 @@ class StreamerController {
       streamer.rua = rua
       streamer.numero = numero
       streamer.complemento = complemento
-      streamer.estado = estado
+      streamer.bairro = bairro
+      streamer.uf = uf
       streamer.cidade = cidade
       streamer.cep = cep
 
@@ -159,6 +182,51 @@ class StreamerController {
       }
 
       return response;
+      }
+    }catch(err){
+      let response = {
+        data: null,
+        result:false,
+        message:err.message
+      }
+
+      return response;
+    }
+  }
+
+  async login ({ params, request, response, view }) {
+
+    const { email , senha } = request.body;
+
+    try{
+
+      const retornoSQL = await Streamer.findBy('email',email);
+      if(retornoSQL===null){
+        let response = {
+          data: retornoSQL,
+          result:false,
+          message:"Usuário não existe"
+        }
+
+        return response;
+      }else{
+        if(email===retornoSQL.email && senha===retornoSQL.senha){
+          let response = {
+            data: retornoSQL,
+            result:true,
+            message:"Usuário logado"
+          }
+
+          return response;
+        }else{
+          let response = {
+            data: retornoSQL,
+            result:false,
+            message:"Email e/ou senha incorretos"
+          }
+
+          return response;
+        }
       }
     }catch(err){
       let response = {
