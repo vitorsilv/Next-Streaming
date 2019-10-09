@@ -35,8 +35,7 @@ create table maquina (
 
 create table alerta (
     idAlerta int primary key identity (1,1),
-    descricao varchar (80),
-    dataHora datetime
+    descricao varchar (150),
 );
 
 create table monitoramento (
