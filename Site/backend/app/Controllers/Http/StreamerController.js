@@ -197,7 +197,6 @@ class StreamerController {
   async login ({ params, request, response, view }) {
 
     const { email , senha } = request.body;
-
     try{
 
       const retornoSQL = await Streamer.findBy('email',email);

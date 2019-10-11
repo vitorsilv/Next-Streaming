@@ -10,14 +10,14 @@
 	 <link rel="stylesheet" type="text/css" href="https://cdn.materialdesignicons.com/3.6.95/css/materialdesignicons.min.css">
 	 <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 	 <link rel="stylesheet" type="text/css" href="style.css">
-	 <script type="text/javascript" src="funcoes.js"></script> 
+	 <script type="text/javascript" src="funcoes.js"></script>
 	 <link rel="shortcut icon" href="../img/favicon.png">
 
 	<title>Next Streaming</title>
 </head>
 <body>
 		<div class="login-container d-flex align-items-center justfy-content-center">
-			<form id="myForm" class="login-form text-center" method="POST" action="http://127.0.0.1:3333/api/streamer/">
+			<form id="myForm" class="login-form text-center" method="POST">
 				<h1 class="mb-5 font-weight-light text-uppercase text-white">Cadastrar</h1>
 
 					<div class="form-group">
@@ -90,11 +90,13 @@
 
 					<div class="esqueci-link d-flex align-items-center justify-content-center">
 						<a href="../login/Login.html">Já tenho uma Conta</a>
-					</div>	
-					<button type="submit" class="btn mt-5 btn-custom btn-primary btn-block rounded-pill btn-lg">Cadastrar</button>
+					</div>
+          <button type="button" class="btn mt-5 btn-custom btn-primary btn-block rounded-pill btn-lg" onclick="cadastrar(nome.value,
+          email.value,cpf.value,telefone.value,senha.value,confsenha.value,cep.value,rua.value,numero.value,complemento.value,
+          bairro.value,cidade.value,uf.value)">Cadastrar</button>
 			</form>
 		</div>
-	
+
 </body>
 </html>
 
@@ -126,7 +128,7 @@ o1.addEventListener('click',function(){
 
 
 function SomenteNumero(e){
-    var tecla=(window.event)?event.keyCode:e.which;   
+    var tecla=(window.event)?event.keyCode:e.which;
     if((tecla>47 && tecla<58)) return true;
     else{
     	if (tecla==8 || tecla==0) return true;
@@ -137,7 +139,7 @@ function SomenteNumero(e){
 
 
 <script type="text/javascript" >
-    
+
     function limpa_formulário_cep() {
             //Limpa valores do formulário de cep.
             document.getElementById('rua').value=("");
@@ -160,7 +162,7 @@ function SomenteNumero(e){
             alert("CEP não encontrado.");
         }
     }
-        
+
     function pesquisacep(valor) {
 
         //Nova variável "cep" somente com dígitos.
@@ -202,8 +204,29 @@ function SomenteNumero(e){
             limpa_formulário_cep();
         }
     };
+function cadastrar(nome,email,cpf,telefone,senha,confsenha,
+  cep,rua,numero,complemento,bairro,cidade,uf){
 
-    </script>
+  let URL = 'http://127.0.0.1:3333/api/streamer/';
+  var xhttp = new XMLHttpRequest();
+
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+
+      resposta = JSON.parse(xhttp.responseText);
+
+      if(resposta.result==true){
+        window.location.href="../login/Login.html";
+      }else{
+        alert(resposta.message);
+      }
+    }
+};
+xhttp.open("POST", URL , true);
+xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+xhttp.send(`nome=${nome}&email=${email}&cpf=${cpf}&telefone=${telefone}&senha=${senha}&confsenha=${confsenha}&cep=${cep}&rua=${rua}&numero=${numero}&complemento=${complemento}&bairro=${bairro}&cidade=${cidade}&uf=${uf}`);
+}
+</script>
 
 
 

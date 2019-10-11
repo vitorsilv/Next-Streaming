@@ -13,6 +13,12 @@ class Streamer extends Model {
   static get primaryKey(){
     return 'idStreamer';
   }
+  static get createdAtColumn () {
+    return null
+  }
+  static get updatedAtColumn () {
+    return null
+  }
 }
 
 module.exports = Streamer
