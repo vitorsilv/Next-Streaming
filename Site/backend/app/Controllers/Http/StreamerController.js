@@ -8,6 +8,7 @@
  * Resourceful controller for interacting with streamers
  */
 const Streamer = use('App/Models/Streamer')
+const Endereco = use('App/Models/Endereco')
 class StreamerController {
   /**
    * Show a list of all streamers.
@@ -20,7 +21,7 @@ class StreamerController {
    */
   async index ({ request, response, view }) {
     try{
-      const retornoSQL = await Streamer.all();
+      const retornoSQL = await Streamer.query().with('endereco').fetch();
       let response = {
         data: retornoSQL,
         result:true,
@@ -75,16 +76,18 @@ class StreamerController {
       streamer.telefone = telefone
       streamer.email = email
       streamer.senha = senha
-      streamer.rua = rua
-      streamer.numero = numero
-      streamer.complemento = complemento
-      streamer.bairro = bairro
-      streamer.uf = uf
-      streamer.cidade = cidade
-      streamer.cep = cep
+
+    const endereco = new Endereco();
+      endereco.logradouro = rua
+      endereco.numero = numero
+      endereco.complemento = complemento
+      endereco.bairro = bairro
+      endereco.cidade = cidade
+      endereco.uf = uf
+      endereco.cep = cep
 
       try{
-        await streamer.save()
+        await streamer.endereco().save(endereco)
 
         let response = {
           data: streamer,
@@ -114,10 +117,14 @@ class StreamerController {
    */
   async show ({ params, request, response, view }) {
     try{
-      const retornoSQL = await Streamer.find(params.id);
+      const retornoSQL = await Streamer.query()
+        .where('idStreamer',params.id)
+        .with('endereco')
+      .fetch();
+
       if(retornoSQL===null){
         let response = {
-          data: retornoSQL,
+          data: null,
           result:false,
           message:"Usuário não existe"
         }
@@ -202,7 +209,7 @@ class StreamerController {
       const retornoSQL = await Streamer.findBy('email',email);
       if(retornoSQL===null){
         let response = {
-          data: retornoSQL,
+          data: null,
           result:false,
           message:"Usuário não existe"
         }
@@ -219,7 +226,7 @@ class StreamerController {
           return response;
         }else{
           let response = {
-            data: retornoSQL,
+            data: null,
             result:false,
             message:"Email e/ou senha incorretos"
           }
