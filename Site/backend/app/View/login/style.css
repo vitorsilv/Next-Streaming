@@ -31,7 +31,7 @@ body{
 }
 
 .form-control:focus{
-	border-color: #31ff00;
+	border-color: #320072;
 	box-shadow: 0 0 0 0.2rem rgba(41, 192, 177,.25);
 }
 
@@ -51,12 +51,12 @@ body{
 }
 
 .login-form a:hover{
-	color: #31ff00;
+	color: #fdcc34;
 }
 
 .btn-custom{
-	background: #31ff00;
-	border-color: #31ff00;
+	background: #320072;
+	border-color: #320072;
 	color: #fff;
 	font-size: 15px;
 	font-weight: 600;
@@ -68,8 +68,8 @@ body{
 .btn-custom:hover,
 .btn-custom:active,
 .btn-custom:active:focus{
-	background: #31ff00;
-	border-color: #31ff00;
+	background: #fdcc34;
+	border-color: #fdcc34;
 	color: #fff;
 }
 
