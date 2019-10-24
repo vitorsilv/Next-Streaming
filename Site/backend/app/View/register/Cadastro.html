@@ -20,75 +20,73 @@
 			<form id="myForm" class="login-form text-center" method="POST">
 				<h1 class="mb-5 font-weight-light text-uppercase text-white">Cadastrar</h1>
 
-					<div class="form-group">
-
+					<div class="row">
+						<div class="col-md-6">
 						<input type="text" class="form-control rounded-pill form-control-lg" name="nome" id="nome" placeholder="Nome" required>
-					</div>
-
-					<div class="form-group">
-
-						<input type="email" class="form-control rounded-pill form-control-lg" name="email" id="email" placeholder="Email" required>
-					</div>
-
-					<div class="form-group">
-
+						</div>
+						<div class="col-md-6">
 						<input type="text" class="form-control rounded-pill form-control-lg" name="cpf" id="cpf" placeholder="CPF" required>
+						</div>
 					</div>
 
-					<div class="form-group">
-
-						<input type="text" class="form-control rounded-pill form-control-lg" name="telefone" id="telefone" placeholder="Telefone" onkeypress="return SomenteNumero(event)" required>
+					<div class="row">
+						<div class="col-md-6">
+							<input type="text" class="form-control rounded-pill form-control-lg" name="telefone" id="telefone" placeholder="Telefone" onkeypress="return SomenteNumero(event)" required>
+						</div>
+						<div class="col-md-6">
+						<input type="email" class="form-control rounded-pill form-control-lg" name="email" id="email" placeholder="Email" required>
+						</div>
 					</div>
 
-					<div class="form-group">
-
-						<input type="password" class="form-control rounded-pill form-control-lg" name="senha" id="senha" placeholder="Senha" required>
-						<span><i class="mdi mdi-eye" id="icone" aria-hidden="true"></i></span>
+					<div class="row">
+						<div class="col-md-6">
+							<input type="password" class="form-control rounded-pill form-control-lg" name="senha" id="senha" placeholder="Senha" required>
+							<span><i class="mdi mdi-eye" id="icone" aria-hidden="true"></i></span>
+						</div>
+						<div class="col-md-6">
+							<input type="password" class="form-control rounded-pill form-control-lg" name="confsenha" id="confsenha" placeholder="Confirmar Senha" required>
+							<span><i class="mdi mdi-eye " id="icone1" aria-hidden="true"></i></span>
+						</div>
 					</div>
 
-					<div class="form-group">
-
-						<input type="password" class="form-control rounded-pill form-control-lg" name="confsenha" id="confsenha" placeholder="Confirmar Senha" required>
-						<span><i class="mdi mdi-eye" id="icone1" aria-hidden="true"></i></span>
+					<div class="row">
+						<div class="col-md-12">
+								<input type="text" class="form-control rounded-pill form-control-lg" name="cep" id="cep" size="10" maxlength="9" onblur="pesquisacep(this.value);" placeholder="CEP" required	>
+						</div>
 					</div>
 
-					<div class="form-group">
-
-						<input type="text" class="form-control rounded-pill form-control-lg" name="cep" id="cep" size="10" maxlength="9" onblur="pesquisacep(this.value);" placeholder="CEP" required	>
+					<div class="row">
+						<div class="col-md-6">
+							<input type="text" class="form-control rounded-pill form-control-lg" name="rua" id="rua" placeholder="Logradouro" disabled required>
+						</div>
+						<div class="col-md-6">
+							<input type="text" class="form-control rounded-pill form-control-lg" name="numero" id="numero" placeholder="Número" required>
+						</div>
 					</div>
 
-					<div class="form-group">
-
-						<input type="text" class="form-control rounded-pill form-control-lg" name="rua" id="rua" placeholder="Logradouro" disabled required>
+					<div class="row">
+						<div class="col-md-6">
+							<input type="text" class="form-control rounded-pill form-control-lg" name="complemento" id="complemento" placeholder="Complemento">
+						</div>
+						<div class="col-md-6">
+							<input type="text" class="form-control rounded-pill form-control-lg" name="bairro" id="bairro" placeholder="Bairro" disabled required>
+						</div>
 					</div>
 
-					<div class="form-group">
-
-						<input type="text" class="form-control rounded-pill form-control-lg" name="numero" id="numero" placeholder="Número" required>
+					<div class="row">
+						<div class="col-md-6">
+							<input type="text" class="form-control rounded-pill form-control-lg" name="cidade" id="cidade" placeholder="Cidade" disabled required>
+						</div>
+						<div class="col-md-6">
+							<input type="text" class="form-control rounded-pill form-control-lg" name="uf" id="uf" placeholder="UF" disabled required>
+						</div>
 					</div>
 
-					<div class="form-group">
-
-						<input type="text" class="form-control rounded-pill form-control-lg" name="complemento" id="complemento" placeholder="Complemento">
-					</div>
 
 
-					<div class="form-group">
 
-						<input type="text" class="form-control rounded-pill form-control-lg" name="bairro" id="bairro" placeholder="Bairro" disabled required>
-					</div>
 
-					<div class="form-group">
-
-						<input type="text" class="form-control rounded-pill form-control-lg" name="cidade" id="cidade" placeholder="Cidade" disabled required>
-					</div>
-
-					<div class="form-group">
-
-						<input type="text" class="form-control rounded-pill form-control-lg" name="uf" id="uf" placeholder="UF" disabled required>
-					</div>
-
-					<div class="esqueci-link d-flex align-items-center justify-content-center">
+					<div class="esqueci-link d-flex align-items-center justify-content-center" style="margin-top: 2%">
 						<a href="../login/Login.html">Já tenho uma Conta</a>
 					</div>
           <button type="button" class="btn mt-5 btn-custom btn-primary btn-block rounded-pill btn-lg" onclick="cadastrar(nome.value,
