@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="assets/js/Lightweight-Chart/cssCharts.css">
 </head>
 
-<body>
+<body onload="pegarDados()">
     <div id="wrapper">
         <nav class="navbar navbar-default top-navbar" role="navigation">
             <div class="navbar-header">
@@ -107,72 +107,72 @@
                                     <!-- <input type='hidden' value='' name='iduser' id='iduser'> -->
                                     <div class="form-row">
                                         <div class="form-group col-md-6" style="margin-top: 2%">
-                                            <label for="inputEmpresa">Nome</label>
-                                            <input type="text" class="form-control" id="inputEmpresa" name='empresa'
+                                            <label for="nome">Nome</label>
+                                            <input type="text" class="form-control" id="nome" name='nome'
                                                 placeholder="" >
                                         </div>
                                         <div class="form-group col-md-6"style="margin-top: 2%">
-                                            <label for="inputcnpj">CPF</label>
-                                            <input type="number" class="form-control" id="inputcnpj" name='cnpj'
+                                            <label for="cnpj">CPF</label>
+                                            <input type="number" class="form-control" id="cnpj" name='cnpj'
                                                 placeholder="">
                                         </div>
                                     </div>
                                     <div class="form-row">
                                             <div class="form-group col-md-6">
-                                                    <label for="inputTelefone">Telefone</label>
-                                                    <input type="number" class="form-control" id="inputTelefone" name='tel'
+                                                    <label for="telefone">Telefone</label>
+                                                    <input type="number" class="form-control" id="telefone" name='tel'
                                                         placeholder="">
                                                 </div>
                                                 <div class="form-group col-md-6">
-                                                        <label for="inputEmail4">Email</label>
-                                                        <input type="email" class="form-control" id="inputEmail4" name='email'
+                                                        <label for="email">Email</label>
+                                                        <input type="email" class="form-control" id="email" name='email'
                                                             placeholder="">
                                                     </div>
                                     </div>
                                     <div class="form-row">
                                             <div class="form-group col-md-6">
-                                                    <label for="inputPassword4">Nova senha</label>
-                                                    <input type="password" class="form-control" id="inputPassword4" name='senha'
+                                                    <label for="senha">Nova senha</label>
+                                                    <input type="password" class="form-control" id="senha" name='senha'
                                                         placeholder="">
                                                 </div>
                                         <div class="form-group col-md-6">
-                                            <label for="inputPassword4">Confirmar senha</label>
-                                            <input type="password" class="form-control" id="inputPassword4" name='senha'
+                                            <label for="confsenha">Confirmar senha</label>
+                                            <input type="password" class="form-control" id="confsenha" name='confsenha'
                                                 placeholder="">
                                         </div>
                                     </div>
                                     <div  class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label for="inputAddress">Logradouro</label>
-                                        <input type="text" class="form-control" id="inputAddress" name='endereco'
+                                        <label for="rua">Logradouro</label>
+                                        <input type="text" class="form-control" id="rua" name='rua'
                                             placeholder="">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="inputNumero" style="margin-right: 92.5%">Número</label>
-                                        <input type="text" class="form-control" id="inputNumero" name="numero"
+                                        <label for="numero" style="margin-right: 92.5%">Número</label>
+                                        <input type="text" class="form-control" id="numero" name="numero"
                                             placeholder="">
                                     </div>
                                 </div>
                                 <div  class="form-row">
                                         <div class="form-group col-md-6">
-                                            <label for="inputComplemento">Complemento</label>
-                                            <input type="text" class="form-control" id="inputComplemento" name='complemento'
+                                            <label for="complemento">Complemento</label>
+                                            <input type="text" class="form-control" id="complemento" name='complemento'
                                                 placeholder="">
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="inputBairro" style="margin-right: 92.5%">Bairro</label>
-                                            <input type="text" class="form-control" id="inputBairro" name="bairro"
+                                            <label for="bairro" style="margin-right: 92.5%">Bairro</label>
+                                            <input type="text" class="form-control" id="bairro" name="bairro"
                                                 placeholder="">
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
-                                            <label for="inputCity">Cidade</label>
-                                            <input type="text" class="form-control" id="inputCity" name='cidade'>
+                                            <label for="cidade">Cidade</label>
+                                            <input type="text" class="form-control" id="cidade" name='cidade'>
                                         </div>
                                         <div class="form-group col-md-4">
-                                            <label for="inputEstado">Estado</label>
-                                            <select id="inputEstado" name='estado' class="form-control" style="margin-top: 3%">
+                                            <label for="uf">Estado</label>
+                                            <select id="uf" name='uf' class="form-control" style="margin-top: 3%">
                                                 <option selected>Escolher...</option>
                                                 <option value='AC'>AC</option>
                                                 <option value='AL'>AL</option>
@@ -204,8 +204,8 @@
                                             </select>
                                         </div>
                                         <div class="form-group col-md-2">
-                                            <label for="inputCEP">CEP</label>
-                                            <input type="number" class="form-control" id="inputCEP" name='cep'>
+                                            <label for="cep">CEP</label>
+                                            <input type="number" class="form-control" id="cep" name='cep'>
                                         </div>
                                     </div>
                                     <center><button type="submit" class="btn btn-primary"
@@ -270,3 +270,21 @@
 </body>
 
 </html>
+
+<script type="text/javascript">
+    function pegarDados(){
+        let URL = 'http://127.0.0.1:3333/api/streamer/7';
+        var xhttp = new XMLHttpRequest();
+
+        xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+
+            resposta = JSON.parse(xhttp.responseText);
+            nome.value = resposta[0].data.nome
+        }   
+    };
+    xhttp.open("GET", URL , true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send();
+}
+</script>
