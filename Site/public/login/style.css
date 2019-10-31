@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins:100,300,400,500&display=swap');
 
 body{
-	background: url(imagens/gaming.jpg)no-repeat center center fixed;
+	background: url(imagens/blur1.jpg)no-repeat center center fixed;
 	-webkit-background-size:cover;
 	-moz-background-size:cover;
 	-o-background-size:cover
@@ -10,6 +10,7 @@ body{
 	color: #666;
 	background-color: #eee;
 	font-size: 14px;
+	
 }
 
 .login-container{
@@ -22,12 +23,14 @@ body{
 	width: 370px;
 	padding: 15px;
 	margin: auto;
+	
 }
 
 .form-control{
 	font-size: 15px;
 	min-height: 48px;
 	font-weight: 500;
+	
 }
 
 .form-control:focus{
