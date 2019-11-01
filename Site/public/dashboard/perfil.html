@@ -273,14 +273,24 @@
 
 <script type="text/javascript">
     function pegarDados(){
-        let URL = 'http://127.0.0.1:3333/api/streamer/7';
+        let URL = 'https://backend-nextstreaming.azurewebsites.net/api/streamer/1';
         var xhttp = new XMLHttpRequest();
 
         xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
 
             resposta = JSON.parse(xhttp.responseText);
-            nome.value = resposta[0].data.nome
+            
+            document.getElementById(nome).value = resposta[0].data.nome
+            document.getElementById(cpf).value = resposta[0].data.cpf
+            document.getElementById(telefone).value = resposta[0].data.telefone
+            document.getElementById(email).value = resposta[0].data.email
+            document.getElementById(rua).value = resposta[0].data.rua
+            document.getElementById(numero).value = resposta[0].data.numero
+            document.getElementById(complemento).value = resposta[0].data.complemento
+            document.getElementById(bairro).value = resposta[0].data.bairro
+            document.getElementById(cidade).value = resposta[0].data.cidade
+            document.getElementById(uf).value = resposta[0].data.uf
         }   
     };
     xhttp.open("GET", URL , true);
