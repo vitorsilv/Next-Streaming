@@ -67,6 +67,8 @@ function login(email,senha){
       resposta = JSON.parse(xhttp.responseText);
 
       if(resposta.result==true){
+		sessionStorage.setItem('id',resposta.data.idStreamer);
+		sessionStorage.setItem('nomeUsuario',resposta.data.nome);
         window.location.href="../dashboard/index.html";
       }else{
         alert(resposta.message);

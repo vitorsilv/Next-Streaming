@@ -41,7 +41,7 @@
 
             <ul class="nav navbar-top-links navbar-right">
                 <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown1"><i
-                            class="fa fa-user fa-fw"></i> <b>Usuário</b> <i
+                            class="fa fa-user fa-fw"></i> <b id="nomeUsuario">Usuário</b> <i
                             class="material-icons right">arrow_drop_down</i></a></li>
 
             </ul>
@@ -270,6 +270,11 @@
 </body>
 
 </html>
+
+<script type="text/javascript">
+    const nome = sessionStorage.getItem("nomeUsuario").split(" ");
+    document.getElementById("nomeUsuario").innerHTML = nome[0];
+</script>
 
 <script type="text/javascript">
     function pegarDados(){
