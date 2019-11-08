@@ -1,0 +1,86 @@
+/// Link que achei essas paradas:  https://www.guj.com.br/t/fechar-um-processo-windows-com4j-x-java/275722/6
+
+
+/// Aqui Ele encerra processos no Array
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.*;
+
+public class ScriptEncerrarProcessos {
+    
+    public static void main(String[] args) {
+        // TODO Auto-generated method stub
+        
+        List<String> lista = new ArrayList<>();
+        lista.add("firefox.exe");
+        lista.add("notepad.exe");
+        
+        for (int i = 0; i < lista.size(); i++) {
+            kill(lista.get(i));
+        }
+    }
+    
+    
+    public static boolean kill(String process) {    
+        try {    
+            String line;    
+            Process p = Runtime.getRuntime().exec("tasklist.exe /fo csv /nh");    
+            BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));    
+            while ((line = input.readLine()) != null) {    
+                if (!line.trim().equals("")) {    
+                    if (!line.substring(1, line.indexOf("\"", 1)).equalsIgnoreCase(process)) {    
+                    } else {
+                        Runtime.getRuntime().exec("taskkill /F /IM " + line.substring(1, line.indexOf("\"", 1)));    
+                        return true;
+                    }    
+                }    
+            }    
+            input.close();    
+        } catch (Exception err) {    
+            err.printStackTrace();    
+        }    
+        return false;    
+    }   
+
+    private static void kill(List<String> lista) {
+        
+        
+    }   
+}
+
+
+////Aqui ele lista todos os processos rodando
+
+
+import java.io.BufferedReader;  
+import java.io.IOException;  
+import java.io.InputStream;  
+import java.io.InputStreamReader;  
+
+public class ListProcess {  
+    public static void main(String[] args) throws IOException {  
+
+        Runtime runtime = Runtime.getRuntime();  
+
+        String cmds[] = {"cmd", "/c", "tasklist"};  
+
+        Process proc = runtime.exec(cmds);  
+
+        InputStream inputstream = proc.getInputStream();  
+
+        InputStreamReader inputstreamreader = new InputStreamReader(inputstream);  
+
+        BufferedReader bufferedreader = new BufferedReader(inputstreamreader);  
+
+        String line;  
+
+        while ((line = bufferedreader.readLine()) != null) {  
+
+            System.out.println(line);  
+
+        }  
+
+    }  
+
+}  
