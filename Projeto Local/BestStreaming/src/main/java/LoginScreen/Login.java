@@ -7,6 +7,10 @@ package LoginScreen;
 
 import Placeholders.TextPrompt;
 import VerificationScreen.Verification;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -87,7 +91,7 @@ public class Login extends javax.swing.JFrame {
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 360, 428));
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel2MouseClicked(evt);
@@ -105,7 +109,7 @@ public class Login extends javax.swing.JFrame {
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Entrar");
         jButton1.setBorder(null);
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -115,7 +119,7 @@ public class Login extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel4.setText("Esqueci minha senha");
-        jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 380, -1, -1));
 
         txtLogin.setBackground(new java.awt.Color(196, 196, 196));
@@ -126,7 +130,7 @@ public class Login extends javax.swing.JFrame {
 
         icoShow.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         icoShow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/show.png"))); // NOI18N
-        icoShow.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        icoShow.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         icoShow.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 icoShowMousePressed(evt);
@@ -136,7 +140,7 @@ public class Login extends javax.swing.JFrame {
 
         icoHide.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         icoHide.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/hide.png"))); // NOI18N
-        icoHide.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        icoHide.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         icoHide.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 icoHideMousePressed(evt);
@@ -157,7 +161,7 @@ public class Login extends javax.swing.JFrame {
         jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 260, 380, 30));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Close.png"))); // NOI18N
-        jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel5MouseClicked(evt);
@@ -189,8 +193,28 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel1KeyTyped
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-            this.setVisible(false);
-            ver.setVisible(true);
+        
+        String email = txtLogin.getText();
+        String senha = new String(txtPass.getPassword());
+        
+        this.setVisible(false);
+        ver.setVisible(true);
+        
+        try {
+            
+            LoginClass lgClass = new LoginClass();
+            Boolean logado = lgClass.logar(email, senha);
+            if(logado.equals(true)){
+                JOptionPane.showMessageDialog(null, "FOICARAI");
+            }else{
+                JOptionPane.showMessageDialog(null, "NFOICARAI :(");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+            //this.setVisible(false);
+            //ver.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
