@@ -86,6 +86,17 @@ insert into monitoramento values
 (1.90, 2500, 5000, 740,'2019-10-18 10:00', 12, 4 );
 
 
+create table processos (
+
+idProcesso int primary key identity,
+pid int,
+nomeProcesso varchar(40),
+blackList char(5),
+idMaquina int FOREIGN KEY REFERENCES maquina(idMaquina),
+idMonitoramento int FOREIGN KEY REFERENCES monitoramento(idMonitoramento)
+);
+
+
 
 select * from streamer;
 select * from monitoramento;
