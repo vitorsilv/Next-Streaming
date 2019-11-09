@@ -103,7 +103,7 @@
                         <div class="card">
                             <div class="cadastro">
 
-                                <form onsubmit='event.preventDefault(); enviar()' id='form_atualizar' method='POST'>
+                                <form id='form_atualizar'>
                                     <!-- <input type='hidden' value='' name='iduser' id='iduser'> -->
                                     <div class="form-row">
                                         <div class="form-group col-md-6" style="margin-top: 2%">
@@ -114,7 +114,7 @@
                                         <div class="form-group col-md-6"style="margin-top: 2%">
                                             <label for="cpf">CPF</label>
                                             <input type="number" class="form-control" id="cpf" name='cpf'
-                                                placeholder="...">
+                                                placeholder="..." readonly>
                                         </div>
                                     </div>
                                     <div class="form-row">
@@ -133,12 +133,12 @@
                                             <div class="form-group col-md-6">
                                                     <label for="senha">Nova senha</label>
                                                     <input type="password" class="form-control" id="senha" name='senha'
-                                                        placeholder="">
+                                                        placeholder="" required>
                                                 </div>
                                         <div class="form-group col-md-6">
                                             <label for="confsenha">Confirmar senha</label>
                                             <input type="password" class="form-control" id="confsenha" name='confsenha'
-                                                placeholder="">
+                                                placeholder="" required>
                                         </div>
                                     </div>
                                     <div  class="form-row">
@@ -176,30 +176,30 @@
                                                 <option selected>Escolher...</option>
                                                 <option value='AC'>AC</option>
                                                 <option value='AL'>AL</option>
-                                                <option value='AP'>AM</option>
-                                                <option value='AM'>AP</option>
+                                                <option value='AM'>AM</option>
+                                                <option value='AP'>AP</option>
                                                 <option value='BA'>BA</option>
                                                 <option value='CE'>CE</option>
                                                 <option value='DF'>DF</option>
                                                 <option value='ES'>ES</option>
                                                 <option value='GO'>GO</option>
                                                 <option value='MA'>MA</option>
-                                                <option value='MT'>MG</option>
-                                                <option value='MS'>MT</option>
+                                                <option value='MG'>MG</option>
+                                                <option value='MT'>MT</option>
                                                 <option value='MG'>MS</option>
                                                 <option value='PA'>PA</option>
                                                 <option value='PB'>PB</option>
-                                                <option value='PR'>PE</option>
-                                                <option value='PE'>PI</option>
-                                                <option value='PI'>PR</option>
+                                                <option value='PE'>PE</option>
+                                                <option value='PI'>PI</option>
+                                                <option value='PR'>PR</option>
                                                 <option value='RJ'>RJ</option>
                                                 <option value='RN'>RN</option>
-                                                <option value='RS'>RO</option>
-                                                <option value='RO'>RR</option>
-                                                <option value='RR'>RS</option>
+                                                <option value='RO'>RO</option>
+                                                <option value='RR'>RR</option>
+                                                <option value='RS'>RS</option>
                                                 <option value='SC'>SC</option>
-                                                <option value='SP'>SE</option>
-                                                <option value='SE'>SP</option>
+                                                <option value='SE'>SE</option>
+                                                <option value='SP'>SP</option>
                                                 <option value='TO'>TO</option>
                                             </select>
                                         </div>
@@ -209,7 +209,10 @@
                                             placeholder="...">
                                         </div>
                                     </div>
-                                    <center><button type="submit" class="btn btn-primary"
+                                    <center><button type="button" onclick="atualizarCadastro(nome.value,email.value,
+                                        cpf.value,telefone.value,senha.value,confsenha.value,
+                                         cep.value,rua.value,numero.value,complemento.value,
+                                         bairro.value,cidade.value,uf.value)" class="btn btn-primary"
                                             style="background-color:#320072;border-color:#320072; margin-bottom: 2%">Atualizar dados</button>
                                     </center>
                                 </form>
@@ -273,13 +276,13 @@
 </html>
 
 <script type="text/javascript">
-    const nome = sessionStorage.getItem("nomeUsuario").split(" ");
-    document.getElementById("nomeUsuario").innerHTML = nome[0];
-</script>
 
-<script type="text/javascript">
+let nome = sessionStorage.getItem("nomeUsuario").split(" ");
+document.getElementById("nomeUsuario").innerHTML = nome[0];
+
+const id = sessionStorage.getItem("id");
+
 function pegarDados(){
-    const id = sessionStorage.getItem("id");
     let URL = `https://backend-nextstreaming.azurewebsites.net/api/streamer/${id}`;
     var xhttp = new XMLHttpRequest();
 
@@ -304,5 +307,46 @@ function pegarDados(){
     xhttp.open("GET", URL , true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send();
+}
+
+function atualizarCadastro(nome,email,cpf,telefone,senha,confsenha,
+  cep,rua,numero,complemento,bairro,cidade,uf){
+
+  const data = {
+    nome: nome,
+    email: email,
+    cpf: cpf,
+    telefone: telefone,
+    senha: senha, confsenha: confsenha,
+    cep: cep, 
+    rua: rua,
+    numero: numero,
+    complemento: complemento,
+    bairro: bairro,
+    cidade: cidade,
+    uf: uf
+  }
+  const json = JSON.stringify(data);
+
+  let URL = `https://backend-nextstreaming.azurewebsites.net/api/streamer/${id}`;
+  var xhttp = new XMLHttpRequest();
+
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        resposta = JSON.parse(xhttp.responseText);
+
+      if(resposta.result==true){
+        alert("Atualizado com sucesso")
+        sessionStorage.removeItem("nomeUsuario");
+        sessionStorage.setItem("nomeUsuario", resposta.data[0].nome);     
+        window.location.reload(true);
+      }else{
+        alert(resposta.message);
+      }
+    }
+};
+xhttp.open("PUT", URL , true);
+xhttp.setRequestHeader("Content-type", "application/json; charset=utf-8");
+xhttp.send(json);
 }
 </script>
