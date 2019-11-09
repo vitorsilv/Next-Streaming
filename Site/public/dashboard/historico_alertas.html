@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="assets/js/Lightweight-Chart/cssCharts.css">
 </head>
 
-<body>
+<body onload="popularTabela()">
     <div id="wrapper">
         <nav class="navbar navbar-default top-navbar" role="navigation">
             <div class="navbar-header">
@@ -108,25 +108,17 @@
                                         id="dataTables-example">
                                         <thead>
                                             <tr>
+                                                <th>Id</th>
                                                 <th>Máquina</th>
                                                 <th>Data e hora do alerta</th>
                                                 <th>Descrição do alerta</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr class="odd gradeX">
-                                                <td>1</td>
-                                                <td>08/10/2019 19:59</td>
-                                                <td>Sistema operando corretamente</td>
-                                            </tr>
-                                            <tr class="odd gradeX">
-                                                    <td>1</td>
-                                                    <td>08/10/2019 19:59</td>
-                                                    <td>Sistema operando corretamente</td>
-                                            </tr>
-
+                                        <tbody id="corpoTabela">
+                      
+                                        </tbody>
+                                    </table>
                                 </div>
-
                             </div>
                         </div>
                         <!--End Advanced Tables -->
@@ -195,4 +187,41 @@
 <script type="text/javascript">
     const nome = sessionStorage.getItem("nomeUsuario").split(" ");
     document.getElementById("nomeUsuario").innerHTML = nome[0];
+    const id = sessionStorage.getItem("id");
+
+    function popularTabela(){
+        let URL = `http://127.0.0.1:3333/api/monitoramento/${id}`;
+        var xhttp = new XMLHttpRequest();
+        let conteudo = '';
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                resposta = JSON.parse(xhttp.responseText);
+                let ordenacao = resposta.data.reverse()
+                ordenacao.forEach(element => {
+
+                    let dataItem = new Date(element.dataHora);
+                    let dia = dataItem.getDate();
+                    let mes = dataItem.getMonth();
+                    let ano = dataItem.getFullYear();
+                    let hora = dataItem.getHours();
+                    let minuto = dataItem.getMinutes();
+
+                    let dataElement = `${dia}/${mes}/${ano}-${hora}:${minuto}`;
+
+                    conteudo +=`<tr class="odd gradeX">
+                    <td>${element.idMonitoramento}</td>
+                    <td>${element.idMaquina}</td>
+                    <td>${dataElement}</td>
+                    <td>${element.alerta.descricao}</td>
+                    </tr>`
+                });
+                corpoTabela.innerHTML = conteudo;
+            }   
+        };
+
+        xhttp.open("GET", URL , true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send();
+    }
+
 </script>
