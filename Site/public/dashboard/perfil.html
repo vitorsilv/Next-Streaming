@@ -109,24 +109,24 @@
                                         <div class="form-group col-md-6" style="margin-top: 2%">
                                             <label for="nome">Nome</label>
                                             <input type="text" class="form-control" id="nome" name='nome'
-                                                placeholder="" >
+                                                placeholder="..." >
                                         </div>
                                         <div class="form-group col-md-6"style="margin-top: 2%">
-                                            <label for="cnpj">CPF</label>
-                                            <input type="number" class="form-control" id="cnpj" name='cnpj'
-                                                placeholder="">
+                                            <label for="cpf">CPF</label>
+                                            <input type="number" class="form-control" id="cpf" name='cpf'
+                                                placeholder="...">
                                         </div>
                                     </div>
                                     <div class="form-row">
                                             <div class="form-group col-md-6">
                                                     <label for="telefone">Telefone</label>
                                                     <input type="number" class="form-control" id="telefone" name='tel'
-                                                        placeholder="">
+                                                        placeholder="...">
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                         <label for="email">Email</label>
                                                         <input type="email" class="form-control" id="email" name='email'
-                                                            placeholder="">
+                                                            placeholder="...">
                                                     </div>
                                     </div>
                                     <div class="form-row">
@@ -145,24 +145,24 @@
                                     <div class="form-group col-md-6">
                                         <label for="rua">Logradouro</label>
                                         <input type="text" class="form-control" id="rua" name='rua'
-                                            placeholder="">
+                                            placeholder="...">
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="numero" style="margin-right: 92.5%">Número</label>
                                         <input type="text" class="form-control" id="numero" name="numero"
-                                            placeholder="">
+                                            placeholder="...">
                                     </div>
                                 </div>
                                 <div  class="form-row">
                                         <div class="form-group col-md-6">
                                             <label for="complemento">Complemento</label>
                                             <input type="text" class="form-control" id="complemento" name='complemento'
-                                                placeholder="">
+                                                placeholder="...">
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="bairro" style="margin-right: 92.5%">Bairro</label>
                                             <input type="text" class="form-control" id="bairro" name="bairro"
-                                                placeholder="">
+                                                placeholder="...">
                                         </div>
                                     </div>
                                     <div class="form-row">
@@ -205,7 +205,8 @@
                                         </div>
                                         <div class="form-group col-md-2">
                                             <label for="cep">CEP</label>
-                                            <input type="number" class="form-control" id="cep" name='cep'>
+                                            <input type="number" class="form-control" id="cep" name='cep'
+                                            placeholder="...">
                                         </div>
                                     </div>
                                     <center><button type="submit" class="btn btn-primary"
@@ -277,27 +278,29 @@
 </script>
 
 <script type="text/javascript">
-    function pegarDados(){
-        let URL = 'https://backend-nextstreaming.azurewebsites.net/api/streamer/1';
-        var xhttp = new XMLHttpRequest();
+function pegarDados(){
+    const id = sessionStorage.getItem("id");
+    let URL = `https://backend-nextstreaming.azurewebsites.net/api/streamer/${id}`;
+    var xhttp = new XMLHttpRequest();
 
-        xhttp.onreadystatechange = function() {
+    xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-
             resposta = JSON.parse(xhttp.responseText);
-            
-            document.getElementById(nome).value = resposta[0].data.nome
-            document.getElementById(cpf).value = resposta[0].data.cpf
-            document.getElementById(telefone).value = resposta[0].data.telefone
-            document.getElementById(email).value = resposta[0].data.email
-            document.getElementById(rua).value = resposta[0].data.rua
-            document.getElementById(numero).value = resposta[0].data.numero
-            document.getElementById(complemento).value = resposta[0].data.complemento
-            document.getElementById(bairro).value = resposta[0].data.bairro
-            document.getElementById(cidade).value = resposta[0].data.cidade
-            document.getElementById(uf).value = resposta[0].data.uf
+
+            document.getElementById("nome").value = resposta.data[0].nome
+            document.getElementById("cpf").value = resposta.data[0].cpf
+            document.getElementById("telefone").value = resposta.data[0].telefone
+            document.getElementById("email").value = resposta.data[0].email
+            document.getElementById("rua").value = resposta.data[0].endereco[0].logradouro
+            document.getElementById("numero").value = resposta.data[0].endereco[0].numero
+            document.getElementById("complemento").value = resposta.data[0].endereco[0].complemento
+            document.getElementById("bairro").value = resposta.data[0].endereco[0].bairro
+            document.getElementById("cidade").value = resposta.data[0].endereco[0].cidade
+            document.getElementById("uf").value = resposta.data[0].endereco[0].uf
+            document.getElementById("cep").value = resposta.data[0].endereco[0].cep        
         }   
     };
+
     xhttp.open("GET", URL , true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send();
