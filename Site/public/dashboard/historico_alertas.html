@@ -190,7 +190,7 @@
     const id = sessionStorage.getItem("id");
 
     function popularTabela(){
-        let URL = `http://127.0.0.1:3333/api/monitoramento/${id}`;
+        let URL = `https://backend-nextstreaming.azurewebsites.net/api/monitoramento/${id}`;
         var xhttp = new XMLHttpRequest();
         let conteudo = '';
         xhttp.onreadystatechange = function() {
