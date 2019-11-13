@@ -208,6 +208,22 @@ function cadastrar(nome,email,cpf,telefone,senha,confsenha,
   let URL = 'https://backend-nextstreaming.azurewebsites.net/api/streamer/';
   var xhttp = new XMLHttpRequest();
 
+  const data = {
+    nome: nome,
+    email: email,
+    cpf: cpf,
+    telefone: telefone,
+    senha: senha, confsenha: confsenha,
+    cep: cep, 
+    rua: rua,
+    numero: numero,
+    complemento: complemento,
+    bairro: bairro,
+    cidade: cidade,
+    uf: uf
+  }
+  const json = JSON.stringify(data);
+
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
 
@@ -221,8 +237,8 @@ function cadastrar(nome,email,cpf,telefone,senha,confsenha,
     }
 };
 xhttp.open("POST", URL , true);
-xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-xhttp.send(`nome=${nome}&email=${email}&cpf=${cpf}&telefone=${telefone}&senha=${senha}&confsenha=${confsenha}&cep=${cep}&rua=${rua}&numero=${numero}&complemento=${complemento}&bairro=${bairro}&cidade=${cidade}&uf=${uf}`);
+xhttp.setRequestHeader("Content-type", "application/json; charset=utf-8");
+xhttp.send(json);
 }
 </script>
 

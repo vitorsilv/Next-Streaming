@@ -1,0 +1,31 @@
+<html>
+    <head>
+    <!-- scripts do Chart.js -->
+    <script type="text/javascript" src="https://www.chartjs.org/dist/2.8.0/Chart.min.js"></script>
+    <script type="text/javascript" src="https://www.chartjs.org/samples/latest/utils.js"></script>
+    </head>
+    <body>
+        <canvas id="myChart" width="100" height="150"></canvas>
+    </body>
+</html>
+
+<script>
+var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+        labels: ['CPU','DADOS LIVRES'],
+        datasets: [{
+            label: '# of Votes',
+            data: [80,20],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)'
+            ],
+            borderWidth: 1
+        }]
+    }
+});
+</script>
