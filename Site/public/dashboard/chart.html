@@ -201,4 +201,32 @@
 <script type="text/javascript">
     const nome = sessionStorage.getItem("nomeUsuario").split(" ");
     document.getElementById("nomeUsuario").innerHTML = nome[0];
+    function getGraph(){
+        let URL = `http://127.0.0.1:3333/api/monitoramento/lastReg/${id}`;
+        var xhttp = new XMLHttpRequest();
+
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                resposta = JSON.parse(xhttp.responseText);
+                var ctx = document.getElementById('lineGraph').getContext('2d');
+		        var lineGraph = new Chart(ctx, {
+    	        	type: 'line',
+    	        	data: {
+                		labels: ['Consumo','Livre'],
+                		datasets: [{
+                    		label: '# of Votes',
+                    		data: [resposta.data[0].gpu, resposta.data[0].maquina.gpu-resposta.data[0].gpu],
+                    		backgroundColor: [
+                    	    	'rgba(0, 162, 255)'
+                    		],
+		        			borderWidth: 1
+		        		}]
+		        	}
+                });
+            }
+        }
+        xhttp.open("GET", URL , true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send();
+    }
 </script>

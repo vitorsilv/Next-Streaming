@@ -205,7 +205,7 @@ function getGraph(){
         			labels: ['Consumo','Livre'],
         			datasets: [{
         	    		label: '# of Votes',
-        	    		data: [resposta.data[0].cpu, 100-resposta.data[0].cpu],
+        	    		data: [resposta.data[0].cpu, resposta.data[0].maquina.cpu-resposta.data[0].cpu],
         	    		backgroundColor: [
         	    	    	'rgba(255, 0, 0)'
         	    		],
@@ -220,7 +220,7 @@ function getGraph(){
         			labels: ['Consumo','Livre'],
         			datasets: [{
         	    		label: '# of Votes',
-        	    		data: [resposta.data[0].gpu, 100-resposta.data[0].gpu],
+        	    		data: [resposta.data[0].gpu, resposta.data[0].maquina.gpu-resposta.data[0].gpu],
         	    		backgroundColor: [
         	    	    	'rgba(0, 162, 255)'
         	    		],
@@ -236,7 +236,7 @@ function getGraph(){
         			labels: ['Consumo','Livre'],
         			datasets: [{
         	    		label: '# of Votes',
-        	    		data: [resposta.data[0].ram, 100-resposta.data[0].ram],
+        	    		data: [resposta.data[0].ram, resposta.data[0].maquina.ram-resposta.data[0].ram],
         	    		backgroundColor: [
         	    	    	'rgba(0, 255, 26)'
         	    		],
@@ -252,7 +252,7 @@ function getGraph(){
         			labels: ['Consumo','Livre'],
         			datasets: [{
         	    		label: '# of Votes',
-        	    		data: [resposta.data[0].disco, 100-resposta.data[0].disco],
+        	    		data: [resposta.data[0].disco, resposta.data[0].maquina.disco-resposta.data[0].disco],
         	    		backgroundColor: [
         	    	    	'rgba(255, 166, 0)'
         	    		],
