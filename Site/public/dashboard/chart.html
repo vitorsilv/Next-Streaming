@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="assets/js/Lightweight-Chart/cssCharts.css">
 </head>
 
-<body>
+<body onload="getGraph()">
     <div id="wrapper">
         <nav class="navbar navbar-default top-navbar" role="navigation">
             <div class="navbar-header">
@@ -52,7 +52,7 @@
             </li>
             <li><a href="configuracoes.html"><i class="fa fa-gear fa-fw"></i> Configurações</a>
             </li>
-            <li><a href="../login/Login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+            <li><a onclick="logout()"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
             </li>
         </ul>
         <!--/. NAV TOP  -->
@@ -125,12 +125,7 @@
 
                     <div class="col-md-6 col-sm-12 col-xs-12">
                         <div class="card">
-                            <div class="card-action">
-                                Line Chart
-                            </div>
-                            <div class="card-content">
-                                <div id="morris-line-chart"></div>
-                            </div>
+                            <canvas id="lineGraph"></canvas>
                         </div>
                     </div>
                     <div class="col-md-6 col-sm-12 col-xs-12">
@@ -198,7 +193,9 @@
 
 </html>
 
+<script type="text/javascript" src="../js/auth.js"></script>
 <script type="text/javascript">
+    verificarSessao();
     const nome = sessionStorage.getItem("nomeUsuario").split(" ");
     document.getElementById("nomeUsuario").innerHTML = nome[0];
     function getGraph(){
@@ -211,17 +208,7 @@
                 var ctx = document.getElementById('lineGraph').getContext('2d');
 		        var lineGraph = new Chart(ctx, {
     	        	type: 'line',
-    	        	data: {
-                		labels: ['Consumo','Livre'],
-                		datasets: [{
-                    		label: '# of Votes',
-                    		data: [resposta.data[0].gpu, resposta.data[0].maquina.gpu-resposta.data[0].gpu],
-                    		backgroundColor: [
-                    	    	'rgba(0, 162, 255)'
-                    		],
-		        			borderWidth: 1
-		        		}]
-		        	}
+    	        	data: {}
                 });
             }
         }

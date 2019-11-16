@@ -57,7 +57,7 @@
 			</li>
 			<li><a href="configuracoes.html"><i class="fa fa-gear fa-fw"></i> Configurações</a>
 			</li>
-			<li><a href="../login/Login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+			<li><a onclick="logout()"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
 			</li>
 		</ul>
 		<!--/. NAV TOP  -->
@@ -178,7 +178,10 @@
 
 </html>
 
+<script type="text/javascript" src="../js/auth.js"></script>
+
 <script type="text/javascript">
+verificarSessao();
 const nome = sessionStorage.getItem("nomeUsuario").split(" ");
 document.getElementById("nomeUsuario").innerHTML = nome[0];
 
@@ -204,7 +207,6 @@ function getGraph(){
     			data: {
         			labels: ['Consumo','Livre'],
         			datasets: [{
-        	    		label: '# of Votes',
         	    		data: [resposta.data[0].cpu, resposta.data[0].maquina.cpu-resposta.data[0].cpu],
         	    		backgroundColor: [
         	    	    	'rgba(255, 0, 0)'
@@ -219,7 +221,6 @@ function getGraph(){
     			data: {
         			labels: ['Consumo','Livre'],
         			datasets: [{
-        	    		label: '# of Votes',
         	    		data: [resposta.data[0].gpu, resposta.data[0].maquina.gpu-resposta.data[0].gpu],
         	    		backgroundColor: [
         	    	    	'rgba(0, 162, 255)'
@@ -235,7 +236,6 @@ function getGraph(){
     			data: {
         			labels: ['Consumo','Livre'],
         			datasets: [{
-        	    		label: '# of Votes',
         	    		data: [resposta.data[0].ram, resposta.data[0].maquina.ram-resposta.data[0].ram],
         	    		backgroundColor: [
         	    	    	'rgba(0, 255, 26)'
@@ -251,7 +251,6 @@ function getGraph(){
     			data: {
         			labels: ['Consumo','Livre'],
         			datasets: [{
-        	    		label: '# of Votes',
         	    		data: [resposta.data[0].disco, resposta.data[0].maquina.disco-resposta.data[0].disco],
         	    		backgroundColor: [
         	    	    	'rgba(255, 166, 0)'
