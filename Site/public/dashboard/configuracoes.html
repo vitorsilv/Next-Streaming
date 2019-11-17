@@ -4,86 +4,129 @@
     <!-- scripts do Chart.js -->
     <script type="text/javascript" src="https://www.chartjs.org/dist/2.8.0/Chart.min.js"></script>
     <script type="text/javascript" src="https://www.chartjs.org/samples/latest/utils.js"></script>
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 
 <body onload="getGraph()">
-    <div style="width: 100%;">
-        <canvas id="myChart"></canvas>
+    <div id="divDoug">
+        <div class="graphsDiv">
+            <h4>CPU</h4>
+            <h2 id="cpuData">...%</h2>
+            <canvas id="cpuGraph"></canvas>
+        </div>
+        <div class="graphsDiv">
+            <h4>GPU</h4>
+            <h2 id="gpuData">...%</h2>
+            <canvas id="gpuGraph"></canvas>
+        </div>
+        <div class="graphsDiv">
+            <h4>MEMÓRIA RAM</h4>
+            <h2 id="ramData">...%</h2>
+            <canvas id="ramGraph"></canvas>
+        </div>
+        <div class="graphsDiv">
+            <h4>DISCO</h4>
+            <h2 id="diskData">...%</h2>
+            <canvas id="diskGraph"></canvas>
+        </div>
     </div>
 </body>
 
 </html>
 
-<script>
+<script type="text/javascript">
+    const id = sessionStorage.getItem("id");
+
+
+
     function getGraph() {
-        let URL = `http://127.0.0.1:3333/api/monitoramento/lastTen/1`;
+        let URL = `http://127.0.0.1:3333/api/monitoramento/lastReg/${id}`;
         var xhttp = new XMLHttpRequest();
 
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 resposta = JSON.parse(xhttp.responseText);
-                let datasLabel = [];
-                let cpu = [];
-                let ram = [];
-                let gpu = [];
-                let disk = [];
-                resposta.data.forEach(element => {
-                    datasLabel.push(element.dataHora);
-                    cpu.push(element.cpu);
-                    ram.push(element.ram);
-                    disk.push(element.disco);
-                    gpu.push(element.gpu);
-                });
-                const corCpu = 'rgba(255, 0, 0)';
-                const corRam = 'rgba(0, 162, 255)';
-                const corGpu = 'rgba(0, 255, 26)';
-                const corDisco = 'rgba(255, 166, 0)';
-                var ctx = document.getElementById('myChart').getContext('2d');
-                var myChart = new Chart(ctx, {
-                    type: 'horizontalBar',
+
+                document.getElementById("cpuData").innerHTML =
+                    `${resposta.data[0].cpu==null ? 0 : resposta.data[0].cpu}%`
+                document.getElementById("gpuData").innerHTML =
+                    `${resposta.data[0].disco==null ? 0 : resposta.data[0].disco}%`
+                document.getElementById("ramData").innerHTML =
+                    `${resposta.data[0].ram==null ? 0 : resposta.data[0].ram}%`
+                document.getElementById("diskData").innerHTML =
+                    `${resposta.data[0].gpu==null ? 0 : resposta.data[0].gpu}%`
+                var ctx = document.getElementById('cpuGraph').getContext('2d');
+                var cpuGraph = new Chart(ctx, {
+                    type: 'doughnut',
                     data: {
-                        labels: datasLabel,
+                        labels: ['Consumo', 'Livre'],
                         datasets: [{
-                                label: 'CPU',
-                                data: cpu,
-                                backgroundColor: corCpu,
-                                borderColor: corCpu,
-                                hoverborderColor: corCpu,
-                                hoverBackgroundColor: corCpu,
-                                borderWidth: 1,
-                            },
-                            {
-                                label: 'RAM',
-                                data: ram,
-                                backgroundColor: corRam,
-                                borderColor: corRam,
-                                hoverborderColor: corRam,
-                                hoverBackgroundColor: corRam,
-                                borderWidth: 1,
-                            },
-                            {
-                                label: 'GPU',
-                                data: gpu,
-                                backgroundColor: corGpu,
-                                borderColor: corGpu,
-                                hoverborderColor: corGpu,
-                                hoverBackgroundColor: corGpu,
-                                borderWidth: 1,
-                            },
-                            {
-                                label: 'DISCO',
-                                data: disk,
-                                backgroundColor: corDisco,
-                                borderColor: corDisco,
-                                hoverborderColor: corDisco,
-                                hoverBackgroundColor: corDisco,
-                                borderWidth: 1,
-                            }
-                        ],
+                            data: [resposta.data[0].cpu, resposta.data[0].maquina.cpu - resposta
+                                .data[
+                                    0].cpu
+                            ],
+                            backgroundColor: [
+                                'rgba(255, 0, 0)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    }
+                });
+                var ctx = document.getElementById('gpuGraph').getContext('2d');
+                var gpuGraph = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Consumo', 'Livre'],
+                        datasets: [{
+                            data: [resposta.data[0].gpu, resposta.data[0].maquina.gpu - resposta
+                                .data[
+                                    0].gpu
+                            ],
+                            backgroundColor: [
+                                'rgba(0, 162, 255)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    }
+                });
+
+                var ctx = document.getElementById('ramGraph').getContext('2d');
+                var ramGraph = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Consumo', 'Livre'],
+                        datasets: [{
+                            data: [resposta.data[0].ram, resposta.data[0].maquina.ram - resposta
+                                .data[
+                                    0].ram
+                            ],
+                            backgroundColor: [
+                                'rgba(0, 255, 26)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    }
+                });
+
+                var ctx = document.getElementById('diskGraph').getContext('2d');
+                var diskGraph = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Consumo', 'Livre'],
+                        datasets: [{
+                            data: [resposta.data[0].disco, resposta.data[0].maquina.disco - resposta
+                                .data[0].disco
+                            ],
+                            backgroundColor: [
+                                'rgba(255, 166, 0)'
+                            ],
+                            borderWidth: 1
+                        }]
                     }
                 });
             }
-        }
+        };
+
         xhttp.open("GET", URL, true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send();

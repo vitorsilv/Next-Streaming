@@ -1,0 +1,23 @@
+html,
+body,
+#divDoug{
+    width: 100%;
+    height: 100%;
+    margin: 0%;
+}
+
+#divDoug{
+    width: 42%;
+    height: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    border: ridge;
+}
+
+
+.graphsDiv{
+    width:260px;
+    height: 260px;
+    margin: 5px;
+    text-align: center;
+}
