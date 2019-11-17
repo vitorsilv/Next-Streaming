@@ -1,31 +1,91 @@
 <html>
-    <head>
+
+<head>
     <!-- scripts do Chart.js -->
     <script type="text/javascript" src="https://www.chartjs.org/dist/2.8.0/Chart.min.js"></script>
     <script type="text/javascript" src="https://www.chartjs.org/samples/latest/utils.js"></script>
-    </head>
-    <body>
-        <canvas id="myChart" width="100" height="150"></canvas>
-    </body>
+</head>
+
+<body onload="getGraph()">
+    <div style="width: 100%;">
+        <canvas id="myChart"></canvas>
+    </div>
+</body>
+
 </html>
 
 <script>
-var ctx = document.getElementById('myChart').getContext('2d');
-var myChart = new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-        labels: ['CPU','DADOS LIVRES'],
-        datasets: [{
-            label: '# of Votes',
-            data: [80,20],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)'
-            ],
-            borderWidth: 1
-        }]
+    function getGraph() {
+        let URL = `http://127.0.0.1:3333/api/monitoramento/lastTen/1`;
+        var xhttp = new XMLHttpRequest();
+
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                resposta = JSON.parse(xhttp.responseText);
+                let datasLabel = [];
+                let cpu = [];
+                let ram = [];
+                let gpu = [];
+                let disk = [];
+                resposta.data.forEach(element => {
+                    datasLabel.push(element.dataHora);
+                    cpu.push(element.cpu);
+                    ram.push(element.ram);
+                    disk.push(element.disco);
+                    gpu.push(element.gpu);
+                });
+                const corCpu = 'rgba(255, 0, 0)';
+                const corRam = 'rgba(0, 162, 255)';
+                const corGpu = 'rgba(0, 255, 26)';
+                const corDisco = 'rgba(255, 166, 0)';
+                var ctx = document.getElementById('myChart').getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'horizontalBar',
+                    data: {
+                        labels: datasLabel,
+                        datasets: [{
+                                label: 'CPU',
+                                data: cpu,
+                                backgroundColor: corCpu,
+                                borderColor: corCpu,
+                                hoverborderColor: corCpu,
+                                hoverBackgroundColor: corCpu,
+                                borderWidth: 1,
+                            },
+                            {
+                                label: 'RAM',
+                                data: ram,
+                                backgroundColor: corRam,
+                                borderColor: corRam,
+                                hoverborderColor: corRam,
+                                hoverBackgroundColor: corRam,
+                                borderWidth: 1,
+                            },
+                            {
+                                label: 'GPU',
+                                data: gpu,
+                                backgroundColor: corGpu,
+                                borderColor: corGpu,
+                                hoverborderColor: corGpu,
+                                hoverBackgroundColor: corGpu,
+                                borderWidth: 1,
+                            },
+                            {
+                                label: 'DISCO',
+                                data: disk,
+                                backgroundColor: corDisco,
+                                borderColor: corDisco,
+                                hoverborderColor: corDisco,
+                                hoverBackgroundColor: corDisco,
+                                borderWidth: 1,
+                            }
+                        ],
+                    }
+                });
+            }
+        }
+        xhttp.open("GET", URL, true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send();
     }
-});
 </script>

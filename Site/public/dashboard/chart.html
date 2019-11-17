@@ -4,8 +4,11 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shotcut icon" href="../../../../../Documentação/Logos/favicon.png" >
+    <link rel="shotcut icon" href="../../../../../Documentação/Logos/favicon.png">
     <title> BS :: Gráficos </title>
+    <!-- scripts do Chart.js -->
+    <script type="text/javascript" src="https://www.chartjs.org/dist/2.8.0/Chart.min.js"></script>
+    <script type="text/javascript" src="https://www.chartjs.org/samples/latest/utils.js"></script>
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="assets/materialize/css/materialize.min.css" media="screen,projection" />
@@ -67,7 +70,8 @@
                                 <a href="ui-elements.html" class="waves-effect waves-dark"><i class="fa fa-desktop"></i> UI Elements</a>
                             </li> -->
                     <li>
-                        <a href="chart.html" class="active-menu waves-effect waves-dark"><i class="fa fa-bar-chart-o"></i>
+                        <a href="chart.html" class="active-menu waves-effect waves-dark"><i
+                                class="fa fa-bar-chart-o"></i>
                             Gráficos</a>
                     </li>
                     <!-- <li>
@@ -94,53 +98,13 @@
 
             </div>
             <div id="page-inner">
-
                 <div class="row">
-
-
-                    <div class="col-md-6 col-sm-12 col-xs-12">
-                        <div class="card">
-                            <div class="card-action">
-                                Bar Chart
-                            </div>
-                            <div class="card-content">
-                                <div id="morris-bar-chart"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-12 col-xs-12">
-                        <div class="card">
-                            <div class="card-action">
-                                Area Chart
-                            </div>
-                            <div class="card-content">
-                                <div id="morris-area-chart"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <!-- /. ROW  -->
-                <div class="row">
-
-                    <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div style="width: 100%; height: 10%;">
                         <div class="card">
                             <canvas id="lineGraph"></canvas>
                         </div>
                     </div>
-                    <div class="col-md-6 col-sm-12 col-xs-12">
-                        <div class="card">
-                            <div class="card-action">
-                                Donut Chart
-                            </div>
-                            <div class="card-content">
-                                <div id="morris-donut-chart"></div>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
-                <!-- /. ROW  -->
             </div>
             <!-- /. PAGE INNER  -->
         </div>
@@ -176,18 +140,18 @@
         // <![CDATA[
         var ttChatLoaderS = document.createElement('script');
         document.tomticketChatLoaderScriptVersion = 2;
-        ttChatLoaderS.src = 'https://next-streaming.tomticket.com/scripts-chat/chat.min.js'
-        + '?id=EP36441'
-        + '&account=2332224P30102019081549'
-        + '&autoOpen=0'
-        + '&hideWhenOffline=0'
-        + '&d=next-streaming'
-        + '&ts=' + new Date().getTime()
-        + '&ref=' + encodeURIComponent(document.URL);
+        ttChatLoaderS.src = 'https://next-streaming.tomticket.com/scripts-chat/chat.min.js' +
+            '?id=EP36441' +
+            '&account=2332224P30102019081549' +
+            '&autoOpen=0' +
+            '&hideWhenOffline=0' +
+            '&d=next-streaming' +
+            '&ts=' + new Date().getTime() +
+            '&ref=' + encodeURIComponent(document.URL);
         document.body.appendChild(ttChatLoaderS);
         //]]>
-        </script>
-        
+    </script>
+
 
 </body>
 
@@ -198,21 +162,77 @@
     verificarSessao();
     const nome = sessionStorage.getItem("nomeUsuario").split(" ");
     document.getElementById("nomeUsuario").innerHTML = nome[0];
-    function getGraph(){
-        let URL = `http://127.0.0.1:3333/api/monitoramento/lastReg/${id}`;
+
+    function getGraph() {
+        let URL = `http://127.0.0.1:3333/api/monitoramento/lastTen/1`;
         var xhttp = new XMLHttpRequest();
 
-        xhttp.onreadystatechange = function() {
+        xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 resposta = JSON.parse(xhttp.responseText);
+                let datasLabel = [];
+                let cpu = [];
+                let ram = [];
+                let gpu = [];
+                let disk = [];
+                resposta.data.forEach(element => {
+                    datasLabel.push(element.dataHora);
+                    cpu.push(element.cpu);
+                    ram.push(element.ram);
+                    disk.push(element.disco);
+                    gpu.push(element.gpu);
+                });
+                const corCpu = 'rgba(255, 0, 0)';
+                const corRam = 'rgba(0, 162, 255)';
+                const corGpu = 'rgba(0, 255, 26)';
+                const corDisco = 'rgba(255, 166, 0)';
                 var ctx = document.getElementById('lineGraph').getContext('2d');
-		        var lineGraph = new Chart(ctx, {
-    	        	type: 'line',
-    	        	data: {}
+                var lineGraph = new Chart(ctx, {
+                    type: 'horizontalBar',
+                    data: {
+                        labels: datasLabel,
+                        datasets: [{
+                                label: 'CPU',
+                                data: cpu,
+                                backgroundColor: corCpu,
+                                borderColor: corCpu,
+                                hoverborderColor: corCpu,
+                                hoverBackgroundColor: corCpu,
+                                borderWidth: 1,
+                            },
+                            {
+                                label: 'RAM',
+                                data: ram,
+                                backgroundColor: corRam,
+                                borderColor: corRam,
+                                hoverborderColor: corRam,
+                                hoverBackgroundColor: corRam,
+                                borderWidth: 1,
+                            },
+                            {
+                                label: 'GPU',
+                                data: gpu,
+                                backgroundColor: corGpu,
+                                borderColor: corGpu,
+                                hoverborderColor: corGpu,
+                                hoverBackgroundColor: corGpu,
+                                borderWidth: 1,
+                            },
+                            {
+                                label: 'DISCO',
+                                data: disk,
+                                backgroundColor: corDisco,
+                                borderColor: corDisco,
+                                hoverborderColor: corDisco,
+                                hoverBackgroundColor: corDisco,
+                                borderWidth: 1,
+                            }
+                        ],
+                    }
                 });
             }
         }
-        xhttp.open("GET", URL , true);
+        xhttp.open("GET", URL, true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send();
     }
