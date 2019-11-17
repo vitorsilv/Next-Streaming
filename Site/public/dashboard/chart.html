@@ -112,6 +112,7 @@
     </div>
     <!-- /. WRAPPER  -->
     <!-- JS Scripts-->
+    <script src="assets/js/moment.min.js"></script>
     <!-- jQuery Js -->
     <script src="assets/js/jquery-1.10.2.js"></script>
 
@@ -162,9 +163,10 @@
     verificarSessao();
     const nome = sessionStorage.getItem("nomeUsuario").split(" ");
     document.getElementById("nomeUsuario").innerHTML = nome[0];
+    const id = sessionStorage.getItem("id");
 
     function getGraph() {
-        let URL = `http://127.0.0.1:3333/api/monitoramento/lastTen/1`;
+        let URL = `https://backend-nextstreaming.azurewebsites.net/api/monitoramento/lastTen/${id}`;
         var xhttp = new XMLHttpRequest();
 
         xhttp.onreadystatechange = function () {
@@ -176,7 +178,7 @@
                 let gpu = [];
                 let disk = [];
                 resposta.data.forEach(element => {
-                    datasLabel.push(element.dataHora);
+                    datasLabel.push(moment(element.dataHora).format('DD/MM/YYYY, hh:mm:ss'));
                     cpu.push(element.cpu);
                     ram.push(element.ram);
                     disk.push(element.disco);
