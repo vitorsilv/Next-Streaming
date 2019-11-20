@@ -5,6 +5,7 @@
  */
 package SpecScreen;
 
+import GraphicsScreen.SpecClass;
 import InitScreen.*;
 import oshi.util.FormatUtil;
 
