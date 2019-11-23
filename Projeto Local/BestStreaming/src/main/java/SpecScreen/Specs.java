@@ -5,7 +5,7 @@
  */
 package SpecScreen;
 
-import GraphicsScreen.SpecClass;
+import Tela.SpecClass;
 import InitScreen.*;
 import oshi.util.FormatUtil;
 
