@@ -7,6 +7,7 @@ package LoginScreen;
 
 import Placeholders.TextPrompt;
 import VerificationScreen.Verification;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -189,8 +190,24 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel1KeyTyped
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-            this.setVisible(false);
-            ver.setVisible(true);
+            String email = txtLogin.getText();
+        String senha = new String(txtPass.getPassword());
+        
+        this.setVisible(false);
+        ver.setVisible(true);
+        
+        try {
+            
+            LoginClass lgClass = new LoginClass();
+            Boolean logado = lgClass.logar(email, senha);
+            if(logado.equals(true)){
+                JOptionPane.showMessageDialog(null, "FOICARAI");
+            }else{
+                JOptionPane.showMessageDialog(null, "NFOICARAI :(");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
