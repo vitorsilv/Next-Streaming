@@ -1,4 +1,4 @@
-package model;
+package GravacaoLog;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,11 +11,11 @@ import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GeracaoLog {
+public class GravacaoLog {
     
-    public static void GravarLog(String mensagem) throws IOException {
+        public void GravarLog(String mensagem) throws IOException {
         
-        String pasta = "C:\\LogsNextStreaming";
+        String pasta = "C:\\NextStreaming";
         
         File diretorio = new File(pasta);
             diretorio.mkdir();
@@ -23,7 +23,7 @@ public class GeracaoLog {
 
         if (!arquivo.exists()) {
             arquivo.createNewFile();
-        }
+        } 
         List<String> lista = new ArrayList<>();
         lista.add("[" + LocalDateTime.now().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)) + "] " + mensagem);
         Files.write(Paths.get(arquivo.getPath()), lista, StandardOpenOption.APPEND);
