@@ -16,7 +16,7 @@ public class LoginClass extends Login{
     static Database.DatabaseConnection conn;
     public LoginClass(){
 
-         conn = new DatabaseConnection();
+        conn = new DatabaseConnection();
         
         conn.openConnection();
     }

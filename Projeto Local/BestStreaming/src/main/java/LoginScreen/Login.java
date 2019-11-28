@@ -201,9 +201,10 @@ public class Login extends javax.swing.JFrame {
             LoginClass lgClass = new LoginClass();
             Boolean logado = lgClass.logar(email, senha);
             if(logado.equals(true)){
-                JOptionPane.showMessageDialog(null, "FOICARAI");
+                Tela.Telas tela = new Tela.Telas();
+                tela.setVisible(true);
             }else{
-                JOptionPane.showMessageDialog(null, "NFOICARAI :(");
+                JOptionPane.showMessageDialog(null, "Email e/ou senha incorreta");
             }
         } catch (Exception e) {
             e.printStackTrace();

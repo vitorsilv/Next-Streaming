@@ -4,18 +4,51 @@
  * and open the template in the editor.
  */
 package Tela;
+
+import InitScreen.*;
+import java.awt.Color;
 import java.util.*;
+import oshi.util.FormatUtil;
+import Placeholders.TextPrompt;
+
 /**
  *
- * @author carlos
+ * @author carlo
  */
 public class Telas extends javax.swing.JFrame {
 
     /**
-     * Creates new form Telas
+     * Creates new form Init
      */
+    String active = "lblNotificacoes";
+    SpecClass specClass = new SpecClass();
+    DadosProcessos dp = new DadosProcessos(10);
+    
+    
     public Telas() {
         initComponents();
+        TextPrompt log = new TextPrompt("Nome Usuário",txtnome_usuario);
+        
+        Monitorar monitorar = new Monitorar();
+        monitorar.monitoramento();
+//       lbSistemaOperacional.setText(specClass.getSistemaOperacional());
+        
+       lbVersaoSistemaOperacional.setText(specClass.getVersaoSistemaOperacional().toString());
+
+       lbMarcaComputador.setText(specClass.getMarcaComputador());
+       lbModeloPlacaMae.setText(FormatUtil.formatBytes(specClass.getModeloPlacaMae()));
+       
+       lbGhzProcessador.setText(specClass.getGhzProcessador());
+       lbTotalMemoria.setText(FormatUtil.formatBytes(specClass.getTotalMemoria()));
+       lbQtdMonitores.setText(specClass.getQtdMonitores().toString());
+       
+       if(specClass.getSistemaOperacional().equals("Ubuntu")){
+           linux.setVisible(true);
+           windows.setVisible(false);
+       }else{
+           linux.setVisible(false);
+           windows.setVisible(true);
+       }
     }
 
     /**
@@ -27,104 +60,696 @@ public class Telas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        fundo_geral = new javax.swing.JPanel();
-        barra_lateral = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        Graficos = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        CorpoTela = new javax.swing.JPanel();
+        btFechar = new javax.swing.JLabel();
+        main = new javax.swing.JPanel();
+        import_notifi = new javax.swing.JPanel();
+        jLabel18 = new javax.swing.JLabel();
+        import_otimizar = new javax.swing.JPanel();
+        scrollProcessos = new javax.swing.JScrollPane();
+        listProcessos = new javax.swing.JList<>();
+        scrollBlack = new javax.swing.JScrollPane();
+        listBlack = new javax.swing.JList<>();
+        btIn = new javax.swing.JButton();
+        btOut = new javax.swing.JButton();
+        import_relatorios = new javax.swing.JPanel();
+        jLabel17 = new javax.swing.JLabel();
+        import_specs = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        linux = new javax.swing.JLabel();
+        windows = new javax.swing.JLabel();
+        lbSistemaOperacional = new javax.swing.JLabel();
+        lbVersaoSistemaOperacional = new javax.swing.JLabel();
+        lbMarcaComputador = new javax.swing.JLabel();
+        lbModeloPlacaMae = new javax.swing.JLabel();
+        lbGhzProcessador = new javax.swing.JLabel();
+        lbTotalMemoria = new javax.swing.JLabel();
+        lbQtdMonitores = new javax.swing.JLabel();
+        import_perfil = new javax.swing.JPanel();
+        jLabel22 = new javax.swing.JLabel();
+        corpoForm = new javax.swing.JPanel();
+        lbNome = new javax.swing.JLabel();
+        lbTelefone = new javax.swing.JLabel();
+        btSalvar = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        txtnome_usuario = new javax.swing.JTextField();
+        BarraLateral = new javax.swing.JPanel();
+        lblNotificacoes = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        header = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        lblOtimizar = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        lblRelatorios = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        lblSpecs = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        lblPerfil = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        logoBest = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        fundo_geral.setBackground(new java.awt.Color(255, 255, 255));
-        fundo_geral.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        CorpoTela.setBackground(new java.awt.Color(255, 255, 255));
+        CorpoTela.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        CorpoTela.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        barra_lateral.setBackground(new java.awt.Color(50, 0, 114));
-        barra_lateral.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        btFechar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btFechar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Close.png"))); // NOI18N
+        btFechar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btFechar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btFecharMouseClicked(evt);
+            }
+        });
+        CorpoTela.add(btFechar, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 0, -1, -1));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/BSp.png"))); // NOI18N
-        barra_lateral.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, 110, 110));
+        main.setBackground(new java.awt.Color(255, 255, 255));
+        main.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        Graficos.setBackground(new java.awt.Color(22, 0, 114));
-        Graficos.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLabel18.setText("Inicio");
+
+        javax.swing.GroupLayout import_notifiLayout = new javax.swing.GroupLayout(import_notifi);
+        import_notifi.setLayout(import_notifiLayout);
+        import_notifiLayout.setHorizontalGroup(
+            import_notifiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(import_notifiLayout.createSequentialGroup()
+                .addGap(371, 371, 371)
+                .addComponent(jLabel18)
+                .addContainerGap(384, Short.MAX_VALUE))
+        );
+        import_notifiLayout.setVerticalGroup(
+            import_notifiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(import_notifiLayout.createSequentialGroup()
+                .addGap(212, 212, 212)
+                .addComponent(jLabel18)
+                .addContainerGap(350, Short.MAX_VALUE))
+        );
+
+        main.add(import_notifi, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, -20, 790, 580));
+
+        listProcessos.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        scrollProcessos.setViewportView(listProcessos);
+
+        listBlack.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        scrollBlack.setViewportView(listBlack);
+
+        btIn.setText("-->");
+        btIn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btInActionPerformed(evt);
+            }
+        });
+
+        btOut.setText("<--");
+
+        javax.swing.GroupLayout import_otimizarLayout = new javax.swing.GroupLayout(import_otimizar);
+        import_otimizar.setLayout(import_otimizarLayout);
+        import_otimizarLayout.setHorizontalGroup(
+            import_otimizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(import_otimizarLayout.createSequentialGroup()
+                .addGap(52, 52, 52)
+                .addComponent(scrollProcessos, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(90, 90, 90)
+                .addGroup(import_otimizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btOut, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+                    .addComponent(btIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
+                .addComponent(scrollBlack, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(82, 82, 82))
+        );
+        import_otimizarLayout.setVerticalGroup(
+            import_otimizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(import_otimizarLayout.createSequentialGroup()
+                .addGroup(import_otimizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(import_otimizarLayout.createSequentialGroup()
+                        .addGap(110, 110, 110)
+                        .addGroup(import_otimizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(scrollBlack, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(scrollProcessos, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(import_otimizarLayout.createSequentialGroup()
+                        .addGap(176, 176, 176)
+                        .addComponent(btIn)
+                        .addGap(39, 39, 39)
+                        .addComponent(btOut)))
+                .addContainerGap(217, Short.MAX_VALUE))
+        );
+
+        main.add(import_otimizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, -20, 790, 580));
+
+        jLabel17.setText("Relatórios");
+
+        javax.swing.GroupLayout import_relatoriosLayout = new javax.swing.GroupLayout(import_relatorios);
+        import_relatorios.setLayout(import_relatoriosLayout);
+        import_relatoriosLayout.setHorizontalGroup(
+            import_relatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, import_relatoriosLayout.createSequentialGroup()
+                .addContainerGap(365, Short.MAX_VALUE)
+                .addComponent(jLabel17)
+                .addGap(356, 356, 356))
+        );
+        import_relatoriosLayout.setVerticalGroup(
+            import_relatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(import_relatoriosLayout.createSequentialGroup()
+                .addGap(216, 216, 216)
+                .addComponent(jLabel17)
+                .addContainerGap(346, Short.MAX_VALUE))
+        );
+
+        main.add(import_relatorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, -20, 790, 580));
+
+        import_specs.setBackground(new java.awt.Color(255, 255, 255));
+        import_specs.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+        });
+        import_specs.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(818, 0, -1, -1));
+
+        jLabel19.setText("Sistema Operacional:");
+        import_specs.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, -1, -1));
+
+        jLabel20.setText("Versão do Sistema Operacional:");
+        import_specs.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, -1, -1));
+
+        jLabel21.setText("Quantidade de Memória (RAM):");
+        import_specs.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, -1, -1));
+
+        jLabel24.setText("Fabricante");
+        import_specs.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, -1, -1));
+
+        jLabel25.setText("Memória Disponivel:");
+        import_specs.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, -1, -1));
+
+        jLabel26.setText("Processador");
+        import_specs.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, -1, -1));
+
+        jLabel27.setText("Numero de Monitores:");
+        import_specs.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, -1, -1));
+
+        linux.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/LinuxLogo.png"))); // NOI18N
+        import_specs.add(linux, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 140, 290, 390));
+
+        windows.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/winLogo.png"))); // NOI18N
+        import_specs.add(windows, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 140, 280, 410));
+
+        lbSistemaOperacional.setText("Sistema Operacional");
+        import_specs.add(lbSistemaOperacional, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 120, -1, -1));
+
+        lbVersaoSistemaOperacional.setText("Versão do Sistema Operacional");
+        import_specs.add(lbVersaoSistemaOperacional, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 160, -1, -1));
+
+        lbMarcaComputador.setText("Marca Computador");
+        import_specs.add(lbMarcaComputador, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 280, -1, -1));
+
+        lbModeloPlacaMae.setText("Modelo Placa Mãe");
+        import_specs.add(lbModeloPlacaMae, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 320, -1, -1));
+
+        lbGhzProcessador.setText("GHz");
+        import_specs.add(lbGhzProcessador, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 240, -1, -1));
+
+        lbTotalMemoria.setText("Total de Memória RAM");
+        import_specs.add(lbTotalMemoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 360, -1, -1));
+
+        lbQtdMonitores.setText("Quantidade de Monitores");
+        import_specs.add(lbQtdMonitores, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 200, -1, -1));
+
+        main.add(import_specs, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, -20, 790, 580));
+
+        import_perfil.setBackground(new java.awt.Color(255, 255, 255));
+        import_perfil.setMinimumSize(new java.awt.Dimension(818, 550));
+        import_perfil.setPreferredSize(new java.awt.Dimension(818, 550));
+        import_perfil.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/user.png"))); // NOI18N
+        import_perfil.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 140, 130));
+
+        corpoForm.setBackground(new java.awt.Color(66, 3, 155));
+        corpoForm.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lbNome.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        lbNome.setForeground(new java.awt.Color(255, 255, 255));
+        lbNome.setText("*Nome Usuario*");
+        corpoForm.add(lbNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 80, -1, -1));
+
+        lbTelefone.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        lbTelefone.setForeground(new java.awt.Color(255, 255, 255));
+        lbTelefone.setText("*Telefone*");
+        corpoForm.add(lbTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 110, -1, -1));
+
+        btSalvar.setBackground(new java.awt.Color(50, 0, 114));
+        btSalvar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btSalvar.setForeground(new java.awt.Color(255, 255, 255));
+        btSalvar.setText("Salvar");
+        btSalvar.setBorder(null);
+        btSalvar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSalvarActionPerformed(evt);
+            }
+        });
+        corpoForm.add(btSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 60, 146, 50));
+
+        import_perfil.add(corpoForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 50, 800, 160));
+
+        jSeparator1.setForeground(new java.awt.Color(50, 0, 114));
+        import_perfil.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, 310, 10));
+
+        txtnome_usuario.setBackground(new java.awt.Color(196, 196, 196));
+        txtnome_usuario.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        txtnome_usuario.setBorder(null);
+        txtnome_usuario.setOpaque(false);
+        import_perfil.add(txtnome_usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, 310, 50));
+
+        main.add(import_perfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, -50, 790, 580));
+
+        CorpoTela.add(main, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 780, 560));
+
+        getContentPane().add(CorpoTela, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 0, 800, 620));
+
+        BarraLateral.setBackground(new java.awt.Color(50, 0, 114));
+        BarraLateral.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblNotificacoes.setBackground(new java.awt.Color(66, 3, 155));
+        lblNotificacoes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lblNotificacoes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                GraficosMouseEntered(evt);
+                lblNotificacoesMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                GraficosMouseExited(evt);
+                lblNotificacoesMouseExited(evt);
             }
-        });
-
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/graph.png"))); // NOI18N
-
-        jLabel4.setFont(new java.awt.Font("Noto Sans Symbols", 1, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(253, 204, 52));
-        jLabel4.setText("Graficos");
-
-        javax.swing.GroupLayout GraficosLayout = new javax.swing.GroupLayout(Graficos);
-        Graficos.setLayout(GraficosLayout);
-        GraficosLayout.setHorizontalGroup(
-            GraficosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(GraficosLayout.createSequentialGroup()
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 23, Short.MAX_VALUE))
-        );
-        GraficosLayout.setVerticalGroup(
-            GraficosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-        );
-
-        barra_lateral.add(Graficos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 310, 50));
-
-        fundo_geral.add(barra_lateral, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 310, 560));
-
-        header.setBackground(new java.awt.Color(255, 255, 255));
-        header.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Close.png"))); // NOI18N
-        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel2MousePressed(evt);
+                lblNotificacoesMousePressed(evt);
             }
         });
-        header.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 0, -1, 28));
 
-        fundo_geral.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 0, 730, 40));
+        jLabel4.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(253, 204, 52));
+        jLabel4.setText("Notificações");
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(fundo_geral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/jingle.png"))); // NOI18N
+
+        javax.swing.GroupLayout lblNotificacoesLayout = new javax.swing.GroupLayout(lblNotificacoes);
+        lblNotificacoes.setLayout(lblNotificacoesLayout);
+        lblNotificacoesLayout.setHorizontalGroup(
+            lblNotificacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(lblNotificacoesLayout.createSequentialGroup()
+                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4)
+                .addContainerGap(86, Short.MAX_VALUE))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(fundo_geral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        lblNotificacoesLayout.setVerticalGroup(
+            lblNotificacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(lblNotificacoesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel4)
+                .addContainerGap(17, Short.MAX_VALUE))
+            .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        setSize(new java.awt.Dimension(1037, 563));
+        BarraLateral.add(lblNotificacoes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 248, 50));
+
+        lblOtimizar.setBackground(new java.awt.Color(66, 3, 155));
+        lblOtimizar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lblOtimizar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblOtimizarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblOtimizarMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblOtimizarMousePressed(evt);
+            }
+        });
+
+        jLabel7.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(253, 204, 52));
+        jLabel7.setText("Otimizar");
+
+        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/clean.png"))); // NOI18N
+
+        javax.swing.GroupLayout lblOtimizarLayout = new javax.swing.GroupLayout(lblOtimizar);
+        lblOtimizar.setLayout(lblOtimizarLayout);
+        lblOtimizarLayout.setHorizontalGroup(
+            lblOtimizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(lblOtimizarLayout.createSequentialGroup()
+                .addGap(1, 1, 1)
+                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel7)
+                .addContainerGap(120, Short.MAX_VALUE))
+        );
+        lblOtimizarLayout.setVerticalGroup(
+            lblOtimizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(lblOtimizarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel7)
+                .addContainerGap(17, Short.MAX_VALUE))
+            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        BarraLateral.add(lblOtimizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 248, 50));
+
+        lblRelatorios.setBackground(new java.awt.Color(66, 3, 155));
+        lblRelatorios.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lblRelatorios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblRelatoriosMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblRelatoriosMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblRelatoriosMousePressed(evt);
+            }
+        });
+
+        jLabel8.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(253, 204, 52));
+        jLabel8.setText("Gerar Relatórios");
+
+        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/sheet.png"))); // NOI18N
+
+        javax.swing.GroupLayout lblRelatoriosLayout = new javax.swing.GroupLayout(lblRelatorios);
+        lblRelatorios.setLayout(lblRelatoriosLayout);
+        lblRelatoriosLayout.setHorizontalGroup(
+            lblRelatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, lblRelatoriosLayout.createSequentialGroup()
+                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel8)
+                .addContainerGap(51, Short.MAX_VALUE))
+        );
+        lblRelatoriosLayout.setVerticalGroup(
+            lblRelatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(lblRelatoriosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel8)
+                .addContainerGap(17, Short.MAX_VALUE))
+            .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        BarraLateral.add(lblRelatorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 248, 50));
+
+        lblSpecs.setBackground(new java.awt.Color(66, 3, 155));
+        lblSpecs.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lblSpecs.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblSpecsMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblSpecsMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblSpecsMousePressed(evt);
+            }
+        });
+
+        jLabel9.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(253, 204, 52));
+        jLabel9.setText("Minhas Specs");
+
+        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/computer.png"))); // NOI18N
+
+        javax.swing.GroupLayout lblSpecsLayout = new javax.swing.GroupLayout(lblSpecs);
+        lblSpecs.setLayout(lblSpecsLayout);
+        lblSpecsLayout.setHorizontalGroup(
+            lblSpecsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(lblSpecsLayout.createSequentialGroup()
+                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel9)
+                .addContainerGap(80, Short.MAX_VALUE))
+        );
+        lblSpecsLayout.setVerticalGroup(
+            lblSpecsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(lblSpecsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel9)
+                .addContainerGap(17, Short.MAX_VALUE))
+            .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        BarraLateral.add(lblSpecs, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 248, 50));
+
+        lblPerfil.setBackground(new java.awt.Color(66, 3, 155));
+        lblPerfil.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lblPerfil.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblPerfilMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblPerfilMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblPerfilMousePressed(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(253, 204, 52));
+        jLabel6.setText("Meu Perfil");
+
+        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/user_1.png"))); // NOI18N
+
+        javax.swing.GroupLayout lblPerfilLayout = new javax.swing.GroupLayout(lblPerfil);
+        lblPerfil.setLayout(lblPerfilLayout);
+        lblPerfilLayout.setHorizontalGroup(
+            lblPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, lblPerfilLayout.createSequentialGroup()
+                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel6)
+                .addContainerGap(105, Short.MAX_VALUE))
+        );
+        lblPerfilLayout.setVerticalGroup(
+            lblPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(lblPerfilLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel6)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        BarraLateral.add(lblPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 400, 248, 50));
+
+        logoBest.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        logoBest.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/BSp.png"))); // NOI18N
+        BarraLateral.add(logoBest, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 162, 82));
+
+        getContentPane().add(BarraLateral, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 620));
+
+        setSize(new java.awt.Dimension(1048, 619));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jLabel2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MousePressed
+    private void btFecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btFecharMouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_btFecharMouseClicked
 
-        setState(Telas.ICONIFIED);
-    }//GEN-LAST:event_jLabel2MousePressed
+    private void lblNotificacoesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNotificacoesMousePressed
+        active = "lblNotificacoes";
 
-    private void GraficosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GraficosMouseEntered
-        //
-    }//GEN-LAST:event_GraficosMouseEntered
+        
+        lblNotificacoes.setBackground(new Color(37, 13, 65));
+        lblOtimizar.setBackground(new Color(66, 3, 155));
+        lblRelatorios.setBackground(new Color(66, 3, 155));
+        lblSpecs.setBackground(new Color(66, 3, 155));
+        lblPerfil.setBackground(new Color(66, 3, 155));
+        try {
+            main.removeAll();
+            main.repaint();
+            main.revalidate();
+            main.add(import_notifi);
+            main.repaint();
+            main.revalidate();
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_lblNotificacoesMousePressed
 
-    private void GraficosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GraficosMouseExited
+    private void lblNotificacoesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNotificacoesMouseEntered
+
+        lblNotificacoes.setBackground(new Color(37, 13, 65));
+
+
+    }//GEN-LAST:event_lblNotificacoesMouseEntered
+
+    private void lblNotificacoesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNotificacoesMouseExited
+        if (!(active.equalsIgnoreCase("lblNotificacoes"))) {
+            lblNotificacoes.setBackground(new Color(66, 3, 155));
+        }
+    }//GEN-LAST:event_lblNotificacoesMouseExited
+
+    private void lblOtimizarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblOtimizarMouseEntered
+        lblOtimizar.setBackground(new Color(37, 13, 65));
+    }//GEN-LAST:event_lblOtimizarMouseEntered
+
+    private void lblOtimizarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblOtimizarMouseExited
+        if (!(active.equalsIgnoreCase("lblOtimizar"))) {
+            lblOtimizar.setBackground(new Color(66, 3, 155));
+        }
+    }//GEN-LAST:event_lblOtimizarMouseExited
+
+    private void lblRelatoriosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRelatoriosMouseEntered
+        lblRelatorios.setBackground(new Color(37, 13, 65));
+    }//GEN-LAST:event_lblRelatoriosMouseEntered
+
+    private void lblRelatoriosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRelatoriosMouseExited
+        if (!(active.equalsIgnoreCase("lblRelatorios"))) {
+            lblRelatorios.setBackground(new Color(66, 3, 155));
+        }
+    }//GEN-LAST:event_lblRelatoriosMouseExited
+
+    private void lblSpecsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSpecsMouseEntered
+        lblSpecs.setBackground(new Color(37, 13, 65));
+    }//GEN-LAST:event_lblSpecsMouseEntered
+
+    private void lblSpecsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSpecsMouseExited
+        if (!(active.equalsIgnoreCase("lblSpecs"))) {
+            lblSpecs.setBackground(new Color(66, 3, 155));
+        }
+    }//GEN-LAST:event_lblSpecsMouseExited
+
+    private void lblPerfilMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPerfilMouseEntered
+        lblPerfil.setBackground(new Color(37, 13, 65));
+    }//GEN-LAST:event_lblPerfilMouseEntered
+
+    private void lblPerfilMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPerfilMouseExited
+        if (!(active.equalsIgnoreCase("lblPerfil"))) {
+            lblPerfil.setBackground(new Color(66, 3, 155));
+        }
+    }//GEN-LAST:event_lblPerfilMouseExited
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+
+    }//GEN-LAST:event_formWindowOpened
+
+    private void lblOtimizarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblOtimizarMousePressed
+        active = "lblOtimizar";
+
+       
+        lblNotificacoes.setBackground(new Color(66, 3, 155));
+        lblOtimizar.setBackground(new Color(37, 13, 65));
+        lblRelatorios.setBackground(new Color(66, 3, 155));
+        lblSpecs.setBackground(new Color(66, 3, 155));
+        lblPerfil.setBackground(new Color(66, 3, 155));
+        try {
+            main.removeAll();
+            main.repaint();
+            main.revalidate();
+            main.add(import_otimizar);
+            main.repaint();
+            main.revalidate();
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_lblOtimizarMousePressed
+
+    private void lblRelatoriosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRelatoriosMousePressed
+        active = "lblRelatorios";
+      
+        lblNotificacoes.setBackground(new Color(66, 3, 155));
+        lblOtimizar.setBackground(new Color(66, 3, 155));
+        lblRelatorios.setBackground(new Color(37, 13, 65));
+        lblSpecs.setBackground(new Color(66, 3, 155));
+        lblPerfil.setBackground(new Color(66, 3, 155));
+        try {
+            main.removeAll();
+            main.repaint();
+            main.revalidate();
+            main.add(import_relatorios);
+            main.repaint();
+            main.revalidate();
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_lblRelatoriosMousePressed
+
+    private void lblSpecsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSpecsMousePressed
+        active = "lblSpecs";
+
+      
+        lblNotificacoes.setBackground(new Color(66, 3, 155));
+        lblOtimizar.setBackground(new Color(66, 3, 155));
+        lblRelatorios.setBackground(new Color(66, 3, 155));
+        lblSpecs.setBackground(new Color(37, 13, 65));
+        lblPerfil.setBackground(new Color(66, 3, 155));
+        try {
+            main.removeAll();
+            main.repaint();
+            main.revalidate();
+            main.add(import_specs);
+            main.repaint();
+            main.revalidate();
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_lblSpecsMousePressed
+
+    private void lblPerfilMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPerfilMousePressed
+        active = "lblPerfil";
+       
+        lblNotificacoes.setBackground(new Color(66, 3, 155));
+        lblOtimizar.setBackground(new Color(66, 3, 155));
+        lblRelatorios.setBackground(new Color(66, 3, 155));
+        lblSpecs.setBackground(new Color(66, 3, 155));
+        lblPerfil.setBackground(new Color(37, 13, 65));
+        try {
+            main.removeAll();
+            main.repaint();
+            main.revalidate();
+            main.add(import_perfil);
+            main.repaint();
+            main.revalidate();
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_lblPerfilMousePressed
+
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+
+    }//GEN-LAST:event_jLabel5MouseClicked
+
+    private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
+        
+    }//GEN-LAST:event_btSalvarActionPerformed
+
+    private void btInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_GraficosMouseExited
+    }//GEN-LAST:event_btInActionPerformed
 
     /**
      * @param args the command line arguments
@@ -137,7 +762,7 @@ public class Telas extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Metal".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -152,6 +777,9 @@ public class Telas extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Telas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -162,13 +790,62 @@ public class Telas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel Graficos;
-    private javax.swing.JPanel barra_lateral;
-    private javax.swing.JPanel fundo_geral;
-    private javax.swing.JPanel header;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel BarraLateral;
+    private javax.swing.JPanel CorpoTela;
+    private javax.swing.JLabel btFechar;
+    private javax.swing.JButton btIn;
+    private javax.swing.JButton btOut;
+    private javax.swing.JButton btSalvar;
+    private javax.swing.JPanel corpoForm;
+    private javax.swing.JPanel import_notifi;
+    private javax.swing.JPanel import_otimizar;
+    private javax.swing.JPanel import_perfil;
+    private javax.swing.JPanel import_relatorios;
+    private javax.swing.JPanel import_specs;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lbGhzProcessador;
+    private javax.swing.JLabel lbMarcaComputador;
+    private javax.swing.JLabel lbModeloPlacaMae;
+    private javax.swing.JLabel lbNome;
+    private javax.swing.JLabel lbQtdMonitores;
+    private javax.swing.JLabel lbSistemaOperacional;
+    private javax.swing.JLabel lbTelefone;
+    private javax.swing.JLabel lbTotalMemoria;
+    private javax.swing.JLabel lbVersaoSistemaOperacional;
+    private javax.swing.JPanel lblNotificacoes;
+    private javax.swing.JPanel lblOtimizar;
+    private javax.swing.JPanel lblPerfil;
+    private javax.swing.JPanel lblRelatorios;
+    private javax.swing.JPanel lblSpecs;
+    private javax.swing.JLabel linux;
+    private javax.swing.JList<String> listBlack;
+    private javax.swing.JList<String> listProcessos;
+    private javax.swing.JLabel logoBest;
+    private javax.swing.JPanel main;
+    private javax.swing.JScrollPane scrollBlack;
+    private javax.swing.JScrollPane scrollProcessos;
+    private javax.swing.JTextField txtnome_usuario;
+    private javax.swing.JLabel windows;
     // End of variables declaration//GEN-END:variables
 }
