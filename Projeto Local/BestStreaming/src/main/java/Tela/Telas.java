@@ -23,14 +23,13 @@ public class Telas extends javax.swing.JFrame {
     String active = "lblNotificacoes";
     SpecClass specClass = new SpecClass();
     DadosProcessos dp = new DadosProcessos(10);
-    
+    protected Integer idStreamer;
     
     public Telas() {
         initComponents();
         TextPrompt log = new TextPrompt("Nome Usuário",txtnome_usuario);
         
-        Monitorar monitorar = new Monitorar();
-        monitorar.monitoramento();
+        
 //       lbSistemaOperacional.setText(specClass.getSistemaOperacional());
         
        lbVersaoSistemaOperacional.setText(specClass.getVersaoSistemaOperacional().toString());
@@ -49,6 +48,13 @@ public class Telas extends javax.swing.JFrame {
            linux.setVisible(false);
            windows.setVisible(true);
        }
+    }
+    
+    public Integer setIdStreamer(Integer id){
+        return this.idStreamer = id;
+    }
+    public Integer getIdStreamer(){
+        return this.idStreamer;
     }
 
     /**
@@ -679,6 +685,8 @@ public class Telas extends javax.swing.JFrame {
             main.revalidate();
         } catch (Exception e) {
         }
+        Monitorar monitorar = new Monitorar();
+        monitorar.monitoramento(this.idStreamer);
     }//GEN-LAST:event_lblOtimizarMousePressed
 
     private void lblRelatoriosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRelatoriosMousePressed

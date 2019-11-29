@@ -202,6 +202,8 @@ public class Login extends javax.swing.JFrame {
             Boolean logado = lgClass.logar(email, senha);
             if(logado.equals(true)){
                 Tela.Telas tela = new Tela.Telas();
+                this.setVisible(false);
+                ver.setVisible(false);
                 tela.setVisible(true);
             }else{
                 JOptionPane.showMessageDialog(null, "Email e/ou senha incorreta");

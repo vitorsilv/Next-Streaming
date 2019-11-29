@@ -6,17 +6,16 @@
 package Tela;
 
 import Database.DatabaseConnection;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import oshi.SystemInfo;
 import oshi.hardware.*;
-import oshi.hardware.CentralProcessor.TickType;
 import oshi.software.os.*;
-import oshi.software.os.OperatingSystem.ProcessSort;
 import oshi.util.FormatUtil;
-import oshi.util.Util;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,31 +23,82 @@ import java.util.List;
  * @author vitor_silva
  */
 public class Monitorar {
+    
     static Database.DatabaseConnection conn;
+    
+    private SystemInfo si = new SystemInfo();
+    private OperatingSystem os = si.getOperatingSystem();
+    private FileSystem fs = os.getFileSystem();
+    private HardwareAbstractionLayer hal = si.getHardware();
+    
+    private Integer idStreamer;
+    private String nomeProcesso;
+    private String tempoDeUso;
+    private Date dataCapturada;
+    private int idMaquina;
+    private int PID;
+    private Double cpu;
+    private Double ram;
+    private String cpuName;
+    private Double totalUsadoCPU;
+    
+    
+    private GlobalMemory memory = hal.getMemory();
+    
     public Monitorar(){
         conn = new DatabaseConnection();
         
         conn.openConnection();
     }
     
-    public void monitoramento(){
-        
-        SystemInfo si = new SystemInfo();
-        HardwareAbstractionLayer hal = si.getHardware();
-        OperatingSystem os = si.getOperatingSystem();
-        GlobalMemory memory = hal.getMemory();
-        System.out.println("Processes: " + os.getProcessCount() + ", Threads: " + os.getThreadCount());
-        // Sort by highest CPU
-        List<oshi.software.os.OSProcess> procs = Arrays.asList(os.getProcesses(5, OperatingSystem.ProcessSort.CPU));
+    public void monitoramento(Integer id){
+        this.idStreamer = id;
+        //Pegar os 10 primeiros dados de processos de acordo com a memoria
+        try{
+            List<oshi.software.os.OSProcess> procs = Arrays.asList(os.getProcesses(0, OperatingSystem.ProcessSort.MEMORY));
+            
+            
+            for(int i = 0; i < procs.size(); i++){
+                
+                oshi.software.os.OSProcess p = procs.get(i);
+           
+                this.nomeProcesso = p.getName();
+                this.PID = p.getProcessID();
+                this.cpu = 100d * (p.getKernelTime() + p.getUserTime()) / p.getUpTime();
+                
+                long minutos = (p.getUpTime() / 60000) % 60;
+                long horas = (p.getUpTime() / 3600000);
+                String upTime = String.format("%3d:%02d", horas, minutos);
+            
+                this.tempoDeUso = upTime;
+                this.dataCapturada = new Date();
+                
+                inserirDados();
+            }
+        }catch(Exception e){
+            
+        }
+    }
+    
+    
+    public Boolean inserirDados(){
+        Connection connection = conn.getConnection();
 
-        System.out.println("   PID  %CPU %MEM       VSZ       RSS Name");
-        for (int i = 0; i < procs.size(); i++) {
-            oshi.software.os.OSProcess p = procs.get(i);
-            p.getProcessID();
-            System.out.format(" %5d %5.1f %4.1f %9s %9s %s%n", p.getProcessID(),
-                    100d * (p.getKernelTime() + p.getUserTime()) / p.getUpTime(),
-                    100d * p.getResidentSetSize() / memory.getTotal(), FormatUtil.formatBytes(p.getVirtualSize()),
-                    FormatUtil.formatBytes(p.getResidentSetSize()), p.getName());
+        String selectSql = "INSERT INTO processos ('pid','nomeProcesso') "
+                + "values ('"+this.nomeProcesso+"', '"+this.nomeProcesso+"')";
+            
+        try {
+            PreparedStatement ps = connection.prepareStatement(selectSql);
+            ResultSet rs = ps.executeQuery();
+
+            if(rs.next()){
+                return true;
+            }else{
+                return false;
+            }     
+        }catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
     }
 }
