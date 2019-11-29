@@ -30,6 +30,7 @@ public class Monitorar {
     private OperatingSystem os = si.getOperatingSystem();
     private FileSystem fs = os.getFileSystem();
     private HardwareAbstractionLayer hal = si.getHardware();
+    private GlobalMemory memory = hal.getMemory();
     
     private Integer idStreamer;
     private String nomeProcesso;
@@ -42,20 +43,17 @@ public class Monitorar {
     private String cpuName;
     private Double totalUsadoCPU;
     
-    
-    private GlobalMemory memory = hal.getMemory();
+    protected List<oshi.software.os.OSProcess> procs;
     
     public Monitorar(){
         conn = new DatabaseConnection();
-        
-        conn.openConnection();
     }
     
     public void monitoramento(Integer id){
         this.idStreamer = id;
         //Pegar os 10 primeiros dados de processos de acordo com a memoria
         try{
-            List<oshi.software.os.OSProcess> procs = Arrays.asList(os.getProcesses(0, OperatingSystem.ProcessSort.MEMORY));
+            procs = Arrays.asList(os.getProcesses(0, OperatingSystem.ProcessSort.MEMORY));
             
             
             for(int i = 0; i < procs.size(); i++){
@@ -73,7 +71,7 @@ public class Monitorar {
                 this.tempoDeUso = upTime;
                 this.dataCapturada = new Date();
                 
-                inserirDados();
+                //inserirDados();
             }
         }catch(Exception e){
             
@@ -85,7 +83,7 @@ public class Monitorar {
         Connection connection = conn.getConnection();
 
         String selectSql = "INSERT INTO processos ('pid','nomeProcesso') "
-                + "values ('"+this.nomeProcesso+"', '"+this.nomeProcesso+"')";
+                + "values ('"+this.PID+"', '"+this.nomeProcesso+"')";
             
         try {
             PreparedStatement ps = connection.prepareStatement(selectSql);

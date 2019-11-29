@@ -207,6 +207,10 @@ public class Login extends javax.swing.JFrame {
                 tela.setVisible(true);
             }else{
                 JOptionPane.showMessageDialog(null, "Email e/ou senha incorreta");
+                this.setVisible(true);
+                ver.setVisible(false);
+                Database.DatabaseConnection db = new Database.DatabaseConnection();
+                db.closeConnection();
             }
         } catch (Exception e) {
             e.printStackTrace();

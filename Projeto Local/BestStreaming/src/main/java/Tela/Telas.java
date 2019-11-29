@@ -10,6 +10,10 @@ import java.awt.Color;
 import java.util.*;
 import oshi.util.FormatUtil;
 import Placeholders.TextPrompt;
+import javax.swing.DefaultListModel;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -24,6 +28,8 @@ public class Telas extends javax.swing.JFrame {
     SpecClass specClass = new SpecClass();
     DadosProcessos dp = new DadosProcessos(10);
     protected Integer idStreamer;
+    DefaultListModel listModelProcessos = new DefaultListModel();
+    DefaultListModel listModelBlack = new DefaultListModel();
     
     public Telas() {
         initComponents();
@@ -78,6 +84,7 @@ public class Telas extends javax.swing.JFrame {
         listBlack = new javax.swing.JList<>();
         btIn = new javax.swing.JButton();
         btOut = new javax.swing.JButton();
+        btSalvarProcessos = new javax.swing.JButton();
         import_relatorios = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         import_specs = new javax.swing.JPanel();
@@ -193,6 +200,13 @@ public class Telas extends javax.swing.JFrame {
         });
 
         btOut.setText("<--");
+        btOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btOutActionPerformed(evt);
+            }
+        });
+
+        btSalvarProcessos.setText("Salvar");
 
         javax.swing.GroupLayout import_otimizarLayout = new javax.swing.GroupLayout(import_otimizar);
         import_otimizar.setLayout(import_otimizarLayout);
@@ -200,11 +214,14 @@ public class Telas extends javax.swing.JFrame {
             import_otimizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(import_otimizarLayout.createSequentialGroup()
                 .addGap(52, 52, 52)
-                .addComponent(scrollProcessos, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(90, 90, 90)
-                .addGroup(import_otimizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btOut, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
-                    .addComponent(btIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(import_otimizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btSalvarProcessos)
+                    .addGroup(import_otimizarLayout.createSequentialGroup()
+                        .addComponent(scrollProcessos, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(90, 90, 90)
+                        .addGroup(import_otimizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btOut, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+                            .addComponent(btIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
                 .addComponent(scrollBlack, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(82, 82, 82))
@@ -223,7 +240,9 @@ public class Telas extends javax.swing.JFrame {
                         .addComponent(btIn)
                         .addGap(39, 39, 39)
                         .addComponent(btOut)))
-                .addContainerGap(217, Short.MAX_VALUE))
+                .addGap(42, 42, 42)
+                .addComponent(btSalvarProcessos)
+                .addContainerGap(147, Short.MAX_VALUE))
         );
 
         main.add(import_otimizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, -20, 790, 580));
@@ -687,6 +706,14 @@ public class Telas extends javax.swing.JFrame {
         }
         Monitorar monitorar = new Monitorar();
         monitorar.monitoramento(this.idStreamer);
+        
+        for(int i = 0; i < monitorar.procs.size(); i++){
+            oshi.software.os.OSProcess p = monitorar.procs.get(i);
+            listModelProcessos.addElement(p.getName());
+            System.out.println(i+" -  PID - "+p.getProcessID()+" - Nome: "+p.getName()); 
+        }
+        listProcessos.setModel(listModelProcessos);
+        listBlack.setModel(listModelBlack);
     }//GEN-LAST:event_lblOtimizarMousePressed
 
     private void lblRelatoriosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRelatoriosMousePressed
@@ -756,8 +783,14 @@ public class Telas extends javax.swing.JFrame {
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void btInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInActionPerformed
-        // TODO add your handling code here:
+        listModelBlack.addElement(listProcessos.getSelectedValue());
+        listBlack.setModel(listModelBlack);
     }//GEN-LAST:event_btInActionPerformed
+
+    private void btOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btOutActionPerformed
+        listModelBlack.removeElement(listBlack.getSelectedValue());
+        listBlack.setModel(listModelBlack);
+    }//GEN-LAST:event_btOutActionPerformed
 
     /**
      * @param args the command line arguments
@@ -804,6 +837,7 @@ public class Telas extends javax.swing.JFrame {
     private javax.swing.JButton btIn;
     private javax.swing.JButton btOut;
     private javax.swing.JButton btSalvar;
+    private javax.swing.JButton btSalvarProcessos;
     private javax.swing.JPanel corpoForm;
     private javax.swing.JPanel import_notifi;
     private javax.swing.JPanel import_otimizar;
@@ -856,4 +890,5 @@ public class Telas extends javax.swing.JFrame {
     private javax.swing.JTextField txtnome_usuario;
     private javax.swing.JLabel windows;
     // End of variables declaration//GEN-END:variables
+
 }

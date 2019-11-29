@@ -14,6 +14,7 @@ public class LoginClass extends Login{
     
     Login lg = new Login();
     static Database.DatabaseConnection conn;
+    public Integer idStreamer;
     public LoginClass(){
 
         conn = new DatabaseConnection();
@@ -32,6 +33,7 @@ public class LoginClass extends Login{
             ResultSet rs = ps.executeQuery();
 
             if(rs.next()){
+                
                 return true;
             }else{
                 return false;
