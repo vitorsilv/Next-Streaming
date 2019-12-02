@@ -705,12 +705,12 @@ public class Telas extends javax.swing.JFrame {
         }
         
         Monitorar monitorar = new Monitorar();
-        monitorar.monitoramento();
+        monitorar.processosAtivos();
         
         OtimizarProcessos otm = new OtimizarProcessos();
         listModelBlack = otm.blackListBanco();
-        for(int i = 0; i < monitorar.procs.size(); i++){
-            oshi.software.os.OSProcess p = monitorar.procs.get(i);
+        for(int i = 0; i < monitorar.procsTotal.size(); i++){
+            oshi.software.os.OSProcess p = monitorar.procsTotal.get(i);
             listModelProcessos.addElement(p.getProcessID()+" - "+p.getName());
             //System.out.println(i+" -  PID - "+p.getProcessID()+" - Nome: "+p.getName()); 
         }
@@ -832,6 +832,7 @@ public class Telas extends javax.swing.JFrame {
                 String array[] = listModelBlack.getElementAt(i).toString().split(" - ");
                 otimizarPro.salvarBlackList(Integer.parseInt(array[0]),array[1]);
             }
+            otimizarPro.deletarProcessos();
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, e);
         }      

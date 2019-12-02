@@ -12,12 +12,18 @@ import java.sql.ResultSet;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.*;
+
 
 /**
  *
  * @author vitor_silva
  */
 public class OtimizarProcessos extends LoginClass{
+    
+    List<String> processosKill = new ArrayList<>();
     
     public Boolean salvarBlackList(Integer PID,String nomeProcesso){
         try{
@@ -36,9 +42,9 @@ public class OtimizarProcessos extends LoginClass{
                 
             ps.execute();
                 
-            JOptionPane.showMessageDialog(null, "Inserido com sucesso"); 
             return true;
         }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e); 
             return false;
         }    
     }
@@ -55,7 +61,7 @@ public class OtimizarProcessos extends LoginClass{
             PreparedStatement ps = connection.prepareStatement(dados);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                dadosBanco.addElement(rs.getInt("pid")+"-"+rs.getString("nomeProcesso"));
+                dadosBanco.addElement(rs.getInt("pid")+" - "+rs.getString("nomeProcesso"));
             }
             return dadosBanco;
         }catch(Exception e){
@@ -64,4 +70,47 @@ public class OtimizarProcessos extends LoginClass{
             return dadosBanco = new DefaultListModel();
         }
     }
+    
+    public void deletarProcessos(){
+        Database.DatabaseConnection conn = getConn();
+        Connection connection = conn.getConnection();
+        
+        String dados = "SELECT nomeProcesso FROM processos "
+                + "WHERE blackList=1 AND idMaquina="+getIdMaquina();
+        try{
+            PreparedStatement ps = connection.prepareStatement(dados);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                processosKill.add(rs.getString("nomeProcesso"));
+            }
+            
+            for (int i = 0; i < processosKill.size(); i++) {
+                kill(processosKill.get(i));
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    public static boolean kill(String process) {    
+        try {    
+            String line;    
+            Process p = Runtime.getRuntime().exec("tasklist.exe /fo csv /nh");    
+            BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));    
+            while ((line = input.readLine()) != null) {    
+                if (!line.trim().equals("")) {    
+                    if (!line.substring(1, line.indexOf("\"", 1)).equalsIgnoreCase(process)) {    
+                    } else {
+                        Runtime.getRuntime().exec("taskkill /F /IM " + line.substring(1, line.indexOf("\"", 1)));    
+                        return true;
+                    }    
+                }    
+            }    
+            input.close();    
+        } catch (Exception err) {    
+            err.printStackTrace();    
+        }    
+        return false;    
+    } 
 }

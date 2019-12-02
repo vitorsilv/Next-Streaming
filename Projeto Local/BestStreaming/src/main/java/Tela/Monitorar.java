@@ -18,31 +18,41 @@ import oshi.util.FormatUtil;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import oshi.util.Util;
 
 /**
  *
  * @author vitor_silva
  */
 public class Monitorar extends LoginClass {
-    
+    //CONEXAO DE BANCO
     static Database.DatabaseConnection conn;
-    
+    //OSHI
     private SystemInfo si = new SystemInfo();
     private OperatingSystem os = si.getOperatingSystem();
     private FileSystem fs = os.getFileSystem();
     private HardwareAbstractionLayer hal = si.getHardware();
     private GlobalMemory memory = hal.getMemory();
-    
+    private final CentralProcessor cpu = hal.getProcessor();
+    //private Double cpu;
+    //Processos
     private String nomeProcesso;
-    private String tempoDeUso;
-    private Date dataCapturada;
     private int PID;
-    private Double cpu;
+    protected List<oshi.software.os.OSProcess> procsTotal;
+    //RAM
     private Double ram;
+    private double totalDisponivel;
+    private double totalRamUsado;
+    private double porcentagemBarra;
+    //CPU
+    private double user;
+    private double system;
+    private double iowait;
+    private String tempoDeUso;
     private String cpuName;
     private Double totalUsadoCPU;
-    
-    protected List<oshi.software.os.OSProcess> procs;
+    //DATA
+    private Date dataHora;
     
     public Monitorar(){
         conn = new DatabaseConnection();
@@ -51,23 +61,20 @@ public class Monitorar extends LoginClass {
     public void monitoramento(){
         //Pegar os 10 primeiros dados de processos de acordo com a memoria
         try{
-            procs = Arrays.asList(os.getProcesses(0, OperatingSystem.ProcessSort.MEMORY));
+            procsTotal = Arrays.asList(os.getProcesses(0, OperatingSystem.ProcessSort.MEMORY));
             
             
-            for(int i = 0; i < procs.size(); i++){
+            for(int i = 0; i < procsTotal.size(); i++){
                 
-                oshi.software.os.OSProcess p = procs.get(i);
+                oshi.software.os.OSProcess p = procsTotal.get(i);
            
                 this.nomeProcesso = p.getName();
                 this.PID = p.getProcessID();
-                this.cpu = 100d * (p.getKernelTime() + p.getUserTime()) / p.getUpTime();
                 
-                long minutos = (p.getUpTime() / 60000) % 60;
-                long horas = (p.getUpTime() / 3600000);
-                String upTime = String.format("%3d:%02d", horas, minutos);
-            
-                this.tempoDeUso = upTime;
-                this.dataCapturada = new Date();
+                usoCPU();
+                usoRAM();
+                
+                this.dataHora = new Date();
                 
                 //inserirDados();
             }
@@ -76,6 +83,68 @@ public class Monitorar extends LoginClass {
         }
     }
     
+    private void usoCPU(){
+        
+        cpuName = cpu.getName();
+        
+        long[] cpuTicks;
+        long[] prevCpuTicks;
+        prevCpuTicks = cpu.getSystemCpuLoadTicks();
+        Util.sleep(5000);
+        
+        cpuTicks = cpu.getSystemCpuLoadTicks();
+        
+        long user = (cpuTicks[CentralProcessor.TickType.USER.getIndex()] - prevCpuTicks[CentralProcessor.TickType.USER.getIndex()]);
+        long sys = (cpuTicks[CentralProcessor.TickType.SYSTEM.getIndex()] - prevCpuTicks[CentralProcessor.TickType.SYSTEM.getIndex()]);
+        long iowait = (cpuTicks[CentralProcessor.TickType.IOWAIT.getIndex()] - prevCpuTicks[CentralProcessor.TickType.IOWAIT.getIndex()]);
+        
+        long nice = (cpuTicks[CentralProcessor.TickType.NICE.getIndex()] - prevCpuTicks[CentralProcessor.TickType.NICE.getIndex()]);
+        long idle = (cpuTicks[CentralProcessor.TickType.IDLE.getIndex()] - prevCpuTicks[CentralProcessor.TickType.IDLE.getIndex()]);      
+        long irq = (cpuTicks[CentralProcessor.TickType.IRQ.getIndex()] - prevCpuTicks[CentralProcessor.TickType.IRQ.getIndex()]);
+        long softirq = (cpuTicks[CentralProcessor.TickType.SOFTIRQ.getIndex()] - prevCpuTicks[CentralProcessor.TickType.SOFTIRQ.getIndex()]);
+        long steal = (cpuTicks[CentralProcessor.TickType.STEAL.getIndex()] - prevCpuTicks[CentralProcessor.TickType.STEAL.getIndex()]);
+        
+        long totalcpu = user + nice + sys + idle + iowait + irq + softirq + steal;
+        
+        this.user = (100d * user) / totalcpu;
+        this.system = (100d * sys) / totalcpu;
+        this.iowait = (100d * iowait) / totalcpu;
+        
+        totalUsadoCPU = (100d * (user + sys + iowait)) / totalcpu;
+        
+        dataHora = new Date();
+        
+    }
+    
+    private void usoRAM(){
+        
+        
+        this.totalDisponivel = memory.getTotal();
+        double ramLivre = memory.getAvailable();
+        this.totalRamUsado = totalDisponivel - ramLivre;
+        
+        this.porcentagemBarra = (100d * totalRamUsado) / totalDisponivel;
+        
+        this.dataHora = new Date();
+        
+    }
+    
+    protected void processosAtivos(){
+        try{
+            procsTotal = Arrays.asList(os.getProcesses(0, OperatingSystem.ProcessSort.MEMORY));
+            
+            
+            for(int i = 0; i < procsTotal.size(); i++){
+                
+                oshi.software.os.OSProcess p = procsTotal.get(i);
+          
+                this.nomeProcesso = p.getName();
+                this.PID = p.getProcessID();
+            }
+        }catch(Exception e){
+            
+        }
+    }
     
     public Boolean inserirDados(){
         Connection connection = conn.getConnection();
