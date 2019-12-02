@@ -5,11 +5,17 @@
  */
 package Tela;
 
+import Database.DatabaseConnection;
 import InitScreen.*;
+import LoginScreen.LoginClass;
+import static LoginScreen.LoginClass.getConn;
 import java.awt.Color;
 import java.util.*;
 import oshi.util.FormatUtil;
 import Placeholders.TextPrompt;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -27,42 +33,14 @@ public class Telas extends javax.swing.JFrame {
     String active = "lblNotificacoes";
     SpecClass specClass = new SpecClass();
     DadosProcessos dp = new DadosProcessos(10);
-    protected Integer idStreamer;
     DefaultListModel listModelProcessos = new DefaultListModel();
     DefaultListModel listModelBlack = new DefaultListModel();
     
     public Telas() {
         initComponents();
         TextPrompt log = new TextPrompt("Nome Usuário",txtnome_usuario);
-        
-        
-//       lbSistemaOperacional.setText(specClass.getSistemaOperacional());
-        
-       lbVersaoSistemaOperacional.setText(specClass.getVersaoSistemaOperacional().toString());
-
-       lbMarcaComputador.setText(specClass.getMarcaComputador());
-       lbModeloPlacaMae.setText(FormatUtil.formatBytes(specClass.getModeloPlacaMae()));
-       
-       lbGhzProcessador.setText(specClass.getGhzProcessador());
-       lbTotalMemoria.setText(FormatUtil.formatBytes(specClass.getTotalMemoria()));
-       lbQtdMonitores.setText(specClass.getQtdMonitores().toString());
-       
-       if(specClass.getSistemaOperacional().equals("Ubuntu")){
-           linux.setVisible(true);
-           windows.setVisible(false);
-       }else{
-           linux.setVisible(false);
-           windows.setVisible(true);
-       }
     }
     
-    public Integer setIdStreamer(Integer id){
-        return this.idStreamer = id;
-    }
-    public Integer getIdStreamer(){
-        return this.idStreamer;
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -85,6 +63,8 @@ public class Telas extends javax.swing.JFrame {
         btIn = new javax.swing.JButton();
         btOut = new javax.swing.JButton();
         btSalvarProcessos = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         import_relatorios = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         import_specs = new javax.swing.JPanel();
@@ -207,6 +187,15 @@ public class Telas extends javax.swing.JFrame {
         });
 
         btSalvarProcessos.setText("Salvar");
+        btSalvarProcessos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSalvarProcessosActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Processos Ativos");
+
+        jLabel2.setText("BlackList");
 
         javax.swing.GroupLayout import_otimizarLayout = new javax.swing.GroupLayout(import_otimizar);
         import_otimizar.setLayout(import_otimizarLayout);
@@ -225,13 +214,23 @@ public class Telas extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
                 .addComponent(scrollBlack, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(82, 82, 82))
+            .addGroup(import_otimizarLayout.createSequentialGroup()
+                .addGap(90, 90, 90)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(155, 155, 155))
         );
         import_otimizarLayout.setVerticalGroup(
             import_otimizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(import_otimizarLayout.createSequentialGroup()
                 .addGroup(import_otimizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(import_otimizarLayout.createSequentialGroup()
-                        .addGap(110, 110, 110)
+                        .addGap(80, 80, 80)
+                        .addGroup(import_otimizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(import_otimizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(scrollBlack, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(scrollProcessos, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -704,13 +703,16 @@ public class Telas extends javax.swing.JFrame {
             main.revalidate();
         } catch (Exception e) {
         }
-        Monitorar monitorar = new Monitorar();
-        monitorar.monitoramento(this.idStreamer);
         
+        Monitorar monitorar = new Monitorar();
+        monitorar.monitoramento();
+        
+        OtimizarProcessos otm = new OtimizarProcessos();
+        listModelBlack = otm.blackListBanco();
         for(int i = 0; i < monitorar.procs.size(); i++){
             oshi.software.os.OSProcess p = monitorar.procs.get(i);
-            listModelProcessos.addElement(p.getName());
-            System.out.println(i+" -  PID - "+p.getProcessID()+" - Nome: "+p.getName()); 
+            listModelProcessos.addElement(p.getProcessID()+" - "+p.getName());
+            //System.out.println(i+" -  PID - "+p.getProcessID()+" - Nome: "+p.getName()); 
         }
         listProcessos.setModel(listModelProcessos);
         listBlack.setModel(listModelBlack);
@@ -737,7 +739,7 @@ public class Telas extends javax.swing.JFrame {
 
     private void lblSpecsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSpecsMousePressed
         active = "lblSpecs";
-
+        
       
         lblNotificacoes.setBackground(new Color(66, 3, 155));
         lblOtimizar.setBackground(new Color(66, 3, 155));
@@ -752,6 +754,24 @@ public class Telas extends javax.swing.JFrame {
             main.repaint();
             main.revalidate();
         } catch (Exception e) {
+            
+        }
+        lbSistemaOperacional.setText(specClass.getSistemaOperacional());
+        lbVersaoSistemaOperacional.setText(specClass.getVersaoSistemaOperacional().toString());
+
+        lbMarcaComputador.setText(specClass.getMarcaComputador());
+        lbModeloPlacaMae.setText(FormatUtil.formatBytes(specClass.getModeloPlacaMae()));
+       
+        lbGhzProcessador.setText(specClass.getGhzProcessador());
+        lbTotalMemoria.setText(FormatUtil.formatBytes(specClass.getTotalMemoria()));
+        lbQtdMonitores.setText(specClass.getQtdMonitores().toString());
+       
+        if(specClass.getSistemaOperacional().equals("Ubuntu")){
+            linux.setVisible(true);
+            windows.setVisible(false);
+        }else{
+            linux.setVisible(false);
+            windows.setVisible(true);
         }
     }//GEN-LAST:event_lblSpecsMousePressed
 
@@ -791,6 +811,31 @@ public class Telas extends javax.swing.JFrame {
         listModelBlack.removeElement(listBlack.getSelectedValue());
         listBlack.setModel(listModelBlack);
     }//GEN-LAST:event_btOutActionPerformed
+
+    private void btSalvarProcessosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarProcessosActionPerformed
+        try{
+            OtimizarProcessos otimizarPro = new OtimizarProcessos();
+            
+            Database.DatabaseConnection conn = getConn();
+            Connection connection = conn.getConnection();
+            
+            LoginScreen.LoginClass lg  = new LoginScreen.LoginClass();
+            
+            String deleteBlackList= "DELETE FROM processos "
+            + "WHERE idMaquina = ? AND blackList = 1";
+            PreparedStatement psDel = connection.prepareStatement(deleteBlackList);
+            
+            psDel.setInt(1, lg.getIdMaquina());
+            psDel.execute();
+            
+            for (int i = 0; i < listModelBlack.getSize(); i++) {
+                String array[] = listModelBlack.getElementAt(i).toString().split(" - ");
+                otimizarPro.salvarBlackList(Integer.parseInt(array[0]),array[1]);
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }      
+    }//GEN-LAST:event_btSalvarProcessosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -844,6 +889,7 @@ public class Telas extends javax.swing.JFrame {
     private javax.swing.JPanel import_perfil;
     private javax.swing.JPanel import_relatorios;
     private javax.swing.JPanel import_specs;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -852,6 +898,7 @@ public class Telas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;

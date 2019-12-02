@@ -2,6 +2,7 @@
 package LoginScreen;
 
 import Database.DatabaseConnection;
+import Tela.Telas;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
@@ -14,7 +15,8 @@ public class LoginClass extends Login{
     
     Login lg = new Login();
     static Database.DatabaseConnection conn;
-    public Integer idStreamer;
+    static Integer idStreamer;
+    static Integer idMaquina;
     public LoginClass(){
 
         conn = new DatabaseConnection();
@@ -25,14 +27,16 @@ public class LoginClass extends Login{
     public boolean logar(String email, String senha){
         Connection connection = conn.getConnection();
         
-        String selectSql = "SELECT email, senha FROM streamer "
+        String selectSql = "SELECT * FROM streamer "
+                + "INNER JOIN maquina ON streamer.idStreamer = maquina.idStreamer "
                 + "WHERE email='"+email+"' AND senha='"+senha+"'";
         
         try {
             PreparedStatement ps = connection.prepareStatement(selectSql);
-            ResultSet rs = ps.executeQuery();
-
+            ResultSet rs = ps.executeQuery();           
             if(rs.next()){
+                this.idStreamer = rs.getInt("idStreamer");
+                this.idMaquina = rs.getInt("idMaquina");
                 
                 return true;
             }else{
@@ -43,4 +47,18 @@ public class LoginClass extends Login{
             return false;
         }
     }
+
+    public Integer getIdStreamer() {
+        return idStreamer;
+    }
+
+    public Integer getIdMaquina() {
+        return idMaquina;
+    }
+
+    public static DatabaseConnection getConn() {
+        return conn;
+    }
+    
+    
 }

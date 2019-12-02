@@ -6,6 +6,7 @@
 package Tela;
 
 import Database.DatabaseConnection;
+import LoginScreen.LoginClass;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,7 +23,7 @@ import java.util.List;
  *
  * @author vitor_silva
  */
-public class Monitorar {
+public class Monitorar extends LoginClass {
     
     static Database.DatabaseConnection conn;
     
@@ -32,11 +33,9 @@ public class Monitorar {
     private HardwareAbstractionLayer hal = si.getHardware();
     private GlobalMemory memory = hal.getMemory();
     
-    private Integer idStreamer;
     private String nomeProcesso;
     private String tempoDeUso;
     private Date dataCapturada;
-    private int idMaquina;
     private int PID;
     private Double cpu;
     private Double ram;
@@ -49,8 +48,7 @@ public class Monitorar {
         conn = new DatabaseConnection();
     }
     
-    public void monitoramento(Integer id){
-        this.idStreamer = id;
+    public void monitoramento(){
         //Pegar os 10 primeiros dados de processos de acordo com a memoria
         try{
             procs = Arrays.asList(os.getProcesses(0, OperatingSystem.ProcessSort.MEMORY));
@@ -82,18 +80,12 @@ public class Monitorar {
     public Boolean inserirDados(){
         Connection connection = conn.getConnection();
 
-        String selectSql = "INSERT INTO processos ('pid','nomeProcesso') "
+        String selectSql = "INSERT INTO monitoramento ('pid','nomeProcesso') "
                 + "values ('"+this.PID+"', '"+this.nomeProcesso+"')";
             
         try {
             PreparedStatement ps = connection.prepareStatement(selectSql);
-            ResultSet rs = ps.executeQuery();
-
-            if(rs.next()){
-                return true;
-            }else{
-                return false;
-            }     
+            return true;
         }catch (Exception e) {
             e.printStackTrace();
             return false;
