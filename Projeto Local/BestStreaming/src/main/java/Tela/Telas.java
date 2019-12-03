@@ -20,6 +20,8 @@ import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  *
@@ -36,11 +38,27 @@ public class Telas extends javax.swing.JFrame {
     DefaultListModel listModelProcessos = new DefaultListModel();
     DefaultListModel listModelBlack = new DefaultListModel();
     
+    Timer timer = new Timer();
+    Monitorar monitorar = new Monitorar();
     public Telas() {
+        inicializacao();
         initComponents();
         TextPrompt log = new TextPrompt("Nome Usuário",txtnome_usuario);
+        
     }
     
+    public void inicializacao() {
+        monitorar.monitoramento();
+        
+        JOptionPane.showMessageDialog(null, "Inserido com sucesso");
+        timer.schedule(new RemindTask(), 5*1000);
+    }
+
+    class RemindTask extends TimerTask {
+        public void run() {
+            inicializacao();
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -627,8 +645,7 @@ public class Telas extends javax.swing.JFrame {
             main.revalidate();
         } catch (Exception e) {
         }
-        Monitorar monitorar = new Monitorar();
-        monitorar.monitoramento();
+        
     }//GEN-LAST:event_lblNotificacoesMousePressed
 
     private void lblNotificacoesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNotificacoesMouseEntered
@@ -707,7 +724,6 @@ public class Telas extends javax.swing.JFrame {
         } catch (Exception e) {
         }
         
-        Monitorar monitorar = new Monitorar();
         monitorar.processosAtivos();
         
         OtimizarProcessos otm = new OtimizarProcessos();
