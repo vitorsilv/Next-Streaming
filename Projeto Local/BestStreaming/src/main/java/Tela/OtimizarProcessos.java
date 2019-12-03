@@ -13,6 +13,7 @@ import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
 
@@ -23,9 +24,13 @@ import java.util.*;
  */
 public class OtimizarProcessos extends LoginClass{
     
+    public OtimizarProcessos() throws IOException{
+        
+    }
+    
     List<String> processosKill = new ArrayList<>();
     
-    public Boolean salvarBlackList(Integer PID,String nomeProcesso){
+    public Boolean salvarBlackList(Integer PID,String nomeProcesso) throws IOException{
         try{
             Database.DatabaseConnection conn = getConn();
             Connection connection = conn.getConnection();
@@ -44,18 +49,19 @@ public class OtimizarProcessos extends LoginClass{
                 
             return true;
         }catch(Exception e){
+            GeracaoLog.GerarLog.GravarLog("Erro ao salvar black list no banco: "+e.getMessage());
             JOptionPane.showMessageDialog(null, e); 
             return false;
         }    
     }
     
-    public DefaultListModel blackListBanco(){
+    public DefaultListModel blackListBanco() throws IOException{
         Database.DatabaseConnection conn = getConn();
         Connection connection = conn.getConnection();
         
         DefaultListModel dadosBanco = new DefaultListModel();
         
-        String dados = "SELECT * FROM processos "
+        String dados = "SELECT DISTINCT pid, nomeProcesso FROM processos "
                 + "WHERE blackList=1 AND idMaquina="+getIdMaquina();
         try{
             PreparedStatement ps = connection.prepareStatement(dados);
@@ -66,12 +72,12 @@ public class OtimizarProcessos extends LoginClass{
             return dadosBanco;
         }catch(Exception e){
             e.printStackTrace();
-            
+            GeracaoLog.GerarLog.GravarLog("Erro ao recuperar black list do banco de dados: "+e.getMessage());
             return dadosBanco = new DefaultListModel();
         }
     }
     
-    public void deletarProcessos(){
+    public void deletarProcessos() throws IOException{
         Database.DatabaseConnection conn = getConn();
         Connection connection = conn.getConnection();
         
@@ -89,11 +95,12 @@ public class OtimizarProcessos extends LoginClass{
                 kill(processosKill.get(i));
             }
         }catch(Exception e){
+            GeracaoLog.GerarLog.GravarLog("Erro ao deletar processos do banco: "+e.getMessage());
             e.printStackTrace();
         }
     }
     
-    public static boolean kill(String process) {    
+    public static boolean kill(String process) throws IOException {    
         try {    
             String line;    
             Process p = Runtime.getRuntime().exec("tasklist.exe /fo csv /nh");    
@@ -108,7 +115,8 @@ public class OtimizarProcessos extends LoginClass{
                 }    
             }    
             input.close();    
-        } catch (Exception err) {    
+        } catch (Exception err) {
+            GeracaoLog.GerarLog.GravarLog("Erro ao eliminar o processo: "+err.getMessage());
             err.printStackTrace();    
         }    
         return false;    

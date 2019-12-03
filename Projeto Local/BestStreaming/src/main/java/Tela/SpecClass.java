@@ -7,6 +7,7 @@ package Tela;
 
 import LoginScreen.LoginClass;
 import static LoginScreen.LoginClass.getConn;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
@@ -19,7 +20,11 @@ import oshi.software.os.OperatingSystem;
  *
  * @author carlos
  */
-public class SpecClass extends LoginClass{
+public class SpecClass extends LoginClass {
+    
+    public SpecClass() throws IOException{
+        
+    }
     SystemInfo sysInfo = new SystemInfo();
     
     OperatingSystem sysOpe = sysInfo.getOperatingSystem();
@@ -39,7 +44,7 @@ public class SpecClass extends LoginClass{
     private long totalMemoria = sysInfo.getHardware().getMemory().getTotal(); 
     private Integer qtdMonitores = sysInfo.getHardware().getDisplays().length;
         
-    public void atualizarSpecs(){
+    public void atualizarSpecs() throws IOException{
         try{
             Database.DatabaseConnection conn = getConn();
             Connection connection = conn.getConnection();
@@ -58,7 +63,7 @@ public class SpecClass extends LoginClass{
             JOptionPane.showMessageDialog(null, "Inserido com sucesso"); 
             
         }catch(Exception e){
-            
+            GeracaoLog.GerarLog.GravarLog("Erro ao atulaizar specs: "+e.getMessage());
         }
     }
     
