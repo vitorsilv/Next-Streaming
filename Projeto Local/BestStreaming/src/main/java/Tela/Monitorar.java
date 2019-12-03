@@ -77,16 +77,21 @@ public class Monitorar extends LoginClass {
             usoHD();
                 
             this.dataHora = new Date();
-            Boolean isSaved = inserirMonitoramento();
-            if(isSaved){
-                for(int i = 0; i < 10; i++){
+            
+            if(getIdMaquina()!=0){
+                Boolean isSaved = inserirMonitoramento();
+                if(isSaved){
+                    for(int i = 0; i < 10; i++){
 
-                    oshi.software.os.OSProcess p = procsTotal.get(i);
+                        oshi.software.os.OSProcess p = procsTotal.get(i);
 
-                    this.nomeProcesso = p.getName();
-                    this.PID = p.getProcessID();
-                    inserirProcessos();
+                        this.nomeProcesso = p.getName();
+                        this.PID = p.getProcessID();
+                        inserirProcessos();
+                    }
                 }
+            }else{
+               JOptionPane.showMessageDialog(null, "Por favor, cadastre sua maquina na tela Specs!");
             }
                 
         }catch(Exception e){

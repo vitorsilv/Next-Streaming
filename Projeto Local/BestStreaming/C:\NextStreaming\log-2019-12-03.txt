@@ -1,0 +1,42 @@
+[03/12/2019 16:57:08] Erro ao inserir processos: O valor não está definido para o número de parâmetro 5.
+[03/12/2019 16:57:09] Erro ao inserir processos: O valor não está definido para o número de parâmetro 5.
+[03/12/2019 16:57:10] Erro ao inserir processos: O valor não está definido para o número de parâmetro 5.
+[03/12/2019 16:57:10] Erro ao inserir processos: O valor não está definido para o número de parâmetro 5.
+[03/12/2019 16:57:11] Erro ao inserir processos: O valor não está definido para o número de parâmetro 5.
+[03/12/2019 16:57:12] Erro ao inserir processos: O valor não está definido para o número de parâmetro 5.
+[03/12/2019 16:57:12] Erro ao inserir processos: O valor não está definido para o número de parâmetro 5.
+[03/12/2019 16:57:13] Erro ao inserir processos: O valor não está definido para o número de parâmetro 5.
+[03/12/2019 16:57:14] Erro ao inserir processos: O valor não está definido para o número de parâmetro 5.
+[03/12/2019 16:57:14] Erro ao inserir processos: O valor não está definido para o número de parâmetro 5.
+[03/12/2019 17:06:59] Erro ao logar: O conjunto de resultados não tem linha atual.
+[03/12/2019 17:08:35] Erro ao logar: O conjunto de resultados não tem linha atual.
+[03/12/2019 17:12:56] Erro ao logar: O conjunto de resultados não tem linha atual.
+[03/12/2019 17:14:10] Erro ao logar: O conjunto de resultados não tem linha atual.
+[03/12/2019 17:14:59] Erro ao logar: O conjunto de resultados não tem linha atual.
+[03/12/2019 17:17:22] Erro no monitoramento: null
+[03/12/2019 17:17:34] Erro no monitoramento: null
+[03/12/2019 17:20:51] Erro ao inserir processos: O valor não está definido para o número de parâmetro 5.
+[03/12/2019 17:20:52] Erro ao inserir processos: O valor não está definido para o número de parâmetro 5.
+[03/12/2019 17:20:52] Erro ao inserir processos: O valor não está definido para o número de parâmetro 5.
+[03/12/2019 17:20:53] Erro ao inserir processos: O valor não está definido para o número de parâmetro 5.
+[03/12/2019 17:20:53] Erro ao inserir processos: O valor não está definido para o número de parâmetro 5.
+[03/12/2019 17:20:54] Erro ao inserir processos: O valor não está definido para o número de parâmetro 5.
+[03/12/2019 17:20:55] Erro ao inserir processos: O valor não está definido para o número de parâmetro 5.
+[03/12/2019 17:20:55] Erro ao inserir processos: O valor não está definido para o número de parâmetro 5.
+[03/12/2019 17:20:56] Erro ao inserir processos: O valor não está definido para o número de parâmetro 5.
+[03/12/2019 17:20:57] Erro ao inserir processos: O valor não está definido para o número de parâmetro 5.
+[03/12/2019 17:44:22] Erro ao atulaizar specs: For input string: "2,7"
+[03/12/2019 17:44:45] Erro ao atulaizar specs: For input string: "2,7"
+[03/12/2019 17:44:46] Erro ao atulaizar specs: For input string: "2,7"
+[03/12/2019 17:44:56] Erro ao atulaizar specs: For input string: "2,7"
+[03/12/2019 17:44:57] Erro ao atulaizar specs: For input string: "2,7"
+[03/12/2019 17:44:57] Erro ao atulaizar specs: For input string: "2,7"
+[03/12/2019 17:44:57] Erro ao atulaizar specs: For input string: "2,7"
+[03/12/2019 17:44:57] Erro ao atulaizar specs: For input string: "2,7"
+[03/12/2019 17:48:06] Erro ao atulaizar specs: For input string: "2,7"
+[03/12/2019 17:49:56] Erro ao atulaizar specs: For input string: "2,7"
+[03/12/2019 17:51:33] Erro ao atulaizar specs: For input string: "2,7"
+[03/12/2019 17:53:21] Erro ao atulaizar specs: For input string: "2,7"
+[03/12/2019 17:53:32] Erro ao atulaizar specs: For input string: "2,7"
+[03/12/2019 17:54:55] Erro ao atulaizar specs: For input string: "2,7"
+[03/12/2019 17:55:10] Erro ao atulaizar specs: For input string: "2,7"

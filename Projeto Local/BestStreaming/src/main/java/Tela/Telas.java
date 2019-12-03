@@ -53,7 +53,7 @@ public class Telas extends javax.swing.JFrame {
     public void inicializacao() throws IOException {
         monitorar.monitoramento();
         
-        timer.schedule(new RemindTask(), 5*1000);
+        timer.schedule(new RemindTask(), 10*1000);
     }
 
     class RemindTask extends TimerTask {
@@ -93,6 +93,13 @@ public class Telas extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         import_specs = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
+        linux = new javax.swing.JLabel();
+        windows = new javax.swing.JLabel();
+        lbAtualizarSpecs = new javax.swing.JLabel();
+        btAtualizarSpecs = new javax.swing.JButton();
+        lbSalvarSpecs = new javax.swing.JLabel();
+        btSalvarSpecs = new javax.swing.JButton();
+        labelsPanel = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
@@ -100,8 +107,6 @@ public class Telas extends javax.swing.JFrame {
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
-        linux = new javax.swing.JLabel();
-        windows = new javax.swing.JLabel();
         lbSistemaOperacional = new javax.swing.JLabel();
         lbVersaoSistemaOperacional = new javax.swing.JLabel();
         lbMarcaComputador = new javax.swing.JLabel();
@@ -303,53 +308,151 @@ public class Telas extends javax.swing.JFrame {
         });
         import_specs.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(818, 0, -1, -1));
 
-        jLabel19.setText("Sistema Operacional:");
-        import_specs.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, -1, -1));
-
-        jLabel20.setText("Versão do Sistema Operacional:");
-        import_specs.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, -1, -1));
-
-        jLabel21.setText("Quantidade de Memória (RAM):");
-        import_specs.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, -1, -1));
-
-        jLabel24.setText("Fabricante");
-        import_specs.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, -1, -1));
-
-        jLabel25.setText("Memória Disponivel:");
-        import_specs.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, -1, -1));
-
-        jLabel26.setText("Processador");
-        import_specs.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, -1, -1));
-
-        jLabel27.setText("Numero de Monitores:");
-        import_specs.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, -1, -1));
-
         linux.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/LinuxLogo.png"))); // NOI18N
         import_specs.add(linux, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 140, 290, 390));
 
         windows.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/winLogo.png"))); // NOI18N
         import_specs.add(windows, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 140, 280, 410));
 
+        lbAtualizarSpecs.setText("Deseja atualizar os dados da sua maquina?");
+        import_specs.add(lbAtualizarSpecs, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, 310, 20));
+
+        btAtualizarSpecs.setBackground(new java.awt.Color(50, 0, 114));
+        btAtualizarSpecs.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btAtualizarSpecs.setForeground(new java.awt.Color(255, 255, 255));
+        btAtualizarSpecs.setText("Atualizar Maquina");
+        btAtualizarSpecs.setBorder(null);
+        btAtualizarSpecs.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btAtualizarSpecs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAtualizarSpecsActionPerformed(evt);
+            }
+        });
+        import_specs.add(btAtualizarSpecs, new org.netbeans.lib.awtextra.AbsoluteConstraints(316, 470, 190, 50));
+
+        lbSalvarSpecs.setText("Deseja salvar as configurações atuais?");
+        import_specs.add(lbSalvarSpecs, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 240, 290, 40));
+
+        btSalvarSpecs.setBackground(new java.awt.Color(50, 0, 114));
+        btSalvarSpecs.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btSalvarSpecs.setForeground(new java.awt.Color(255, 255, 255));
+        btSalvarSpecs.setText("Salvar Maquina");
+        btSalvarSpecs.setBorder(null);
+        btSalvarSpecs.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btSalvarSpecs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSalvarSpecsActionPerformed(evt);
+            }
+        });
+        import_specs.add(btSalvarSpecs, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 400, 146, 50));
+
+        labelsPanel.setBackground(new java.awt.Color(254, 254, 254));
+        labelsPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+
+        jLabel19.setText("Sistema Operacional:");
+
+        jLabel20.setText("Versão do Sistema Operacional:");
+
+        jLabel21.setText("Quantidade de Memória (RAM):");
+
+        jLabel24.setText("Fabricante");
+
+        jLabel25.setText("Memória Disponivel:");
+
+        jLabel26.setText("Processador");
+
+        jLabel27.setText("Numero de Monitores:");
+
         lbSistemaOperacional.setText("Sistema Operacional");
-        import_specs.add(lbSistemaOperacional, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 120, -1, -1));
 
         lbVersaoSistemaOperacional.setText("Versão do Sistema Operacional");
-        import_specs.add(lbVersaoSistemaOperacional, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 160, -1, -1));
 
         lbMarcaComputador.setText("Marca Computador");
-        import_specs.add(lbMarcaComputador, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 280, -1, -1));
 
         lbModeloPlacaMae.setText("Modelo Placa Mãe");
-        import_specs.add(lbModeloPlacaMae, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 320, -1, -1));
 
         lbGhzProcessador.setText("GHz");
-        import_specs.add(lbGhzProcessador, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 240, -1, -1));
 
         lbTotalMemoria.setText("Total de Memória RAM");
-        import_specs.add(lbTotalMemoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 360, -1, -1));
 
         lbQtdMonitores.setText("Quantidade de Monitores");
-        import_specs.add(lbQtdMonitores, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 200, -1, -1));
+
+        javax.swing.GroupLayout labelsPanelLayout = new javax.swing.GroupLayout(labelsPanel);
+        labelsPanel.setLayout(labelsPanelLayout);
+        labelsPanelLayout.setHorizontalGroup(
+            labelsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 458, Short.MAX_VALUE)
+            .addGroup(labelsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(labelsPanelLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(labelsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(labelsPanelLayout.createSequentialGroup()
+                            .addComponent(jLabel19)
+                            .addGap(4, 4, 4)
+                            .addComponent(lbSistemaOperacional))
+                        .addGroup(labelsPanelLayout.createSequentialGroup()
+                            .addComponent(jLabel20)
+                            .addGap(2, 2, 2)
+                            .addComponent(lbVersaoSistemaOperacional))
+                        .addGroup(labelsPanelLayout.createSequentialGroup()
+                            .addComponent(jLabel27)
+                            .addGap(4, 4, 4)
+                            .addComponent(lbQtdMonitores))
+                        .addGroup(labelsPanelLayout.createSequentialGroup()
+                            .addComponent(jLabel26)
+                            .addGap(3, 3, 3)
+                            .addComponent(lbGhzProcessador))
+                        .addGroup(labelsPanelLayout.createSequentialGroup()
+                            .addComponent(jLabel24)
+                            .addGap(16, 16, 16)
+                            .addComponent(lbMarcaComputador))
+                        .addGroup(labelsPanelLayout.createSequentialGroup()
+                            .addComponent(jLabel25)
+                            .addGap(11, 11, 11)
+                            .addComponent(lbModeloPlacaMae))
+                        .addGroup(labelsPanelLayout.createSequentialGroup()
+                            .addComponent(jLabel21)
+                            .addGap(6, 6, 6)
+                            .addComponent(lbTotalMemoria)))
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        labelsPanelLayout.setVerticalGroup(
+            labelsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 288, Short.MAX_VALUE)
+            .addGroup(labelsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(labelsPanelLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(labelsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel19)
+                        .addComponent(lbSistemaOperacional))
+                    .addGap(22, 22, 22)
+                    .addGroup(labelsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel20)
+                        .addComponent(lbVersaoSistemaOperacional))
+                    .addGap(22, 22, 22)
+                    .addGroup(labelsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel27)
+                        .addComponent(lbQtdMonitores))
+                    .addGap(22, 22, 22)
+                    .addGroup(labelsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel26)
+                        .addComponent(lbGhzProcessador))
+                    .addGap(22, 22, 22)
+                    .addGroup(labelsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel24)
+                        .addComponent(lbMarcaComputador))
+                    .addGap(22, 22, 22)
+                    .addGroup(labelsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel25)
+                        .addComponent(lbModeloPlacaMae))
+                    .addGap(22, 22, 22)
+                    .addGroup(labelsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel21)
+                        .addComponent(lbTotalMemoria))
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        import_specs.add(labelsPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 460, 290));
 
         main.add(import_specs, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, -20, 790, 580));
 
@@ -782,25 +885,49 @@ public class Telas extends javax.swing.JFrame {
             main.add(import_specs);
             main.repaint();
             main.revalidate();
+            
+            
+            
         } catch (Exception e) {
             
         }
-        lbSistemaOperacional.setText(specClass.getSistemaOperacional());
-        lbVersaoSistemaOperacional.setText(specClass.getVersaoSistemaOperacional().toString());
+        labelsPanel.setVisible(false);
+        windows.setVisible(false);
+        linux.setVisible(false);
+        btSalvarSpecs.setVisible(false);
+        lbSalvarSpecs.setVisible(false);
+        btAtualizarSpecs.setVisible(false);
+        lbAtualizarSpecs.setVisible(false);
+        try{
+            Boolean isTrue = specClass.verificarMaquina();
+            if(isTrue){
+                lbSistemaOperacional.setText(specClass.getSistemaOperacional());
+                lbVersaoSistemaOperacional.setText(specClass.getVersaoSistemaOperacional().toString());
 
-        lbMarcaComputador.setText(specClass.getMarcaComputador());
-        lbModeloPlacaMae.setText(FormatUtil.formatBytes(specClass.getModeloPlacaMae()));
-       
-        lbGhzProcessador.setText(specClass.getGhzProcessador());
-        lbTotalMemoria.setText(FormatUtil.formatBytes(specClass.getTotalMemoria()));
-        lbQtdMonitores.setText(specClass.getQtdMonitores().toString());
-       
-        if(specClass.getSistemaOperacional().equals("Ubuntu")){
-            linux.setVisible(true);
-            windows.setVisible(false);
-        }else{
-            linux.setVisible(false);
-            windows.setVisible(true);
+                lbMarcaComputador.setText(specClass.getMarcaComputador());
+                lbModeloPlacaMae.setText(FormatUtil.formatBytes(specClass.getModeloPlacaMae()));
+
+                lbGhzProcessador.setText(specClass.getGhzProcessador());
+                lbTotalMemoria.setText(FormatUtil.formatBytes(specClass.getTotalMemoria()));
+                lbQtdMonitores.setText(specClass.getQtdMonitores().toString());
+
+                if(specClass.getSistemaOperacional().equals("Ubuntu")){
+                    linux.setVisible(true);
+                    windows.setVisible(false);
+                }else{
+                    linux.setVisible(false);
+                    windows.setVisible(true);
+                }
+                //exibir specs
+                labelsPanel.setVisible(true);
+                lbAtualizarSpecs.setVisible(true);
+                btAtualizarSpecs.setVisible(true);
+            }else{
+                btSalvarSpecs.setVisible(true);
+                lbSalvarSpecs.setVisible(true);
+            }
+        }catch(Exception e){
+            
         }
     }//GEN-LAST:event_lblSpecsMousePressed
 
@@ -867,6 +994,24 @@ public class Telas extends javax.swing.JFrame {
         }      
     }//GEN-LAST:event_btSalvarProcessosActionPerformed
 
+    private void btSalvarSpecsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarSpecsActionPerformed
+        try{
+            specClass.criarSpecs();
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btSalvarSpecsActionPerformed
+
+    private void btAtualizarSpecsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAtualizarSpecsActionPerformed
+        try{
+            specClass.atualizarSpecs();
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btAtualizarSpecsActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -912,11 +1057,13 @@ public class Telas extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BarraLateral;
     private javax.swing.JPanel CorpoTela;
+    private javax.swing.JButton btAtualizarSpecs;
     private javax.swing.JLabel btFechar;
     private javax.swing.JButton btIn;
     private javax.swing.JButton btOut;
     private javax.swing.JButton btSalvar;
     private javax.swing.JButton btSalvarProcessos;
+    private javax.swing.JButton btSalvarSpecs;
     private javax.swing.JPanel corpoForm;
     private javax.swing.JPanel import_notifi;
     private javax.swing.JPanel import_otimizar;
@@ -947,11 +1094,14 @@ public class Telas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JPanel labelsPanel;
+    private javax.swing.JLabel lbAtualizarSpecs;
     private javax.swing.JLabel lbGhzProcessador;
     private javax.swing.JLabel lbMarcaComputador;
     private javax.swing.JLabel lbModeloPlacaMae;
     private javax.swing.JLabel lbNome;
     private javax.swing.JLabel lbQtdMonitores;
+    private javax.swing.JLabel lbSalvarSpecs;
     private javax.swing.JLabel lbSistemaOperacional;
     private javax.swing.JLabel lbTelefone;
     private javax.swing.JLabel lbTotalMemoria;
