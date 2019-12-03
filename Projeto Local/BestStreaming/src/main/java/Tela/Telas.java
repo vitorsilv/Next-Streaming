@@ -606,6 +606,7 @@ public class Telas extends javax.swing.JFrame {
 
     private void btFecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btFecharMouseClicked
         System.exit(0);
+        
     }//GEN-LAST:event_btFecharMouseClicked
 
     private void lblNotificacoesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNotificacoesMousePressed
@@ -626,6 +627,8 @@ public class Telas extends javax.swing.JFrame {
             main.revalidate();
         } catch (Exception e) {
         }
+        Monitorar monitorar = new Monitorar();
+        monitorar.monitoramento();
     }//GEN-LAST:event_lblNotificacoesMousePressed
 
     private void lblNotificacoesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNotificacoesMouseEntered

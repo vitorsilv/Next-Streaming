@@ -10,6 +10,9 @@ import LoginScreen.LoginClass;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.DecimalFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import oshi.SystemInfo;
 import oshi.hardware.*;
 import oshi.software.os.*;
@@ -18,6 +21,7 @@ import oshi.util.FormatUtil;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JOptionPane;
 import oshi.util.Util;
 
 /**
@@ -45,17 +49,21 @@ public class Monitorar extends LoginClass {
     private double totalRamUsado;
     private double porcentagemBarra;
     //CPU
-    private double user;
-    private double system;
-    private double iowait;
+    private long user;
+    private long system;
+    private long iowait;
     private String tempoDeUso;
     private String cpuName;
     private Double totalUsadoCPU;
+    //HD
+    private double espacoTotal = 0;
+    private double espacoUsavel = 0;
+    private double espacoUsado = 0;
     //DATA
     private Date dataHora;
     
     public Monitorar(){
-        conn = new DatabaseConnection();
+        conn = getConn();
     }
     
     public void monitoramento(){
@@ -63,23 +71,23 @@ public class Monitorar extends LoginClass {
         try{
             procsTotal = Arrays.asList(os.getProcesses(0, OperatingSystem.ProcessSort.MEMORY));
             
-            
-            for(int i = 0; i < procsTotal.size(); i++){
+            usoCPU();
+            usoRAM();
+            usoHD();
+                
+            this.dataHora = new Date();
+            inserirMonitoramento();
+            for(int i = 0; i < 10; i++){
                 
                 oshi.software.os.OSProcess p = procsTotal.get(i);
            
                 this.nomeProcesso = p.getName();
                 this.PID = p.getProcessID();
+                inserirProcessos();
+            }    
                 
-                usoCPU();
-                usoRAM();
-                
-                this.dataHora = new Date();
-                
-                //inserirDados();
-            }
         }catch(Exception e){
-            
+            JOptionPane.showMessageDialog(null, e);
         }
     }
     
@@ -94,9 +102,9 @@ public class Monitorar extends LoginClass {
         
         cpuTicks = cpu.getSystemCpuLoadTicks();
         
-        long user = (cpuTicks[CentralProcessor.TickType.USER.getIndex()] - prevCpuTicks[CentralProcessor.TickType.USER.getIndex()]);
-        long sys = (cpuTicks[CentralProcessor.TickType.SYSTEM.getIndex()] - prevCpuTicks[CentralProcessor.TickType.SYSTEM.getIndex()]);
-        long iowait = (cpuTicks[CentralProcessor.TickType.IOWAIT.getIndex()] - prevCpuTicks[CentralProcessor.TickType.IOWAIT.getIndex()]);
+        user = (cpuTicks[CentralProcessor.TickType.USER.getIndex()] - prevCpuTicks[CentralProcessor.TickType.USER.getIndex()]);
+        system = (cpuTicks[CentralProcessor.TickType.SYSTEM.getIndex()] - prevCpuTicks[CentralProcessor.TickType.SYSTEM.getIndex()]);
+        iowait = (cpuTicks[CentralProcessor.TickType.IOWAIT.getIndex()] - prevCpuTicks[CentralProcessor.TickType.IOWAIT.getIndex()]);
         
         long nice = (cpuTicks[CentralProcessor.TickType.NICE.getIndex()] - prevCpuTicks[CentralProcessor.TickType.NICE.getIndex()]);
         long idle = (cpuTicks[CentralProcessor.TickType.IDLE.getIndex()] - prevCpuTicks[CentralProcessor.TickType.IDLE.getIndex()]);      
@@ -104,13 +112,13 @@ public class Monitorar extends LoginClass {
         long softirq = (cpuTicks[CentralProcessor.TickType.SOFTIRQ.getIndex()] - prevCpuTicks[CentralProcessor.TickType.SOFTIRQ.getIndex()]);
         long steal = (cpuTicks[CentralProcessor.TickType.STEAL.getIndex()] - prevCpuTicks[CentralProcessor.TickType.STEAL.getIndex()]);
         
-        long totalcpu = user + nice + sys + idle + iowait + irq + softirq + steal;
+        long totalcpu = user + nice + system + idle + iowait + irq + softirq + steal;
         
-        this.user = (100d * user) / totalcpu;
-        this.system = (100d * sys) / totalcpu;
-        this.iowait = (100d * iowait) / totalcpu;
+        this.user =   (100 * user) / totalcpu;
+        this.system = (100 * system) / totalcpu;
+        this.iowait = (100 * iowait) / totalcpu;
         
-        totalUsadoCPU = (100d * (user + sys + iowait)) / totalcpu;
+        totalUsadoCPU =   (100d * (user + system + iowait)) / totalcpu;
         
         dataHora = new Date();
         
@@ -126,6 +134,22 @@ public class Monitorar extends LoginClass {
         this.porcentagemBarra = (100d * totalRamUsado) / totalDisponivel;
         
         this.dataHora = new Date();
+        
+    }
+    
+    private void usoHD(){        
+        OSFileStore[] teste = fs.getFileStores();
+        
+        for (OSFileStore teste1 : teste) {
+            espacoTotal += teste1.getTotalSpace();
+            espacoUsavel += teste1.getUsableSpace();
+        }
+        
+        espacoTotal = (((espacoTotal/1024)/1024)/1024);
+        espacoUsavel = (((espacoUsavel/1024)/1024)/1024);
+        espacoUsado = espacoTotal-espacoUsavel;
+        
+        dataHora = new Date();
         
     }
     
@@ -146,17 +170,71 @@ public class Monitorar extends LoginClass {
         }
     }
     
-    public Boolean inserirDados(){
+    private Boolean inserirMonitoramento(){
         Connection connection = conn.getConnection();
 
-        String selectSql = "INSERT INTO monitoramento ('pid','nomeProcesso') "
-                + "values ('"+this.PID+"', '"+this.nomeProcesso+"')";
-            
+        String sql = "INSERT INTO monitoramento (cpu, ram, disco, dataHora, idMaquina) "
+                + "values (?,?,?,?,?)";
+         
         try {
-            PreparedStatement ps = connection.prepareStatement(selectSql);
+            PreparedStatement ps = connection.prepareStatement(sql);
+            
+            Object dataSql = new java.sql.Timestamp(this.dataHora.getTime());
+            
+            ps.setDouble(1, this.totalUsadoCPU);
+            ps.setDouble(2, this.totalRamUsado);
+            ps.setDouble(3, this.espacoUsado);
+            ps.setObject(4, dataSql);
+            ps.setInt(5, getIdMaquina());
+            
+            ps.execute();
             return true;
         }catch (Exception e) {
             e.printStackTrace();
+            JOptionPane.showMessageDialog(null, e);
+            return false;
+        }
+    }
+    
+    private Boolean inserirProcessos(){
+        Connection connection = conn.getConnection();
+        
+        String selectSql = "SELECT TOP 1 idMonitoramento FROM monitoramento "
+                + "WHERE idMaquina="+getIdMaquina()+" ORDER BY idMonitoramento DESC";
+        
+        String selectProcessosBlack = "SELECT nomeProcesso FROM processos "
+                + "WHERE idMaquina="+getIdMaquina()+" AND blackList=1";
+        
+        String insert = "INSERT INTO processos (pid, nomeProcesso, idMaquina, idMonitoramento, blackList) "
+                + "values (?, ?, ?, ?, ?)";    
+        try {
+            //SELECT DO ULTIMO MONITORAMENTO
+            PreparedStatement ps = connection.prepareStatement(selectSql);
+            ResultSet rs = ps.executeQuery();
+            //PROCESSOS EM BLACKLIST
+            PreparedStatement psProc = connection.prepareStatement(selectProcessosBlack);
+            ResultSet rsProc = psProc.executeQuery();
+            //INSERINDO PROCESSOS
+            PreparedStatement psInsert = connection.prepareStatement(insert);
+            psInsert.setInt(1, this.PID);
+            psInsert.setString(2, this.nomeProcesso);
+            psInsert.setInt(3, getIdMaquina());
+            while(rs.next()){
+                psInsert.setInt(4, rs.getInt("idMonitoramento"));
+            }
+            while(rsProc.next()){
+                if(rsProc.getString("nomeProcesso").equals(this.nomeProcesso)){
+                    psInsert.setInt(5, 1);
+                }else{
+                    psInsert.setInt(5, 0);
+                }
+            }
+            
+            psInsert.execute();
+            return true;
+        }catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, e);
             return false;
         }
     }
