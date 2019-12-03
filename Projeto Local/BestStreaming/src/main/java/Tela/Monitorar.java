@@ -7,6 +7,7 @@ package Tela;
 
 import Database.DatabaseConnection;
 import LoginScreen.LoginClass;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -62,11 +63,11 @@ public class Monitorar extends LoginClass {
     //DATA
     private Date dataHora;
     
-    public Monitorar(){
+    public Monitorar() throws IOException{
         conn = getConn();
     }
     
-    public void monitoramento(){
+    public void monitoramento() throws IOException{
         //Pegar os 10 primeiros dados de processos de acordo com a memoria
         try{
             procsTotal = Arrays.asList(os.getProcesses(0, OperatingSystem.ProcessSort.MEMORY));
@@ -76,84 +77,95 @@ public class Monitorar extends LoginClass {
             usoHD();
                 
             this.dataHora = new Date();
-            inserirMonitoramento();
-            for(int i = 0; i < 10; i++){
-                
-                oshi.software.os.OSProcess p = procsTotal.get(i);
-           
-                this.nomeProcesso = p.getName();
-                this.PID = p.getProcessID();
-                inserirProcessos();
-            }    
+            Boolean isSaved = inserirMonitoramento();
+            if(isSaved){
+                for(int i = 0; i < 10; i++){
+
+                    oshi.software.os.OSProcess p = procsTotal.get(i);
+
+                    this.nomeProcesso = p.getName();
+                    this.PID = p.getProcessID();
+                    inserirProcessos();
+                }
+            }
                 
         }catch(Exception e){
+            GeracaoLog.GerarLog.GravarLog("Erro no monitoramento: "+e.getMessage());
             JOptionPane.showMessageDialog(null, e);
         }
     }
     
-    private void usoCPU(){
-        
-        cpuName = cpu.getName();
-        
-        long[] cpuTicks;
-        long[] prevCpuTicks;
-        prevCpuTicks = cpu.getSystemCpuLoadTicks();
-        Util.sleep(5000);
-        
-        cpuTicks = cpu.getSystemCpuLoadTicks();
-        
-        user = (cpuTicks[CentralProcessor.TickType.USER.getIndex()] - prevCpuTicks[CentralProcessor.TickType.USER.getIndex()]);
-        system = (cpuTicks[CentralProcessor.TickType.SYSTEM.getIndex()] - prevCpuTicks[CentralProcessor.TickType.SYSTEM.getIndex()]);
-        iowait = (cpuTicks[CentralProcessor.TickType.IOWAIT.getIndex()] - prevCpuTicks[CentralProcessor.TickType.IOWAIT.getIndex()]);
-        
-        long nice = (cpuTicks[CentralProcessor.TickType.NICE.getIndex()] - prevCpuTicks[CentralProcessor.TickType.NICE.getIndex()]);
-        long idle = (cpuTicks[CentralProcessor.TickType.IDLE.getIndex()] - prevCpuTicks[CentralProcessor.TickType.IDLE.getIndex()]);      
-        long irq = (cpuTicks[CentralProcessor.TickType.IRQ.getIndex()] - prevCpuTicks[CentralProcessor.TickType.IRQ.getIndex()]);
-        long softirq = (cpuTicks[CentralProcessor.TickType.SOFTIRQ.getIndex()] - prevCpuTicks[CentralProcessor.TickType.SOFTIRQ.getIndex()]);
-        long steal = (cpuTicks[CentralProcessor.TickType.STEAL.getIndex()] - prevCpuTicks[CentralProcessor.TickType.STEAL.getIndex()]);
-        
-        long totalcpu = user + nice + system + idle + iowait + irq + softirq + steal;
-        
-        this.user =   (100 * user) / totalcpu;
-        this.system = (100 * system) / totalcpu;
-        this.iowait = (100 * iowait) / totalcpu;
-        
-        totalUsadoCPU =   (100d * (user + system + iowait)) / totalcpu;
-        
-        dataHora = new Date();
-        
+    private void usoCPU() throws IOException{
+        try{
+            cpuName = cpu.getName();
+
+            long[] cpuTicks;
+            long[] prevCpuTicks;
+            prevCpuTicks = cpu.getSystemCpuLoadTicks();
+            Util.sleep(5000);
+
+            cpuTicks = cpu.getSystemCpuLoadTicks();
+
+            user = (cpuTicks[CentralProcessor.TickType.USER.getIndex()] - prevCpuTicks[CentralProcessor.TickType.USER.getIndex()]);
+            system = (cpuTicks[CentralProcessor.TickType.SYSTEM.getIndex()] - prevCpuTicks[CentralProcessor.TickType.SYSTEM.getIndex()]);
+            iowait = (cpuTicks[CentralProcessor.TickType.IOWAIT.getIndex()] - prevCpuTicks[CentralProcessor.TickType.IOWAIT.getIndex()]);
+
+            long nice = (cpuTicks[CentralProcessor.TickType.NICE.getIndex()] - prevCpuTicks[CentralProcessor.TickType.NICE.getIndex()]);
+            long idle = (cpuTicks[CentralProcessor.TickType.IDLE.getIndex()] - prevCpuTicks[CentralProcessor.TickType.IDLE.getIndex()]);      
+            long irq = (cpuTicks[CentralProcessor.TickType.IRQ.getIndex()] - prevCpuTicks[CentralProcessor.TickType.IRQ.getIndex()]);
+            long softirq = (cpuTicks[CentralProcessor.TickType.SOFTIRQ.getIndex()] - prevCpuTicks[CentralProcessor.TickType.SOFTIRQ.getIndex()]);
+            long steal = (cpuTicks[CentralProcessor.TickType.STEAL.getIndex()] - prevCpuTicks[CentralProcessor.TickType.STEAL.getIndex()]);
+
+            long totalcpu = user + nice + system + idle + iowait + irq + softirq + steal;
+
+            this.user =   (100 * user) / totalcpu;
+            this.system = (100 * system) / totalcpu;
+            this.iowait = (100 * iowait) / totalcpu;
+
+            totalUsadoCPU =   (100d * (user + system + iowait)) / totalcpu;
+
+            dataHora = new Date();
+        }catch(Exception e){
+            GeracaoLog.GerarLog.GravarLog("Erro ao pegar dados da CPU: "+e.getMessage());
+        }
     }
     
-    private void usoRAM(){
-        
-        
-        this.totalDisponivel = memory.getTotal();
-        double ramLivre = memory.getAvailable();
-        this.totalRamUsado = totalDisponivel - ramLivre;
-        
-        this.porcentagemBarra = (100d * totalRamUsado) / totalDisponivel;
-        
-        this.dataHora = new Date();
-        
-    }
-    
-    private void usoHD(){        
-        OSFileStore[] teste = fs.getFileStores();
-        
-        for (OSFileStore teste1 : teste) {
-            espacoTotal += teste1.getTotalSpace();
-            espacoUsavel += teste1.getUsableSpace();
+    private void usoRAM() throws IOException{
+        try{
+            this.totalDisponivel = memory.getTotal();
+            double ramLivre = memory.getAvailable();
+            this.totalRamUsado = totalDisponivel - ramLivre;
+
+            this.porcentagemBarra = (100d * totalRamUsado) / totalDisponivel;
+
+            this.dataHora = new Date();
+        }catch(Exception e){
+            GeracaoLog.GerarLog.GravarLog("Erro ao pegar dados de RAM: "+e.getMessage());
         }
         
-        espacoTotal = (((espacoTotal/1024)/1024)/1024);
-        espacoUsavel = (((espacoUsavel/1024)/1024)/1024);
-        espacoUsado = espacoTotal-espacoUsavel;
-        
-        dataHora = new Date();
+    }
+    
+    private void usoHD() throws IOException{
+        try{
+            OSFileStore[] teste = fs.getFileStores();
+
+            for (OSFileStore teste1 : teste) {
+                espacoTotal += teste1.getTotalSpace();
+                espacoUsavel += teste1.getUsableSpace();
+            }
+
+            espacoTotal = (((espacoTotal/1024)/1024)/1024);
+            espacoUsavel = (((espacoUsavel/1024)/1024)/1024);
+            espacoUsado = espacoTotal-espacoUsavel;
+
+            dataHora = new Date();
+        }catch(Exception e){
+            GeracaoLog.GerarLog.GravarLog("Erro ao pegar dados de HD: "+e.getMessage());
+        }
         
     }
     
-    protected void processosAtivos(){
+    protected void processosAtivos() throws IOException{
         try{
             procsTotal = Arrays.asList(os.getProcesses(0, OperatingSystem.ProcessSort.MEMORY));
             
@@ -166,11 +178,11 @@ public class Monitorar extends LoginClass {
                 this.PID = p.getProcessID();
             }
         }catch(Exception e){
-            
+            GeracaoLog.GerarLog.GravarLog("Erro ao pegar processos ativos: "+e.getMessage());
         }
     }
     
-    private Boolean inserirMonitoramento(){
+    private Boolean inserirMonitoramento() throws IOException{
         Connection connection = conn.getConnection();
 
         String sql = "INSERT INTO monitoramento (cpu, ram, disco, dataHora, idMaquina) "
@@ -191,12 +203,12 @@ public class Monitorar extends LoginClass {
             return true;
         }catch (Exception e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, e);
+            GeracaoLog.GerarLog.GravarLog("Erro ao inserir monitoramento: "+e.getMessage());
             return false;
         }
     }
     
-    private Boolean inserirProcessos(){
+    private Boolean inserirProcessos() throws IOException{
         Connection connection = conn.getConnection();
         
         String selectSql = "SELECT TOP 1 idMonitoramento FROM monitoramento "
@@ -234,7 +246,7 @@ public class Monitorar extends LoginClass {
             return true;
         }catch (Exception e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, e);
+            GeracaoLog.GerarLog.GravarLog("Erro ao inserir processos: "+e.getMessage());
             return false;
         }
     }

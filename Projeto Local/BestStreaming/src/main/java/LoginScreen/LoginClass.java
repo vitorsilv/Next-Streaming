@@ -3,6 +3,7 @@ package LoginScreen;
 
 import Database.DatabaseConnection;
 import Tela.Telas;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
@@ -17,14 +18,14 @@ public class LoginClass extends Login{
     static Database.DatabaseConnection conn;
     static Integer idStreamer;
     static Integer idMaquina;
-    public LoginClass(){
+    public LoginClass() throws IOException{
 
         conn = new DatabaseConnection();
         
         conn.openConnection();
     }
     
-    public boolean logar(String email, String senha){
+    public boolean logar(String email, String senha) throws IOException{
         Connection connection = conn.getConnection();
         
         String selectSql = "SELECT * FROM streamer "
@@ -43,7 +44,7 @@ public class LoginClass extends Login{
                 return false;
             }     
         }catch (Exception e) {
-            e.printStackTrace();
+            GeracaoLog.GerarLog.GravarLog("Erro ao logar: "+e.getMessage());
             return false;
         }
     }

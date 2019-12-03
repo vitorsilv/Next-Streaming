@@ -7,6 +7,9 @@ package SpecScreen;
 
 import Tela.SpecClass;
 import InitScreen.*;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import oshi.util.FormatUtil;
 
 /**
@@ -14,11 +17,12 @@ import oshi.util.FormatUtil;
  * @author carlo
  */
 public class Specs extends javax.swing.JFrame {
-    SpecClass specClass = new SpecClass();
+    SpecClass specClass;
     /**
      * Creates new form Init
      */
-    public Specs() {
+    public Specs() throws IOException {
+        this.specClass = new SpecClass();
         initComponents();
        
        lbSistemaOperacional.setText(specClass.getSistemaOperacional());
@@ -430,7 +434,11 @@ public class Specs extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Specs().setVisible(true);
+                try {
+                    new Specs().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(Specs.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

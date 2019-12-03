@@ -13,6 +13,7 @@ import java.awt.Color;
 import java.util.*;
 import oshi.util.FormatUtil;
 import Placeholders.TextPrompt;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,6 +21,10 @@ import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -32,15 +37,34 @@ public class Telas extends javax.swing.JFrame {
      */
     String active = "lblNotificacoes";
     SpecClass specClass = new SpecClass();
-    DadosProcessos dp = new DadosProcessos(10);
     DefaultListModel listModelProcessos = new DefaultListModel();
     DefaultListModel listModelBlack = new DefaultListModel();
     
-    public Telas() {
+    Timer timer = new Timer();
+    Monitorar monitorar;
+    public Telas() throws IOException {
+        this.monitorar = new Monitorar();
+        inicializacao();
         initComponents();
         TextPrompt log = new TextPrompt("Nome Usuário",txtnome_usuario);
+        
     }
     
+    public void inicializacao() throws IOException {
+        monitorar.monitoramento();
+        
+        timer.schedule(new RemindTask(), 5*1000);
+    }
+
+    class RemindTask extends TimerTask {
+        public void run() {
+            try {
+                inicializacao();
+            } catch (IOException ex) {
+                Logger.getLogger(Telas.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -627,8 +651,7 @@ public class Telas extends javax.swing.JFrame {
             main.revalidate();
         } catch (Exception e) {
         }
-        Monitorar monitorar = new Monitorar();
-        monitorar.monitoramento();
+        
     }//GEN-LAST:event_lblNotificacoesMousePressed
 
     private void lblNotificacoesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNotificacoesMouseEntered
@@ -705,20 +728,23 @@ public class Telas extends javax.swing.JFrame {
             main.repaint();
             main.revalidate();
         } catch (Exception e) {
+            
         }
         
-        Monitorar monitorar = new Monitorar();
+        try{
         monitorar.processosAtivos();
         
         OtimizarProcessos otm = new OtimizarProcessos();
         listModelBlack = otm.blackListBanco();
         for(int i = 0; i < monitorar.procsTotal.size(); i++){
             oshi.software.os.OSProcess p = monitorar.procsTotal.get(i);
-            listModelProcessos.addElement(p.getProcessID()+" - "+p.getName());
-            //System.out.println(i+" -  PID - "+p.getProcessID()+" - Nome: "+p.getName()); 
+            listModelProcessos.addElement(p.getProcessID()+" - "+p.getName()); 
         }
         listProcessos.setModel(listModelProcessos);
         listBlack.setModel(listModelBlack);
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Erro, verifique os logs"+e);
+        }
     }//GEN-LAST:event_lblOtimizarMousePressed
 
     private void lblRelatoriosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRelatoriosMousePressed
@@ -874,7 +900,11 @@ public class Telas extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Telas().setVisible(true);
+                try {
+                    new Telas().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(Telas.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

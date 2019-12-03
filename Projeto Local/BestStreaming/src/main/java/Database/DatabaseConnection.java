@@ -5,6 +5,7 @@
  */
 package Database;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -16,7 +17,7 @@ import java.sql.Statement;
  */
 public class DatabaseConnection {
     protected static Connection connection = null;
-    public static void openConnection(){
+    public static void openConnection() throws IOException{
         try{
             String url = String.format("jdbc:sqlserver://banco01191117.database.windows.net:1433;"
                     + "database=Banco01191117;user=Gustavo01191117@banco01191117;"
@@ -27,15 +28,16 @@ public class DatabaseConnection {
             System.out.println("Conectado com sucesso");
             
         }catch(Exception e){
+            GeracaoLog.GerarLog.GravarLog("Erro ao abrir a pool de Banco de Dados: "+e.getMessage());
             e.printStackTrace();
         }
     }
-    public static void closeConnection(){
+    public static void closeConnection() throws IOException{
         try{
             connection.close();
             System.out.println("Conexão fechada!");
         }catch(Exception e){
-            
+            GeracaoLog.GerarLog.GravarLog("Erro ao fechar a pool de Banco de Dados: "+e.getMessage());
         }
     }
 
