@@ -10,7 +10,7 @@
     "chart.js": "^2.9.2",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
-    "express": "~4.16.1",
+    "express": "^4.16.4",
     "moment": "^2.24.0",
     "morgan": "~1.9.1",
     "nodemon": "^1.19.4"
