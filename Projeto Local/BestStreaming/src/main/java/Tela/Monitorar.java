@@ -63,6 +63,8 @@ public class Monitorar extends LoginClass {
     //DATA
     private Date dataHora;
     
+    DecimalFormat df = new DecimalFormat("#.00");
+    
     public Monitorar() throws IOException{
         conn = getConn();
     }
@@ -128,7 +130,10 @@ public class Monitorar extends LoginClass {
             this.iowait = (100 * iowait) / totalcpu;
 
             totalUsadoCPU =   (100d * (user + system + iowait)) / totalcpu;
-
+            
+            
+            this.totalUsadoCPU = Double.valueOf(df.format(this.totalUsadoCPU));
+            
             dataHora = new Date();
         }catch(Exception e){
             GeracaoLog.GerarLog.GravarLog("Erro ao pegar dados da CPU: "+e.getMessage());
@@ -139,10 +144,12 @@ public class Monitorar extends LoginClass {
         try{
             this.totalDisponivel = memory.getTotal();
             double ramLivre = memory.getAvailable();
-            this.totalRamUsado = totalDisponivel - ramLivre;
+            this.totalRamUsado = (totalDisponivel - ramLivre)/1000000000;
 
             this.porcentagemBarra = (100d * totalRamUsado) / totalDisponivel;
-
+            
+            this.totalRamUsado = Double.valueOf(df.format(this.totalRamUsado));
+                    
             this.dataHora = new Date();
         }catch(Exception e){
             GeracaoLog.GerarLog.GravarLog("Erro ao pegar dados de RAM: "+e.getMessage());
@@ -162,6 +169,9 @@ public class Monitorar extends LoginClass {
             espacoTotal = (((espacoTotal/1024)/1024)/1024);
             espacoUsavel = (((espacoUsavel/1024)/1024)/1024);
             espacoUsado = espacoTotal-espacoUsavel;
+            
+            
+            this.espacoUsado = Double.valueOf(df.format(this.espacoUsado));
 
             dataHora = new Date();
         }catch(Exception e){
@@ -239,12 +249,16 @@ public class Monitorar extends LoginClass {
             while(rs.next()){
                 psInsert.setInt(4, rs.getInt("idMonitoramento"));
             }
-            while(rsProc.next()){
-                if(rsProc.getString("nomeProcesso").equals(this.nomeProcesso)){
-                    psInsert.setInt(5, 1);
-                }else{
-                    psInsert.setInt(5, 0);
+            if(rsProc.next()){
+                while(rsProc.next()){
+                    if(rsProc.getString("nomeProcesso").equals(this.nomeProcesso)){
+                        psInsert.setInt(5, 1);
+                    }else{
+                        psInsert.setInt(5, 0);
+                    }
                 }
+            }else{
+                psInsert.setInt(5, 0);
             }
             
             psInsert.execute();

@@ -91,13 +91,12 @@ public class SpecClass extends LoginClass {
             ps.setString(4, getSistemaOperacional());
             ps.setInt(5, getQtdMonitores());
             ps.setString(6, getGhzProcessador());
-            ps.setString(7, getFabricanteComputador());
+            ps.setString(7, getMarcaComputador());
             ps.setInt(8, getIdStreamer());
                 
             ps.execute();
                 
-            JOptionPane.showMessageDialog(null, "Inserido com sucesso"); 
-            JOptionPane.showMessageDialog(null, "CHEGUEI AQUIII");
+            JOptionPane.showMessageDialog(null, "Inserido com sucesso");
         }catch(Exception e){
             GeracaoLog.GerarLog.GravarLog("Erro ao atulaizar specs: "+e.getMessage());
         }
@@ -110,9 +109,9 @@ public class SpecClass extends LoginClass {
             Connection connection = conn.getConnection();
             
             
-            String insertSql = "UPDATATE maquina "
-                    + "SET cpu=?, ram=?, disco=?, sistemaOperacional=?, qtdMonitores=?, infoProcessador=?, fabricanteMaquina=? "
-            + "WHERE idStreamer=?";
+            String insertSql = "UPDATE maquina "
+                    + "SET cpu = ?, ram = ?, disco = ?, sistemaOperacional = ?, qtdMonitores = ?, infoProcessador = ?, fabricanteMaquina = ? "
+            + "WHERE idStreamer = ?";
            
             PreparedStatement ps = connection.prepareStatement(insertSql);
             ps.setDouble(1, getFrequenciaTotal());
@@ -121,7 +120,7 @@ public class SpecClass extends LoginClass {
             ps.setString(4, getSistemaOperacional());
             ps.setInt(5, getQtdMonitores());
             ps.setString(6, getGhzProcessador());
-            ps.setString(7, getFabricanteComputador());
+            ps.setString(7, getMarcaComputador());
             ps.setInt(8, getIdStreamer());
                 
             ps.execute();
@@ -187,8 +186,8 @@ public class SpecClass extends LoginClass {
     
     public Double getFrequenciaTotal(){
         String auxiliar[] = this.frequenciaTotal.split(" ");
-        
-        return Double.valueOf(auxiliar[0]);
+        String resposta = auxiliar[0].replaceAll(",",".");
+        return Double.valueOf(resposta);
     }
     
     public String getDiscoTotal(){
