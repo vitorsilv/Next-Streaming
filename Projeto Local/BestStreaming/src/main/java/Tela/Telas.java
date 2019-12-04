@@ -42,6 +42,16 @@ public class Telas extends javax.swing.JFrame {
     Timer timer = new Timer();
     Monitorar monitorar;
     public Telas() throws IOException {
+        try {
+            main.removeAll();
+            main.repaint();
+            main.revalidate();
+            main.add(import_notifi);
+            main.repaint();
+            main.revalidate(); 
+        } catch (Exception e) {
+            
+        }
         this.monitorar = new Monitorar();
         inicializacao();
         initComponents();
@@ -122,21 +132,12 @@ public class Telas extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         txtnome_usuario = new javax.swing.JTextField();
         BarraLateral = new javax.swing.JPanel();
-        lblNotificacoes = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
         lblOtimizar = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        lblRelatorios = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
         lblSpecs = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        lblPerfil = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
         logoBest = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -509,48 +510,6 @@ public class Telas extends javax.swing.JFrame {
         BarraLateral.setBackground(new java.awt.Color(50, 0, 114));
         BarraLateral.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblNotificacoes.setBackground(new java.awt.Color(66, 3, 155));
-        lblNotificacoes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        lblNotificacoes.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblNotificacoesMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblNotificacoesMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                lblNotificacoesMousePressed(evt);
-            }
-        });
-
-        jLabel4.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(253, 204, 52));
-        jLabel4.setText("Notificações");
-
-        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/jingle.png"))); // NOI18N
-
-        javax.swing.GroupLayout lblNotificacoesLayout = new javax.swing.GroupLayout(lblNotificacoes);
-        lblNotificacoes.setLayout(lblNotificacoesLayout);
-        lblNotificacoesLayout.setHorizontalGroup(
-            lblNotificacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(lblNotificacoesLayout.createSequentialGroup()
-                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
-                .addContainerGap(86, Short.MAX_VALUE))
-        );
-        lblNotificacoesLayout.setVerticalGroup(
-            lblNotificacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(lblNotificacoesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel4)
-                .addContainerGap(17, Short.MAX_VALUE))
-            .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
-        BarraLateral.add(lblNotificacoes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 248, 50));
-
         lblOtimizar.setBackground(new java.awt.Color(66, 3, 155));
         lblOtimizar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblOtimizar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -594,48 +553,6 @@ public class Telas extends javax.swing.JFrame {
 
         BarraLateral.add(lblOtimizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 248, 50));
 
-        lblRelatorios.setBackground(new java.awt.Color(66, 3, 155));
-        lblRelatorios.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        lblRelatorios.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblRelatoriosMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblRelatoriosMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                lblRelatoriosMousePressed(evt);
-            }
-        });
-
-        jLabel8.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(253, 204, 52));
-        jLabel8.setText("Gerar Relatórios");
-
-        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/sheet.png"))); // NOI18N
-
-        javax.swing.GroupLayout lblRelatoriosLayout = new javax.swing.GroupLayout(lblRelatorios);
-        lblRelatorios.setLayout(lblRelatoriosLayout);
-        lblRelatoriosLayout.setHorizontalGroup(
-            lblRelatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, lblRelatoriosLayout.createSequentialGroup()
-                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel8)
-                .addContainerGap(51, Short.MAX_VALUE))
-        );
-        lblRelatoriosLayout.setVerticalGroup(
-            lblRelatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(lblRelatoriosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel8)
-                .addContainerGap(17, Short.MAX_VALUE))
-            .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
-        BarraLateral.add(lblRelatorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 248, 50));
-
         lblSpecs.setBackground(new java.awt.Color(66, 3, 155));
         lblSpecs.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblSpecs.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -676,52 +593,15 @@ public class Telas extends javax.swing.JFrame {
             .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        BarraLateral.add(lblSpecs, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 248, 50));
-
-        lblPerfil.setBackground(new java.awt.Color(66, 3, 155));
-        lblPerfil.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        lblPerfil.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblPerfilMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblPerfilMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                lblPerfilMousePressed(evt);
-            }
-        });
-
-        jLabel6.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(253, 204, 52));
-        jLabel6.setText("Meu Perfil");
-
-        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/user_1.png"))); // NOI18N
-
-        javax.swing.GroupLayout lblPerfilLayout = new javax.swing.GroupLayout(lblPerfil);
-        lblPerfil.setLayout(lblPerfilLayout);
-        lblPerfilLayout.setHorizontalGroup(
-            lblPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, lblPerfilLayout.createSequentialGroup()
-                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6)
-                .addContainerGap(105, Short.MAX_VALUE))
-        );
-        lblPerfilLayout.setVerticalGroup(
-            lblPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(lblPerfilLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel6)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
-        BarraLateral.add(lblPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 400, 248, 50));
+        BarraLateral.add(lblSpecs, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 248, 50));
 
         logoBest.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         logoBest.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/BSp.png"))); // NOI18N
+        logoBest.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                logoBestMousePressed(evt);
+            }
+        });
         BarraLateral.add(logoBest, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 162, 82));
 
         getContentPane().add(BarraLateral, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 620));
@@ -735,40 +615,6 @@ public class Telas extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btFecharMouseClicked
 
-    private void lblNotificacoesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNotificacoesMousePressed
-        active = "lblNotificacoes";
-
-        
-        lblNotificacoes.setBackground(new Color(37, 13, 65));
-        lblOtimizar.setBackground(new Color(66, 3, 155));
-        lblRelatorios.setBackground(new Color(66, 3, 155));
-        lblSpecs.setBackground(new Color(66, 3, 155));
-        lblPerfil.setBackground(new Color(66, 3, 155));
-        try {
-            main.removeAll();
-            main.repaint();
-            main.revalidate();
-            main.add(import_notifi);
-            main.repaint();
-            main.revalidate();
-        } catch (Exception e) {
-        }
-        
-    }//GEN-LAST:event_lblNotificacoesMousePressed
-
-    private void lblNotificacoesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNotificacoesMouseEntered
-
-        lblNotificacoes.setBackground(new Color(37, 13, 65));
-
-
-    }//GEN-LAST:event_lblNotificacoesMouseEntered
-
-    private void lblNotificacoesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNotificacoesMouseExited
-        if (!(active.equalsIgnoreCase("lblNotificacoes"))) {
-            lblNotificacoes.setBackground(new Color(66, 3, 155));
-        }
-    }//GEN-LAST:event_lblNotificacoesMouseExited
-
     private void lblOtimizarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblOtimizarMouseEntered
         lblOtimizar.setBackground(new Color(37, 13, 65));
     }//GEN-LAST:event_lblOtimizarMouseEntered
@@ -778,16 +624,6 @@ public class Telas extends javax.swing.JFrame {
             lblOtimizar.setBackground(new Color(66, 3, 155));
         }
     }//GEN-LAST:event_lblOtimizarMouseExited
-
-    private void lblRelatoriosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRelatoriosMouseEntered
-        lblRelatorios.setBackground(new Color(37, 13, 65));
-    }//GEN-LAST:event_lblRelatoriosMouseEntered
-
-    private void lblRelatoriosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRelatoriosMouseExited
-        if (!(active.equalsIgnoreCase("lblRelatorios"))) {
-            lblRelatorios.setBackground(new Color(66, 3, 155));
-        }
-    }//GEN-LAST:event_lblRelatoriosMouseExited
 
     private void lblSpecsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSpecsMouseEntered
         lblSpecs.setBackground(new Color(37, 13, 65));
@@ -799,16 +635,6 @@ public class Telas extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_lblSpecsMouseExited
 
-    private void lblPerfilMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPerfilMouseEntered
-        lblPerfil.setBackground(new Color(37, 13, 65));
-    }//GEN-LAST:event_lblPerfilMouseEntered
-
-    private void lblPerfilMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPerfilMouseExited
-        if (!(active.equalsIgnoreCase("lblPerfil"))) {
-            lblPerfil.setBackground(new Color(66, 3, 155));
-        }
-    }//GEN-LAST:event_lblPerfilMouseExited
-
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
 
     }//GEN-LAST:event_formWindowOpened
@@ -817,11 +643,8 @@ public class Telas extends javax.swing.JFrame {
         active = "lblOtimizar";
 
        
-        lblNotificacoes.setBackground(new Color(66, 3, 155));
         lblOtimizar.setBackground(new Color(37, 13, 65));
-        lblRelatorios.setBackground(new Color(66, 3, 155));
         lblSpecs.setBackground(new Color(66, 3, 155));
-        lblPerfil.setBackground(new Color(66, 3, 155));
         try {
             main.removeAll();
             main.repaint();
@@ -849,34 +672,11 @@ public class Telas extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_lblOtimizarMousePressed
 
-    private void lblRelatoriosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRelatoriosMousePressed
-        active = "lblRelatorios";
-      
-        lblNotificacoes.setBackground(new Color(66, 3, 155));
-        lblOtimizar.setBackground(new Color(66, 3, 155));
-        lblRelatorios.setBackground(new Color(37, 13, 65));
-        lblSpecs.setBackground(new Color(66, 3, 155));
-        lblPerfil.setBackground(new Color(66, 3, 155));
-        try {
-            main.removeAll();
-            main.repaint();
-            main.revalidate();
-            main.add(import_relatorios);
-            main.repaint();
-            main.revalidate();
-        } catch (Exception e) {
-        }
-    }//GEN-LAST:event_lblRelatoriosMousePressed
-
     private void lblSpecsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSpecsMousePressed
         active = "lblSpecs";
         
-      
-        lblNotificacoes.setBackground(new Color(66, 3, 155));
         lblOtimizar.setBackground(new Color(66, 3, 155));
-        lblRelatorios.setBackground(new Color(66, 3, 155));
         lblSpecs.setBackground(new Color(37, 13, 65));
-        lblPerfil.setBackground(new Color(66, 3, 155));
         try {
             main.removeAll();
             main.repaint();
@@ -933,25 +733,6 @@ public class Telas extends javax.swing.JFrame {
             
         }
     }//GEN-LAST:event_lblSpecsMousePressed
-
-    private void lblPerfilMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPerfilMousePressed
-        active = "lblPerfil";
-       
-        lblNotificacoes.setBackground(new Color(66, 3, 155));
-        lblOtimizar.setBackground(new Color(66, 3, 155));
-        lblRelatorios.setBackground(new Color(66, 3, 155));
-        lblSpecs.setBackground(new Color(66, 3, 155));
-        lblPerfil.setBackground(new Color(37, 13, 65));
-        try {
-            main.removeAll();
-            main.repaint();
-            main.revalidate();
-            main.add(import_perfil);
-            main.repaint();
-            main.revalidate();
-        } catch (Exception e) {
-        }
-    }//GEN-LAST:event_lblPerfilMousePressed
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
 
@@ -1015,6 +796,22 @@ public class Telas extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btAtualizarSpecsActionPerformed
 
+    private void logoBestMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoBestMousePressed
+        try {
+            main.removeAll();
+            main.repaint();
+            main.revalidate();
+            main.add(import_notifi);
+            main.repaint();
+            main.revalidate();
+            
+            
+            
+        } catch (Exception e) {
+            
+        }
+    }//GEN-LAST:event_logoBestMousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -1074,11 +871,8 @@ public class Telas extends javax.swing.JFrame {
     private javax.swing.JPanel import_relatorios;
     private javax.swing.JPanel import_specs;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
@@ -1090,11 +884,8 @@ public class Telas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JPanel labelsPanel;
@@ -1109,10 +900,7 @@ public class Telas extends javax.swing.JFrame {
     private javax.swing.JLabel lbTotalDisco;
     private javax.swing.JLabel lbTotalMemoria;
     private javax.swing.JLabel lbVersaoSistemaOperacional;
-    private javax.swing.JPanel lblNotificacoes;
     private javax.swing.JPanel lblOtimizar;
-    private javax.swing.JPanel lblPerfil;
-    private javax.swing.JPanel lblRelatorios;
     private javax.swing.JPanel lblSpecs;
     private javax.swing.JLabel linux;
     private javax.swing.JList<String> listBlack;

@@ -23,7 +23,6 @@ public class Login extends javax.swing.JFrame {
         TextPrompt log = new TextPrompt("Login",txtLogin);
         TextPrompt pass = new TextPrompt("Senha", txtPass);
         icoHide.setVisible(false);
-        splashScreen.setVisible(false);
         
     }
 
@@ -36,13 +35,6 @@ public class Login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        splashScreen = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -61,37 +53,6 @@ public class Login extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         setResizable(false);
-
-        splashScreen.setBackground(new java.awt.Color(50, 0, 114));
-        splashScreen.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Dots.gif"))); // NOI18N
-        splashScreen.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 290, 40, 70));
-
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Dots.gif"))); // NOI18N
-        splashScreen.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 290, 40, 70));
-
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Dots.gif"))); // NOI18N
-        splashScreen.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 290, 40, 70));
-
-        jLabel9.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(253, 204, 52));
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("OK");
-        splashScreen.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 250, -1, 30));
-
-        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ok-512 (Personalizado).gif"))); // NOI18N
-        splashScreen.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 30, 210, 210));
-
-        jLabel11.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(253, 204, 52));
-        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setText("Aguarde um Momento...");
-        splashScreen.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 360, -1, 40));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -209,20 +170,10 @@ public class Login extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(18, 18, 18)
-                    .addComponent(splashScreen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGap(19, 19, 19)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(6, 6, 6)
-                    .addComponent(splashScreen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGap(6, 6, 6)))
         );
 
         pack();
@@ -239,11 +190,12 @@ public class Login extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         VerificationScreen.Verification ver = new VerificationScreen.Verification();
+        
+        
         String email = txtLogin.getText();
         String senha = new String(txtPass.getPassword());
         
-//        splashScreen.setVisible(true);
-//        splashScreen.
+
         try {
             
             LoginClass lgClass = new LoginClass();
@@ -251,12 +203,10 @@ public class Login extends javax.swing.JFrame {
             if(logado){
                 Tela.Telas tela = new Tela.Telas();
                 this.setVisible(false);
-//                splashScreen.setVisible(false);
                 tela.setVisible(true);
             }else{
                 JOptionPane.showMessageDialog(null, "Email e/ou senha incorreta");
-                
-//                splashScreen.setVisible(false);
+                this.setVisible(true);
                 Database.DatabaseConnection db = new Database.DatabaseConnection();
                 db.closeConnection();
             }
@@ -321,21 +271,14 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel icoShow;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    public static javax.swing.JPanel splashScreen;
     private javax.swing.JTextField txtLogin;
     private javax.swing.JPasswordField txtPass;
     // End of variables declaration//GEN-END:variables
