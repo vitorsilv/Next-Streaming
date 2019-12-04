@@ -39,7 +39,6 @@ public class Monitorar extends LoginClass {
     private HardwareAbstractionLayer hal = si.getHardware();
     private GlobalMemory memory = hal.getMemory();
     private final CentralProcessor cpu = hal.getProcessor();
-    //private Double cpu;
     //Processos
     private String nomeProcesso;
     private int PID;
@@ -63,7 +62,7 @@ public class Monitorar extends LoginClass {
     //DATA
     private Date dataHora;
     
-    DecimalFormat df = new DecimalFormat("#.00");
+    DecimalFormat df = new DecimalFormat("#.##");
     
     public Monitorar() throws IOException{
         conn = getConn();
@@ -132,7 +131,7 @@ public class Monitorar extends LoginClass {
             totalUsadoCPU =   (100d * (user + system + iowait)) / totalcpu;
             
             
-            this.totalUsadoCPU = Double.valueOf(df.format(this.totalUsadoCPU));
+            totalUsadoCPU = Double.valueOf(df.format(totalUsadoCPU).replaceAll(",", "."));
             
             dataHora = new Date();
         }catch(Exception e){
@@ -148,7 +147,8 @@ public class Monitorar extends LoginClass {
 
             this.porcentagemBarra = (100d * totalRamUsado) / totalDisponivel;
             
-            this.totalRamUsado = Double.valueOf(df.format(this.totalRamUsado));
+            this.totalRamUsado = Double.valueOf(df.format(this.totalRamUsado).replaceAll(",", "."));
+            this.totalDisponivel = Double.valueOf(df.format(this.totalDisponivel).replaceAll(",", "."));
                     
             this.dataHora = new Date();
         }catch(Exception e){
@@ -170,8 +170,8 @@ public class Monitorar extends LoginClass {
             espacoUsavel = (((espacoUsavel/1024)/1024)/1024);
             espacoUsado = espacoTotal-espacoUsavel;
             
-            
-            this.espacoUsado = Double.valueOf(df.format(this.espacoUsado));
+            espacoUsado = Double.valueOf(df.format(espacoUsado).replaceAll(",", "."));
+            espacoTotal = Double.valueOf(df.format(espacoTotal).replaceAll(",", "."));
 
             dataHora = new Date();
         }catch(Exception e){
@@ -210,7 +210,7 @@ public class Monitorar extends LoginClass {
             
             ps.setDouble(1, this.totalUsadoCPU);
             ps.setDouble(2, this.totalRamUsado);
-            ps.setDouble(3, this.espacoUsado);
+            ps.setInt(3,(int) Math.round(this.espacoUsado));
             ps.setObject(4, dataSql);
             ps.setInt(5, getIdMaquina());
             

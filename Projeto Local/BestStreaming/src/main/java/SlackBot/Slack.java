@@ -7,18 +7,20 @@
  */
 package SlackBot;
 
+import Tela.Monitorar;
 import java.io.DataOutputStream;
 import java.util.Arrays;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.List;
 /**
  *
  * @author vitor_silva
  */
 public class Slack {
-    public void enviarMensagem(){
+    public void enviarMensagem(String msg){
         try{
             URL url = new URL("https://hooks.slack.com/services/TR8LFA6KX/"
                     + "BQVSYQQJE/PL5x66S7b57xAlAQOm9yi9nU");
@@ -30,21 +32,16 @@ public class Slack {
             connection.setDoOutput(true);
             
             DataOutputStream post = new DataOutputStream(connection.getOutputStream());
-            String aa= "HELLO AMIGO ESTOU AQ";
-            post.writeBytes(String.format("{'text': '%s'}",aa));
+            
+            post.writeBytes(String.format("{'text': '%s'}",msg));
             post.flush();
             post.close();
             
             if(connection.getResponseCode()==200){
-                System.out.println("ENVIOU");
+                System.out.println("Enviou mensagem");
             }
         }catch(Exception e){
             e.printStackTrace();
         }
-    }
-    
-    public static void main(String[] args) {
-        Slack s = new Slack();
-        s.enviarMensagem();
     }
 }

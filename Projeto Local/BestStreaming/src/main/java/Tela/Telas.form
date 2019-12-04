@@ -369,7 +369,7 @@
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="290" y="70" width="310" height="20"/>
+                      <AbsoluteConstraints x="270" y="70" width="300" height="20"/>
                     </Constraint>
                   </Constraints>
                 </Component>
@@ -492,7 +492,7 @@
                                       <Group type="102" attributes="0">
                                           <Component id="jLabel25" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="11" pref="11" max="-2" attributes="0"/>
-                                          <Component id="lbModeloPlacaMae" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbTotalDisco" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" attributes="0">
                                           <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
@@ -538,7 +538,7 @@
                                   <EmptySpace min="22" pref="22" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLabel25" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lbModeloPlacaMae" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lbTotalDisco" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="22" pref="22" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -564,22 +564,22 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel21">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Quantidade de Mem&#xf3;ria (RAM):"/>
+                        <Property name="text" type="java.lang.String" value="Mem&#xf3;ria (RAM):"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel24">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Fabricante"/>
+                        <Property name="text" type="java.lang.String" value="Fabricante:"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel25">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Mem&#xf3;ria Disponivel:"/>
+                        <Property name="text" type="java.lang.String" value="Disco total:"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel26">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Processador"/>
+                        <Property name="text" type="java.lang.String" value="Processador:"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel27">
@@ -602,9 +602,9 @@
                         <Property name="text" type="java.lang.String" value="Marca Computador"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="lbModeloPlacaMae">
+                    <Component class="javax.swing.JLabel" name="lbTotalDisco">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Modelo Placa M&#xe3;e"/>
+                        <Property name="text" type="java.lang.String" value="Disco Total"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="lbGhzProcessador">

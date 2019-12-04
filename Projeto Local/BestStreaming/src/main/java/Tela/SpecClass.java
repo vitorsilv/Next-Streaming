@@ -11,11 +11,14 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.DecimalFormat;
 import javax.swing.JOptionPane;
 import oshi.SystemInfo;
 import oshi.hardware.GlobalMemory;
 import oshi.hardware.HWDiskStore;
 import oshi.hardware.HardwareAbstractionLayer;
+import oshi.software.os.FileSystem;
+import oshi.software.os.OSFileStore;
 import oshi.software.os.OperatingSystem;
 import oshi.util.FormatUtil;
 
@@ -32,24 +35,29 @@ public class SpecClass extends LoginClass {
     
     OperatingSystem sysOpe = sysInfo.getOperatingSystem();
     HardwareAbstractionLayer hardwareLayer = sysInfo.getHardware();
-    
+    private FileSystem fs = sysOpe.getFileSystem();
+    //INFO PC
     private String sistemaOperacional = sysOpe.getFamily();
     private OperatingSystem versaoSistemaOperacional = sysOpe;
     private String fabricanteComputador = sysInfo.getOperatingSystem().getManufacturer();
     private String marcaComputador = sysInfo.getHardware().getComputerSystem().getManufacturer();
-    //private String modeloPlacaMae = sysInfo.getHardware().getComputerSystem().getBaseboard().getModel();
-    private long modeloPlacaMae = sysInfo.getHardware().getMemory().getAvailable();
-    
+    //CPU
+    private String frequenciaTotal = FormatUtil.formatHertz(this.hardwareLayer.getProcessor().getMaxFreq());
     private String modeloProcessador = sysInfo.getHardware().getProcessor().getModel();
     private String ghzProcessador = sysInfo.getHardware().getProcessor().getName();
     private String geracaoProcessador = sysInfo.getHardware().getProcessor().getFamily();
-    
-    private long totalMemoria = sysInfo.getHardware().getMemory().getTotal(); 
+    //RAM
+    private long totalMemoriaDisp = sysInfo.getHardware().getMemory().getAvailable();
+    private long totalMemoria = sysInfo.getHardware().getMemory().getTotal();
+    private double totalInsert = sysInfo.getHardware().getMemory().getTotal(); 
     private Integer qtdMonitores = sysInfo.getHardware().getDisplays().length;
     
-    private String frequenciaTotal = FormatUtil.formatHertz(this.hardwareLayer.getProcessor().getMaxFreq());
+    //HD
+    private double discoTotal = setDiscoTotal();
+    private double espacoTotal = 0.0;
+    private double espacoUsavel = 0.0;
     
-    private String discoTotal = setDiscoTotal();
+    DecimalFormat df = new DecimalFormat("#.##");
     
     public Boolean verificarMaquina() throws IOException{
         try{
@@ -86,8 +94,8 @@ public class SpecClass extends LoginClass {
            
             PreparedStatement ps = connection.prepareStatement(insertSql);
             ps.setDouble(1, getFrequenciaTotal());
-            ps.setDouble(2, getTotalMemoria());
-            ps.setString(3, getDiscoTotal());
+            ps.setDouble(2, Double.valueOf(df.format(getTotalInsert()/1000000000).replaceAll(",", ".")));
+            ps.setInt(3, (int) Math.round(getDiscoTotal()));
             ps.setString(4, getSistemaOperacional());
             ps.setInt(5, getQtdMonitores());
             ps.setString(6, getGhzProcessador());
@@ -115,8 +123,8 @@ public class SpecClass extends LoginClass {
            
             PreparedStatement ps = connection.prepareStatement(insertSql);
             ps.setDouble(1, getFrequenciaTotal());
-            ps.setDouble(2, getTotalMemoria());
-            ps.setString(3, getDiscoTotal());
+            ps.setDouble(2, Double.valueOf(df.format(getTotalInsert()/1000000000).replaceAll(",", ".")));
+            ps.setDouble(3, (int) Math.round(getDiscoTotal()));
             ps.setString(4, getSistemaOperacional());
             ps.setInt(5, getQtdMonitores());
             ps.setString(6, getGhzProcessador());
@@ -163,6 +171,10 @@ public class SpecClass extends LoginClass {
     public long getTotalMemoria() {
         return totalMemoria;
     }
+    
+    public double getTotalInsert() {
+        return totalInsert;
+    }
 
     public Integer getQtdMonitores() {
         return qtdMonitores;
@@ -172,8 +184,8 @@ public class SpecClass extends LoginClass {
         return marcaComputador;
     }
 
-    public long getModeloPlacaMae() {
-        return modeloPlacaMae;
+    public long getTotalMemoriaDisp() {
+        return totalMemoriaDisp;
     }
 
     public OperatingSystem getVersaoSistemaOperacional() {
@@ -190,19 +202,23 @@ public class SpecClass extends LoginClass {
         return Double.valueOf(resposta);
     }
     
-    public String getDiscoTotal(){
+    public Double getDiscoTotal(){
         return this.discoTotal;
     }
     
-    public String setDiscoTotal(){
-        String hd = "";
-        for (HWDiskStore atual : hardwareLayer.getDiskStores()) {
-            
-            if(atual.getSize() > 0){
-                hd = FormatUtil.formatBytesDecimal((atual.getSize()));
+    public Double setDiscoTotal(){
+        try{
+            OSFileStore[] discos = fs.getFileStores();
+
+            for (OSFileStore disco : discos) {
+                espacoTotal += disco.getTotalSpace();
+                espacoUsavel += disco.getUsableSpace();
             }
-        }   
-        
-        return hd;
+            espacoTotal = (((espacoTotal/1024)/1024)/1024);
+            espacoUsavel = (((espacoUsavel/1024)/1024)/1024);
+        }catch(Exception e){
+            
+        }
+        return espacoTotal;
     }
 }

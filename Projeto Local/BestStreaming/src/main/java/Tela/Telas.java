@@ -6,7 +6,6 @@
 package Tela;
 
 import Database.DatabaseConnection;
-import InitScreen.*;
 import LoginScreen.LoginClass;
 import static LoginScreen.LoginClass.getConn;
 import java.awt.Color;
@@ -110,7 +109,7 @@ public class Telas extends javax.swing.JFrame {
         lbSistemaOperacional = new javax.swing.JLabel();
         lbVersaoSistemaOperacional = new javax.swing.JLabel();
         lbMarcaComputador = new javax.swing.JLabel();
-        lbModeloPlacaMae = new javax.swing.JLabel();
+        lbTotalDisco = new javax.swing.JLabel();
         lbGhzProcessador = new javax.swing.JLabel();
         lbTotalMemoria = new javax.swing.JLabel();
         lbQtdMonitores = new javax.swing.JLabel();
@@ -315,7 +314,7 @@ public class Telas extends javax.swing.JFrame {
         import_specs.add(windows, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 140, 280, 410));
 
         lbAtualizarSpecs.setText("Deseja atualizar os dados da sua maquina?");
-        import_specs.add(lbAtualizarSpecs, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, 310, 20));
+        import_specs.add(lbAtualizarSpecs, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 70, 300, 20));
 
         btAtualizarSpecs.setBackground(new java.awt.Color(50, 0, 114));
         btAtualizarSpecs.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
@@ -353,13 +352,13 @@ public class Telas extends javax.swing.JFrame {
 
         jLabel20.setText("Versão do Sistema Operacional:");
 
-        jLabel21.setText("Quantidade de Memória (RAM):");
+        jLabel21.setText("Memória (RAM):");
 
-        jLabel24.setText("Fabricante");
+        jLabel24.setText("Fabricante:");
 
-        jLabel25.setText("Memória Disponivel:");
+        jLabel25.setText("Disco total:");
 
-        jLabel26.setText("Processador");
+        jLabel26.setText("Processador:");
 
         jLabel27.setText("Numero de Monitores:");
 
@@ -369,7 +368,7 @@ public class Telas extends javax.swing.JFrame {
 
         lbMarcaComputador.setText("Marca Computador");
 
-        lbModeloPlacaMae.setText("Modelo Placa Mãe");
+        lbTotalDisco.setText("Disco Total");
 
         lbGhzProcessador.setText("GHz");
 
@@ -409,7 +408,7 @@ public class Telas extends javax.swing.JFrame {
                         .addGroup(labelsPanelLayout.createSequentialGroup()
                             .addComponent(jLabel25)
                             .addGap(11, 11, 11)
-                            .addComponent(lbModeloPlacaMae))
+                            .addComponent(lbTotalDisco))
                         .addGroup(labelsPanelLayout.createSequentialGroup()
                             .addComponent(jLabel21)
                             .addGap(6, 6, 6)
@@ -444,7 +443,7 @@ public class Telas extends javax.swing.JFrame {
                     .addGap(22, 22, 22)
                     .addGroup(labelsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel25)
-                        .addComponent(lbModeloPlacaMae))
+                        .addComponent(lbTotalDisco))
                     .addGap(22, 22, 22)
                     .addGroup(labelsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel21)
@@ -835,16 +834,16 @@ public class Telas extends javax.swing.JFrame {
         }
         
         try{
-        monitorar.processosAtivos();
-        
-        OtimizarProcessos otm = new OtimizarProcessos();
-        listModelBlack = otm.blackListBanco();
-        for(int i = 0; i < monitorar.procsTotal.size(); i++){
-            oshi.software.os.OSProcess p = monitorar.procsTotal.get(i);
-            listModelProcessos.addElement(p.getProcessID()+" - "+p.getName()); 
-        }
-        listProcessos.setModel(listModelProcessos);
-        listBlack.setModel(listModelBlack);
+            monitorar.processosAtivos();
+
+            OtimizarProcessos otm = new OtimizarProcessos();
+            listModelBlack = otm.blackListBanco();
+            for(int i = 0; i < monitorar.procsTotal.size(); i++){
+                oshi.software.os.OSProcess p = monitorar.procsTotal.get(i);
+                listModelProcessos.addElement(p.getProcessID()+" - "+p.getName()); 
+            }
+            listProcessos.setModel(listModelProcessos);
+            listBlack.setModel(listModelBlack);
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, "Erro, verifique os logs"+e);
         }
@@ -901,15 +900,19 @@ public class Telas extends javax.swing.JFrame {
         try{
             Boolean isTrue = specClass.verificarMaquina();
             if(isTrue){
+                //SISTEMA OP
                 lbSistemaOperacional.setText(specClass.getSistemaOperacional());
                 lbVersaoSistemaOperacional.setText(specClass.getVersaoSistemaOperacional().toString());
-
                 lbMarcaComputador.setText(specClass.getMarcaComputador());
-                lbModeloPlacaMae.setText(FormatUtil.formatBytes(specClass.getModeloPlacaMae()));
-
-                lbGhzProcessador.setText(specClass.getGhzProcessador());
-                lbTotalMemoria.setText(FormatUtil.formatBytes(specClass.getTotalMemoria()));
+                //MONITORES
                 lbQtdMonitores.setText(specClass.getQtdMonitores().toString());
+                //CPU
+                lbGhzProcessador.setText(specClass.getGhzProcessador());
+                //RAM
+                lbTotalDisco.setText(String.format("%d GB",Math.round(specClass.getDiscoTotal())));
+                lbTotalMemoria.setText(FormatUtil.formatBytes(specClass.getTotalMemoria()));
+                
+                
 
                 if(specClass.getSistemaOperacional().equals("Ubuntu")){
                     linux.setVisible(true);
@@ -1098,12 +1101,12 @@ public class Telas extends javax.swing.JFrame {
     private javax.swing.JLabel lbAtualizarSpecs;
     private javax.swing.JLabel lbGhzProcessador;
     private javax.swing.JLabel lbMarcaComputador;
-    private javax.swing.JLabel lbModeloPlacaMae;
     private javax.swing.JLabel lbNome;
     private javax.swing.JLabel lbQtdMonitores;
     private javax.swing.JLabel lbSalvarSpecs;
     private javax.swing.JLabel lbSistemaOperacional;
     private javax.swing.JLabel lbTelefone;
+    private javax.swing.JLabel lbTotalDisco;
     private javax.swing.JLabel lbTotalMemoria;
     private javax.swing.JLabel lbVersaoSistemaOperacional;
     private javax.swing.JPanel lblNotificacoes;
