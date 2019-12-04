@@ -64,6 +64,8 @@ public class Monitorar extends LoginClass {
     
     DecimalFormat df = new DecimalFormat("#.##");
     
+    SlackBot.Slack slack = new SlackBot.Slack();
+    
     public Monitorar() throws IOException{
         conn = getConn();
     }
@@ -267,6 +269,66 @@ public class Monitorar extends LoginClass {
             e.printStackTrace();
             GeracaoLog.GerarLog.GravarLog("Erro ao inserir processos: "+e.getMessage());
             return false;
+        }
+    }
+    
+    public void alerta(){
+        Connection connection = conn.getConnection();
+        try{
+            String selectMoni = "SELECT TOP 1 "
+                    + "monitoramento.idMonitoramento ,maquina.idMaquina ,streamer.idStreamer,"
+                    + "maquina.cpu as CPUTotal, monitoramento.cpu as CPUUso,"
+                    + "maquina.ram as RAMTotal, monitoramento.ram as RAMUso,"
+                    + "maquina.disco as HDTotal, monitoramento.disco as HDUso,"
+                    + "monitoramento.dataHora "
+                    + "FROM streamer "
+                    + "INNER JOIN maquina ON streamer.idStreamer = maquina.idStreamer "
+                    + "INNER JOIN monitoramento ON maquina.idMaquina = monitoramento.idMaquina "
+                + "WHERE monitoramento.idMaquina="+getIdMaquina()+" "
+                    + "AND maquina.idStreamer = "+getIdStreamer()+" "
+                    + "ORDER BY idMonitoramento DESC";
+            PreparedStatement psMoni = connection.prepareStatement(selectMoni);
+            ResultSet rs = psMoni.executeQuery();
+            
+            while(rs.next()){
+                
+                String dataHora = rs.getDate("dataHora").toString();
+                Double cpuTotal = rs.getDouble("CPUTotal");
+                Double cpuUso = rs.getDouble("CPUUso");
+                Double ramTotal = rs.getDouble("RAMTotal");
+                Double ramUso = rs.getDouble("RAMUso");
+                Integer discoTotal = rs.getInt("HDTotal");
+                Integer discoUso = rs.getInt("HDUso");
+                
+                Double porcentagemCPU = (cpuUso/cpuTotal)*100;
+                Double porcentagemRAM = (ramUso/ramTotal)*100;
+                Integer porcentagemHD = (discoUso/discoTotal)*100;
+                
+                if(porcentagemRAM > 50){
+                    slack.enviarMensagem("A sua RAM esta acima de 50% fique atento");
+                }else if(porcentagemRAM > 75){
+                    slack.enviarMensagem("A sua RAM esta acima de 75% verifique o motivo");
+                }else if(porcentagemRAM > 90){
+                    slack.enviarMensagem("A sua RAM esta acima de 90%, veja em seu PC o que esta acontecendo urgentemente");
+                }
+                if(porcentagemCPU > 50){
+                    slack.enviarMensagem("A sua CPU esta acima de 50% fique atento");
+                }else if(porcentagemCPU > 75){
+                    slack.enviarMensagem("A sua CPU esta acima de 75% verifique o motivo");
+                }else if(porcentagemCPU > 90){
+                    slack.enviarMensagem("A sua CPU esta acima de 90%, veja em seu PC o que esta acontecendo urgentemente");
+                }
+                if(porcentagemCPU > 70){
+                    slack.enviarMensagem("A seu HD esta acima de 70% fique atento");
+                }else if(porcentagemCPU > 80){
+                    slack.enviarMensagem("A seu HD esta acima de 80% sugerimos uma nova fonte de armazenamento");
+                }else if(porcentagemCPU > 90){
+                    slack.enviarMensagem("A seu HD esta acima de 90% procure uma fonte de armazenamento");
+                }
+                
+            }
+        }catch(Exception e){
+            
         }
     }
 }

@@ -51,7 +51,7 @@ public class Telas extends javax.swing.JFrame {
     
     public void inicializacao() throws IOException {
         monitorar.monitoramento();
-        
+        monitorar.alerta();
         timer.schedule(new RemindTask(), 10*1000);
     }
 
