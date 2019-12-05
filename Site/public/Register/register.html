@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Best Sreaming</title>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+  <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/4.4.95/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="../css/styleDash.css">
+  <link rel="apple-touch-icon" sizes="57x57" href="../Images/favicon/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="../Images/favicon/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="../Images/favicon/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="../Images/favicon/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="../Images/favicon/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="../Images/favicon/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="../Images/favicon/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="../Images/favicon/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../Images/favicon/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192"  href="../Images/favicon/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../Images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../Images/favicon/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../Images/favicon/favicon-16x16.png">
+  <link rel="manifest" href="../Images/favicon/manifest.json">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="../Images/favicon/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+</head>
+
+<body>
+  <div class="container-scroller">
+    <div class="container-fluid page-body-wrapper full-page-wrapper">
+      <div class="content-wrapper d-flex align-items-stretch auth auth-img-bg">
+        <div class="row flex-grow">
+          <div class="col-lg-6 d-flex align-items-center justify-content-center">
+            <div class="auth-form-transparent text-left p-3">
+              <div class="brand-logo">
+                <img src="../images/BestSreaming.png" alt="logo">
+              </div>
+              <h4>Novo Aqui?</h4>
+              <h6 class="font-weight-light">Junte-se a nós hoje! Leva apenas alguns passos</h6>
+              <form class="pt-3">
+                <div class="form-group">
+                  <label>Nome*</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend bg-transparent">
+                      <span class="input-group-text bg-transparent border-right-0">
+                        <i class="mdi mdi-account-outline text-primary"></i>
+                      </span>
+                    </div>
+                    <input type="text" class="form-control form-control-lg border-left-0" name="nome" id="nome" placeholder="Nome" required="">
+                  </div>
+                </div>
+                <div class="form-group">
+                    <label>CPF*</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend bg-transparent">
+                        <span class="input-group-text bg-transparent border-right-0">
+                          <i class="mdi mdi-file-document-outline text-primary"></i>
+                        </span>
+                      </div>
+                      <input type="text" class="form-control form-control-lg border-left-0" name="cpf" id="cpf" placeholder="CPF" required="">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                      <label>Telefone*</label>
+                      <div class="input-group">
+                        <div class="input-group-prepend bg-transparent">
+                          <span class="input-group-text bg-transparent border-right-0">
+                            <i class="mdi mdi-phone text-primary"></i>
+                          </span>
+                        </div>
+                        <input type="text" class="form-control form-control-lg border-left-0" name="telefone" id="telefone" placeholder="Telefone" onkeypress="return SomenteNumero(event)" required="">
+                      </div>
+                    </div>
+                  
+                <div class="form-group">
+                  <label>Email*</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend bg-transparent">
+                      <span class="input-group-text bg-transparent border-right-0">
+                        <i class="mdi mdi-email-outline text-primary"></i>
+                      </span>
+                    </div>
+                    <input type="email" class="form-control form-control-lg border-left-0" name="email" id="email" placeholder="Email" required="">
+                  </div>
+                </div>
+                <div class="form-group">
+                    <label>Senha*</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend bg-transparent">
+                        <span class="input-group-text bg-transparent border-right-0">
+                          <i class="mdi mdi-lock-outline text-primary"></i>
+                        </span>
+                      </div>
+                      <input type="password" class="form-control form-control-lg border-left-0" name="senha" id="senha" placeholder="Senha" required="">
+                    </div>
+                  </div>
+                <div class="form-group">
+                  <label>Confirmar Senha*</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend bg-transparent">
+                      <span class="input-group-text bg-transparent border-right-0">
+                        <i class="mdi mdi-lock-outline text-primary"></i>
+                      </span>
+                    </div>
+                    <input type="password" class="form-control form-control-lg border-left-0" name="confsenha" id="confsenha" placeholder="Confirmar Senha" required="">                        
+                  </div>
+                </div>
+                <div class="form-group">
+                    <label>CEP*</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend bg-transparent">
+                        <span class="input-group-text bg-transparent border-right-0">
+                          <i class="mdi mdi-home-outline text-primary"></i>
+                        </span>
+                      </div>
+                      <input type="text" class="form-control form-control-lg border-left-0" name="cep" id="cep" size="10" maxlength="9" onblur="pesquisacep(this.value);" placeholder="CEP" required="">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                      <label>Rua</label>
+                      <div class="input-group">
+                        <div class="input-group-prepend bg-transparent">
+                          <span class="input-group-text bg-transparent border-right-0">
+                            <i class="mdi mdi-home-outline text-primary"></i>
+                          </span>
+                        </div>
+                        <input type="text" class="form-control form-control-lg border-left-0" name="rua" id="rua" placeholder="Logradouro" disabled="">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Numero*</label>
+                        <div class="input-group">
+                          <div class="input-group-prepend bg-transparent">
+                            <span class="input-group-text bg-transparent border-right-0">
+                              <i class="mdi mdi-numeric text-primary"></i>
+                            </span>
+                          </div>
+                          <input type="text" class="form-control form-control-lg border-left-0" name="numero" id="numero" placeholder="Número" required="">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                          <label>Complemento</label>
+                          <div class="input-group">
+                            <div class="input-group-prepend bg-transparent">
+                              <span class="input-group-text bg-transparent border-right-0">
+                                <i class="mdi mdi-home-outline text-primary"></i>
+                              </span>
+                            </div>
+                            <input type="text" class="form-control form-control-lg border-left-0" name="complemento" id="complemento" placeholder="Complemento">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Bairro</label>
+                            <div class="input-group">
+                              <div class="input-group-prepend bg-transparent">
+                                <span class="input-group-text bg-transparent border-right-0">
+                                  <i class="mdi mdi-home-outline text-primary"></i>
+                                </span>
+                              </div>
+                              <input type="text" class="form-control form-control-lg border-left-0" name="bairro" id="bairro" placeholder="Bairro" disabled="">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                              <label>Cidade</label>
+                              <div class="input-group">
+                                <div class="input-group-prepend bg-transparent">
+                                  <span class="input-group-text bg-transparent border-right-0">
+                                    <i class="mdi mdi-map-marker-outline text-primary"></i>
+                                  </span>
+                                </div>
+                                <input type="text" class="form-control form-control-lg border-left-0" name="cidade" id="cidade" placeholder="Cidade" disabled="">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                                <label>UF</label>
+                                <div class="input-group">
+                                  <div class="input-group-prepend bg-transparent">
+                                    <span class="input-group-text bg-transparent border-right-0">
+                                      <i class="mdi mdi-map-marker-outline text-primary"></i>
+                                    </span>
+                                  </div>
+                                  <input type="text" class="form-control form-control-lg border-left-0" name="uf" id="uf" placeholder="UF" disabled="">
+                                </div>
+                              </div>
+
+                <div class="mt-3">
+                  <a class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" onclick="cadastrar(nome.value,
+                  email.value,cpf.value,telefone.value,senha.value,confsenha.value,cep.value,rua.value,numero.value,complemento.value,
+                  bairro.value,cidade.value,uf.value)">INSCREVER-SE</a>
+                </div>
+                <div class="text-center mt-4 font-weight-light">
+                    Já tem uma conta? <a href="../Login/login.html" class="text-primary">Login</a>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="col-lg-6 register-half-bg d-flex flex-row">
+            <p class="text-white font-weight-medium text-center flex-grow align-self-end">Copyright © 2019 Todos
+              direitos reservados.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  </body>
+
+<script>
+  function SomenteNumero(e){
+    var tecla=(window.event)?event.keyCode:e.which;
+    if((tecla>47 && tecla<58)) return true;
+    else{
+    	if (tecla==8 || tecla==0) return true;
+	else  return false;
+    }
+}
+
+
+function limpa_formulário_cep() {
+            //Limpa valores do formulário de cep.
+            document.getElementById('rua').value=("");
+            document.getElementById('bairro').value=("");
+            document.getElementById('cidade').value=("");
+            document.getElementById('uf').value=("");
+    }
+
+    function meu_callback(conteudo) {
+        if (!("erro" in conteudo)) {
+            //Atualiza os campos com os valores.
+            document.getElementById('rua').value=(conteudo.logradouro);
+            document.getElementById('bairro').value=(conteudo.bairro);
+            document.getElementById('cidade').value=(conteudo.localidade);
+            document.getElementById('uf').value=(conteudo.uf);
+        } //end if.
+        else {
+            //CEP não Encontrado.
+            limpa_formulário_cep();
+            alert("CEP não encontrado.");
+        }
+    }
+
+    function pesquisacep(valor) {
+
+        //Nova variável "cep" somente com dígitos.
+        var cep = valor.replace(/\D/g, '');
+
+        //Verifica se campo cep possui valor informado.
+        if (cep != "") {
+
+            //Expressão regular para validar o CEP.
+            var validacep = /^[0-9]{8}$/;
+
+            //Valida o formato do CEP.
+            if(validacep.test(cep)) {
+
+                //Preenche os campos com "..." enquanto consulta webservice.
+                document.getElementById('rua').value="...";
+                document.getElementById('bairro').value="...";
+                document.getElementById('cidade').value="...";
+                document.getElementById('uf').value="...";
+
+                //Cria um elemento javascript.
+                var script = document.createElement('script');
+
+                //Sincroniza com o callback.
+                script.src = 'https://viacep.com.br/ws/'+ cep + '/json/?callback=meu_callback';
+
+                //Insere script no documento e carrega o conteúdo.
+                document.body.appendChild(script);
+
+            } //end if.
+            else {
+                //cep é inválido.
+                limpa_formulário_cep();
+                alert("Formato de CEP inválido.");
+            }
+        } //end if.
+        else {
+            //cep sem valor, limpa formulário.
+            limpa_formulário_cep();
+        }
+    };
+
+    function cadastrar(nome,email,cpf,telefone,senha,confsenha,
+  cep,rua,numero,complemento,bairro,cidade,uf){
+
+  let URL = 'https://backend-nextstreaming.azurewebsites.net/api/streamer/';
+  var xhttp = new XMLHttpRequest();
+
+  const data = {
+    nome: nome,
+    email: email,
+    cpf: cpf,
+    telefone: telefone,
+    senha: senha, confsenha: confsenha,
+    cep: cep, 
+    rua: rua,
+    numero: numero,
+    complemento: complemento,
+    bairro: bairro,
+    cidade: cidade,
+    uf: uf
+  }
+  const json = JSON.stringify(data);
+
+  if(nome == "" ||email == ""|| cpf == ""|| telefone == ""|| senha == "" || cep == ""|| numero == ""){
+    Swal.fire(
+  'ERRO',
+  'Preencha todos os capos com asterisco (*)',
+  'error'
+);
+  }else{
+    if(senha != confsenha){
+      Swal.fire(
+  'ERRO',
+  'As senhas não são iguais por favor digite novamente!',
+  'error'
+);
+    }else{
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+
+          resposta = JSON.parse(xhttp.responseText);
+          if(resposta.result==true){
+            let timerInterval
+          Swal.fire({
+            title: 'Salvado seus dados!',
+            html: 'Aguarde um momento',
+            timer: 2000,
+            timerProgressBar: true,
+            onBeforeOpen: () => {
+              Swal.showLoading()
+              timerInterval = setInterval(() => {
+                Swal.getContent().querySelector('b')
+                  .textContent = Swal.getTimerLeft()
+              }, 100)
+            },
+            onClose: () => {
+              clearInterval(timerInterval)
+            }
+          }).then((result) => {
+            if (
+              result.dismiss === Swal.DismissReason.timer
+            ) {
+
+              setTimeout(function () {
+                window.location.href="../Login/login-2.html";
+            }, 2000);
+              
+            }
+          });
+          }else{
+            Swal.fire(
+            'ERRO',
+            'Não foi possivel salvar os dados no banco',
+            'error'
+          )
+          }
+        }
+    };
+    xhttp.open("POST", URL , true);
+    xhttp.setRequestHeader("Content-type", "application/json; charset=utf-8");
+    xhttp.send(json);
+  }
+}
+
+
+};
+
+</script>
+

@@ -1,371 +1,413 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 
-<head>
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"> 
 
-  <title>Next Streaming</title>
+    <title>Next Streaming</title>
 
-  <!-- Bootstrap core CSS -->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-  <!-- Custom fonts for this template -->
-  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-  <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
-  <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet'
-    type='text/css'>
-  <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
 
-  <!-- Custom styles for this template -->
-  <link href="css/agency.min.css" rel="stylesheet">
-  <link rel="shortcut icon" href="./img/favicon.png" />
+   
+    <link rel="shortcut icon" href="images/favicon/favicon.png" />
+
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="css/animations.css" rel="stylesheet">
+
+    <link href="css/lightbox.min.css" rel="stylesheet">
+
+    <link href="css/style.css" rel="stylesheet">
+  
 </head>
+<body>
 
-<body id="page-top">
-
-  <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-    <div class="container">
-      <a class="navbar-brand js-scroll-trigger" href="#page-top">
-        <img src="./img/nome.png" alt="" style="width: 100px">
-      </a>
-      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-        data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
-        aria-label="Toggle navigation">
-        Menu
-        <i class="fas fa-bars"></i>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav text-uppercase ml-auto">
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#services">Serviços</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#portfolio">Sistema</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#team">Equipe</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#contact">Contato</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="./login/Login.html">Login</a>
-          </li>
-        </ul>
-      </div>
+    <div id="loader-wrapper">
+        <h1 class="loader-logo"><span class="colored">NEXT</span>STREAMING</h1>
+        <div id="progress"></div>
+        <h3 class="loader-text">CARREGANDO</h3>
     </div>
-  </nav>
-
-  <!-- Header -->
-  <header class="masthead">
-    <div class="container">
-      <div class="intro-text">
-        <div class="intro-lead-in">Bem-vindo!</div>
-        <div class="intro-heading text-uppercase">Next Streaming</div>
-        <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">Saiba mais</a>
-      </div>
-    </div>
-  </header>
-
-  <!-- Services -->
-  <section class="page-section" id="services">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12 text-center">
-          <h2 class="section-heading text-uppercase">Serviços</h2>
-          <h3 class="section-subheading text-muted">Com a Next Streaming você vai a um outro nível de stream.</h3>
-        </div>
-      </div>
-      <div class="row text-center">
-        <div class="col-md-4">
-          <span class="fa-stack fa-4x">
-            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-            <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
-          </span>
-          <h4 class="service-heading">Monitoramento</h4>
-          <p class="text-muted">Monitoramento constante do desempenho da maquina do streamer para evitar queda de frames
-            e possível queda da live.</p>
-        </div>
-        <div class="col-md-4">
-          <span class="fa-stack fa-4x">
-            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-            <i class="fas fa-mobile fa-stack-1x fa-inverse"></i>
-          </span>
-          <h4 class="service-heading">Alerta de limite</h4>
-          <p class="text-muted">Alerta de consumo limite via celular para notificar ao streamer qual é a situação atual
-            de sua máquina.</p>
-        </div>
-        <div class="col-md-4">
-          <span class="fa-stack fa-4x">
-            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-            <i class="far fa-chart-bar fa-stack-1x fa-inverse"></i>
-          </span>
-          <h4 class="service-heading">Relatório</h4>
-          <p class="text-muted">Relatórios e representação gráfica de dados do computador em tempo real para que o
-            streamer uma representação visual do que o nosso sistema faz por ele.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Portfolio Grid -->
-  <section class="page-section" id="portfolio">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12 text-center">
-          <h2 class="section-heading text-uppercase">Sistema</h2>
-          <h3 class="section-subheading text-muted">Best Stream é o nosso sistema de monitoramento que livra os
-            streamers de preocupações durante sua live.</h3>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12 col-sm-6 portfolio-item">
-          <a class="portfolio-link" data-toggle="modal" href="#portfolioModal1">
-            <div class="portfolio-hover" style="text-align: center;">
-              <div class="portfolio-hover-content">
-                <i class="fas fa-plus fa-3x"></i>
-              </div>
-            </div>
-            <img class="img-fluid" src="img/portfolio/BestSreaming.png" alt="">
-          </a>
-          <div style="display:table" class="portfolio-caption">
-            <h4>Best Stream</h4>
-            <p class="text-muted">Monitoramento</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Team -->
-  <section class="page-section" id="team">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12 text-center">
-          <h2 class="section-heading text-uppercase">Nossa equipe</h2>
-          <h3 class="section-subheading text-muted">Profissionais capacitados e com experiência no mercado, sempre
-            topando novos desafios e modernizando o negócios.</h3>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-4">
-          <div class="team-member">
-            <img class="mx-auto rounded-circle" src="img/team/alex.jpg" alt="">
-            <h4>Alex Celestino</h4>
-            <p class="text-muted">Membro da Next Streaming</p>
-            <ul class="list-inline social-buttons">
-              <li class="list-inline-item">
-                <a href="#">
-                  <i class="fab fa-linkedin-in"></i>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="team-member">
-            <img class="mx-auto rounded-circle" src="img/team/carlos.jpg" alt="">
-            <h4>Carlos Guilherme</h4>
-            <p class="text-muted">Membro da Next Streaming</p>
-            <ul class="list-inline social-buttons">
-              <li class="list-inline-item">
-                <a href="#">
-                  <i class="fab fa-linkedin-in"></i>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="team-member">
-            <img class="mx-auto rounded-circle" src="img/team/ester.jpg" alt="">
-            <h4>Ester Paixão</h4>
-            <p class="text-muted">Membra da Next Streaming</p>
-            <ul class="list-inline social-buttons">
-              <li class="list-inline-item">
-                <a href="#">
-                  <i class="fab fa-linkedin-in"></i>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-4">
-          <div class="team-member">
-            <img class="mx-auto rounded-circle" src="img/team/fernando.jpg" alt="">
-            <h4>Fernando Caraça</h4>
-            <p class="text-muted">Membro da Next Streaming</p>
-            <ul class="list-inline social-buttons">
-              <li class="list-inline-item">
-                <a href="https://www.linkedin.com/in/fernando-correa-b40a4176/" target="_blank">
-                  <i class="fab fa-linkedin-in"></i>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="team-member">
-            <img class="mx-auto rounded-circle" src="img/team/gustavo.jpg" alt="">
-            <h4>Gustavo Gonçalves</h4>
-            <p class="text-muted">Membro da Next Streaming</p>
-            <ul class="list-inline social-buttons">
-              <li class="list-inline-item">
-                <a href="https://www.linkedin.com/in/gustavo-henrique-martins-gon%C3%A7alves-03555b189/"
-                  target="_blank">
-                  <i class="fab fa-linkedin-in"></i>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="team-member">
-            <img class="mx-auto rounded-circle" src="img/team/vitor.jpg" alt="">
-            <h4>Vitor Silva</h4>
-            <p class="text-muted">Membro da Next Streaming</p>
-            <ul class="list-inline social-buttons">
-              <li class="list-inline-item">
-                <a href="https://www.linkedin.com/in/vitorsilv/" target="_blank">
-                  <i class="fab fa-linkedin-in"></i>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-8 mx-auto text-center">
-          <p class="large text-muted">Footer pra dps</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact -->
-  <section class="page-section" id="contact">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12 text-center">
-          <h2 class="section-heading text-uppercase">Fale Conosco</h2>
-          <h3 class="section-subheading text-muted">Entre em contato com a Next Streaming.</h3>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-12">
-          <form id="contactForm" name="sentMessage" novalidate="novalidate">
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <input class="form-control" id="name" type="text" placeholder="Seu nome *" required="required"
-                    data-validation-required-message="Por favor insira seu nome.">
-                  <p class="help-block text-danger"></p>
-                </div>
-                <div class="form-group">
-                  <input class="form-control" id="email" type="email" placeholder="Seu e-mail *" required="required"
-                    data-validation-required-message="Por favor insira seu e-mail.">
-                  <p class="help-block text-danger"></p>
-                </div>
-                <div class="form-group">
-                  <input class="form-control" id="phone" type="tel" placeholder="Seu Telefone *" required="required"
-                    data-validation-required-message="Por favor insira seu telefone.">
-                  <p class="help-block text-danger"></p>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <textarea class="form-control" id="message" placeholder="Sua mensagem *" required="required"
-                    data-validation-required-message="Por favor deixe sua mensagem."></textarea>
-                  <p class="help-block text-danger"></p>
-                </div>
-              </div>
-              <div class="clearfix"></div>
-              <div class="col-lg-12 text-center">
-                <div id="success"></div>
-                <button id="sendMessageButton" class="btn btn-primary btn-xl text-uppercase" type="submit">Enviar
+    
+   
+    <header id="main-header">
+        <nav class="navbar fixed-top navbar-expand-lg navbar-dark">
+            <div class="container">
+              
+                <a id="logo" class="navbar-brand" href="#"><img class="img-fluid" src="images/nome.png" alt="site logo"></a>
+             
+                <button id="hamburger" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
                 </button>
-              </div>
+               
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#sobre">Sobre</a>
+                        </li>
+                        <li class="nav-item">   
+                            <a class="nav-link" href="#sistema">Nosso Sistema</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#equipe">Equipe</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#contato">Contato</a>
+                        </li>
+                        <li class="nav-item">
+                                <a class="nav-link" href="Login/login.html">Login</a>
+                            </li>
+                    </ul>
+                </div>
             </div>
-          </form>
+        </nav>
+    </header>
+    
+  
+    <div id="hero-section" class="small-margin">
+        <div id="particles-web"></div>
+        <div class="row hero-unit">
+            <div class="container">
+                <div class="hero-caption">
+                    <h1>Com a <span class="colored">Next Streaming  </span>você vai a um outro nível de stream. </h1>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="footer">
+    
     <div class="container">
-      <div class="row align-items-center">
-        <div class="col-md-4">
-          <span class="copyright">Copyright &copy; Next Streaming</span>
-        </div>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Portfolio Modals -->
-
-  <!-- Modal 1 -->
-  <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="close-modal" data-dismiss="modal">
-          <div class="lr">
-            <div class="rl"></div>
-          </div>
-        </div>
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-8 mx-auto">
-              <div class="modal-body">
-                <!-- Project Details Go Here -->
-                <h2 class="text-uppercase" style="color: black">Best Stream</h2>
-                <p class="item-intro text-muted">Sistema de monitoramento de consumo de CPU, GPU RAM e HD do computador
-                  do streamer.</p>
-                <img class="img-fluid d-block mx-auto" src="img/portfolio/BestSreaming.png" alt="">
-                <p style="color:black;">O sitema Best Stream monitora constantemente os seguintes componente do seu computador: Processador,
-                  Placa de vídeo, HD e Memória Ram para guiar o streamer a um melhor desempenho, removendo aplicativos
-                  em segundo plano desnecessários para que a stream corra de maneira saudável, sem que afete o
-                  desempenho e qualidade da live, priorizando assim uma boa stream e o melhor para todos, evitando a
-                  perda de views por conta da queda da live.</p>
-                <ul class="list-inline">
-                  <li>Data: Setembro 2019</li>
-                  <li>Clientes: Streamers</li>
-                  <li>Categoria: Monitoramento</li>
-                </ul>
-                <button class="btn btn-primary" data-dismiss="modal" type="button">
-                  <i class="fas fa-times"></i>
-                  Fechar</button>
-              </div>
+        
+        <div id="sobre" class="large-margin">
+            <a href="about.html"></a>
+            <div class="row heading tiny-margin">
+                <div class="col-md-auto">
+                    <h1 class="animation-element slide-down">SOBRE <span class="colored">NÓS</span></h1>
+                </div>
+                <div class="col">
+                    <hr class="animation-element extend">
+                </div>
             </div>
-          </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="small-margin">A Next Streaming é uma empresa com uma equipe dedicada de desenvolvedores ,programadores e, o mais importante, entusiastas de jogos criada para trazer uma melhor performace para todas as pessoas que querem ter um melhor desempenho e rendimento durante suas Livestreams. </p>
+                </div>
+                <div class="col-md-6">
+                    <img id="support-image" src="images/NextStreaming.png" data-src="images/digital_collage.png" class="img-fluid b-lazy" alt="digital collage">
+                </div>
+            </div>
+
+            <div class="row medium-margin">
+                <div class="col-md-11">
+                    <h2 class="short-hr-left">Serviços prestados</h2>
+                    <p>Aqui temos alguns dos nossor serviços prestados</p><br>
+                </div>
+                <div class="col-md-4">
+                    <div class="job-card">
+                            <span class="fa-stack fa-4x">
+                                    <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                                    <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
+                                </span>
+                        <h3 class="colored">MONITORAMENTO</h3>
+                        <p>Monitoramento constante do desempenho da maquina do streamer para evitar queda de frames e possível queda da live.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="job-card">
+                            <span class="fa-stack fa-4x">
+                                    <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                                    <i class="fas fas fa-mobile fa-stack-1x fa-inverse"></i>
+                                </span>
+                        <h3 class="colored">ALERTA DE LIMITE</h3>
+                        <p>Alerta de consumo limite via celular para notificar ao streamer qual é a situação atual de sua máquina.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="job-card">
+                        <span class="fa-stack fa-4x">
+                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                            <i class="fas fa-chart-bar fa-stack-1x fa-inverse"></i>
+                        </span>
+                        <h3 class="colored">RELATÓRIO</h3>
+                        <p>Relatórios e representação gráfica de dados do computador em tempo real para que o streamer uma representação visual do que o nosso sistema faz por ele.</p>
+                    </div>
+                </div>
+            </div>      
         </div>
-      </div>
+        
+        <div id="sistema" class="large-margin">
+            <a href="games.html"></a>
+            <div class="row heading tiny-margin">
+                <div class="col-md-auto">
+                    <h1 class="animation-element slide-down">NOSSO <span class="colored">SISTEMA</span></h1>
+                </div>
+                <div class="col">
+                    <hr class="animation-element extend">
+                </div>
+            </div>
+            <div class="row ">
+                <div class="col-md-11 small-margin">
+                   <p>Best Stream é o nosso sistema de monitoramento que livra os streamers de preocupações durante sua live.</p>
+                </div>
+            </div>
+            <div class="games-portfolio ">
+                
+                <!-- Game Card -->
+                <div class="row game-card pc">
+                    <div class="col-lg-12 col-xl-5 game-card-left">
+                            <div class="overlay" data-toggle="modal" data-target="#game3">
+                                <i class="fa fa-plus fa-3x"></i>
+                            </div>
+                            <picture>
+                                <img src="images/placeholder.jpg" data-src="images/BestSreaming.png" class="img-fluid b-lazy" alt="aurora image">
+                            </picture>
+
+                    </div>
+                    <div class="col-lg-12 col-xl-7 game-card-right">
+                        <h2 class="short-hr-left">BEST STREAMING</h2>
+                        <p class="tags"><span class="subtle">Sistema de Monitoramento</span> </p>
+                        <p class="game-description">Clique no botão abaixo e faça o download da nossa aplicação e tenha um maior desempenho e rendimento em suas live stream obtendo uma melhor qualidade.</p>
+                        <div class="steam-btn">
+                            <a  >
+                                <i class="fa fa-download fa-3x" ></i>
+                                <p>FAZER<br><span class="spaced">DOWNLOAD</span></p>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Modal -->
+                    <div class="modal fade game-modal" id="game3" tabindex="-1" role="dialog" aria-labelledby="aurora" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title" id="aurora"><span class="colored">BEST STREAMING</span></h1>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                               <div class="modal-body">
+                                   
+                                   <img class="img-fluid" src="images/BestSreaming.png" alt="screenshot">
+
+                                   <h2 class="short-hr-left">Sistema de monitoramento de consumo de CPU, GPU RAM e HD do computador do streamer.</h2>
+                                   <p>O sitema Best Stream monitora constantemente os seguintes componente do seu computador: Processador, Placa de vídeo, HD e Memória Ram para guiar o streamer a um melhor desempenho, removendo aplicativos em segundo plano desnecessários para que a stream corra de maneira saudável, sem que afete o desempenho e qualidade da live, priorizando assim uma boa stream e o melhor para todos, evitando a perda de views por conta da queda da live.</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="button secondary" data-dismiss="modal">Fechar</button>
+                                </div>
+                            </div>
+                        </div>
+                     </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        <div id="equipe" class="large-margin">
+            <a href="team.html"></a>
+            <div class="row heading tiny-margin">
+                <div class="col-md-auto">
+                    <h1 class="animation-element slide-down">A <span class="colored">EQUIPE</span></h1>
+                </div>
+                <div class="col">
+                    <hr class="animation-element extend">
+                </div>
+            </div>
+            <div class="row medium-margin">
+                <div class="col-md-11 tiny-margin">
+                    <p>Aqui iremos mostrar alguns mebros do nosso time.</p>
+                </div>
+                <div id="full-row" class="row text-center">
+                    <div class="col-md-3 team-card">
+                        <figure>
+                            <img src="images/placeholder.jpg" data-src="images/team/alex.jpg" class="img-fluid b-lazy" alt="teammember">
+                            <figcaption class="team-caption">
+                                <p>“Lorem ipsum dolor sit amet, consectetur adipiscing elit.”</p>
+                                <hr class="hr-short">
+                                <ul>
+                                    <li><a href="#"><i class="fa fa-facebook fa-lg"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-twitter fa-lg"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-linkedin fa-lg"></i></a></li>
+                                </ul>
+                            </figcaption>
+                        </figure>
+                        <p class="team-name">Alex Celestino</p>
+                        <p class="subtle">Membro da Next Streaming</p>
+                    </div>
+                    <div class="col-md-3 team-card">
+                        <figure>
+                            <img src="images/placeholder.jpg" data-src="images/team/carlos.jpg" class="img-fluid b-lazy" alt="teammember">
+                            <figcaption class="team-caption">
+                                <p>“Lorem ipsum dolor sit amet, consectetur adipiscing elit.”</p>
+                                <hr class="hr-short">
+                                <ul>
+                                    <li><a href="#"><i class="fa fa-facebook fa-lg"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-twitter fa-lg"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-linkedin fa-lg"></i></a></li>
+                                </ul>
+                            </figcaption>
+                        </figure>
+                        <p class="team-name">Carlos Guilherme</p>
+                        <p class="subtle">Membro da Next Streaming</p>
+                    </div>
+                    <div class="col-md-3 team-card">
+                        <figure>
+                            <img src="images/placeholder.jpg" data-src="images/team/ester.jpg" class="img-fluid b-lazy" alt="teammember">
+                            <figcaption class="team-caption">
+                                <p>“Lorem ipsum dolor sit amet, consectetur adipiscing elit.”</p>
+                                <hr class="hr-short">
+                                <ul>
+                                    <li><a href="#"><i class="fa fa-facebook fa-lg"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-twitter fa-lg"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-linkedin fa-lg"></i></a></li>
+                                </ul>
+                            </figcaption>
+                        </figure>
+                        <p class="team-name">Ester Paixão</p>
+                        <p class="subtle">Membro da Next Streaming</p>
+                    </div>
+                    <div class="col-md-3 team-card">
+                        <figure>
+                            <img src="images/placeholder.jpg" data-src="images/team/fernando.jpg" class="img-fluid b-lazy" alt="teammember">
+                            <figcaption class="team-caption">
+                                <p>“Lorem ipsum dolor sit amet, consectetur adipiscing elit.”</p>
+                                <hr class="hr-short">
+                                <ul>
+                                    <li><a href="#"><i class="fa fa-facebook fa-lg"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-twitter fa-lg"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-linkedin fa-lg"></i></a></li>
+                                </ul>
+                            </figcaption>
+                        </figure>
+                        <p class="team-name">Fernando Caraça</p>
+                        <p class="subtle">Membro da Next Streaming</p>
+                    </div>
+
+                     <div class="col-md-3 team-card">
+                        <figure>
+                            <img src="images/placeholder.jpg" data-src="images/team/gustavo.jpg" class="img-fluid b-lazy" alt="teammember">
+                            <figcaption class="team-caption">
+                                <p>“Lorem ipsum dolor sit amet, consectetur adipiscing elit.”</p>
+                                <hr class="hr-short">
+                                <ul>
+                                    <li><a href="#"><i class="fa fa-facebook fa-lg"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-twitter fa-lg"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-linkedin fa-lg"></i></a></li>
+                                </ul>
+                            </figcaption>
+                        </figure>
+                        <p class="team-name">Gustavo Gonçalves</p>
+                        <p class="subtle">Membro da Next Streaming</p>
+                    </div>
+
+                    <div class="col-md-3 team-card">
+                            <figure>
+                                <img src="images/placeholder.jpg" data-src="images/team/vitor.jpg" class="img-fluid b-lazy" alt="teammember">
+                                <figcaption class="team-caption">
+                                    <p>“Lorem ipsum dolor sit amet, consectetur adipiscing elit.”</p>
+                                    <hr class="hr-short">
+                                    <ul>
+                                        <li><a href="#"><i class="fa fa-facebook fa-lg"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-twitter fa-lg"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-linkedin fa-lg"></i></a></li>
+                                    </ul>
+                                </figcaption>
+                            </figure>
+                            <p class="team-name">Vitor Silva</p>
+                            <p class="subtle">Membro da Next Streaming</p>
+                        </div>
+                </div>
+            </div>
+            
+        </div>
+       
+        <div id="contato" class="large-margin">
+            <a href="contact.html"></a>
+            <div class="row heading tiny-margin">
+                <div class="col-md-auto">
+                    <h1 class="animation-element slide-down">CONTATE<span class="colored">-NOS</span></h1>
+                </div>
+                <div class="col">
+                    <hr class="animation-element extend">
+                </div>
+            </div>
+            <div class="">
+                <div class="row small-margin">
+                    <div class="col-md-11">
+                        <p>Qualquer dúvida, crítica ou sugestão para nós entre em contato com a Next Streaming pelos meios abaixo.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h2 class="short-hr-left">MANDE SUA MENSAGEM</h2>
+                        <form id="contactForm" data-toggle="validator">
+                            <div class="form-group">
+                               
+                                <input type="text" id="name" placeholder="Nome*" required size="35" data-error="É necessario digitar um nome.">
+                                <div class="help-block with-errors"></div>
+                            </div>
+                            <div class="form-group">
+                                
+                                <input type="email" id="email" placeholder="Email*" required size="35" data-error="É necessario digitar um Email.">
+                                <div class="help-block with-errors"></div>
+                            </div>
+                            <div class="form-group">
+                                
+                                <textarea id="message" name="message" placeholder="Mensagem*" required data-error="Mensagem não pode estar vazia."></textarea>
+                                <div class="help-block with-errors"></div>
+                                
+                                <button type="submit" class="button">ENVIAR MENSAGEM</button>
+                                
+                                <div id="msgSubmit" class="text-center hidden"></div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-6">
+                        <h2 class="short-hr-left">OUTROS DETALHES</h2>
+                        <div id="contact-info">
+                            <ul>
+                                <li><i class="fa fa-phone"></i><p>Telefone: <span class="colored">+55 (11) 95346-2960</span></p></li>
+                                <li><i class="fa fa-envelope"></i><p>Email: <span class="colored">nextstreaming@suporte.com.br</span></p></li>
+                                <li><i class="fa fa-map-marker"></i><p>Endereço: <span class="colored">Rua Haddock Lobo, 595 - Cerqueira César, São Paulo - SP, 01414-002</span></p></li>
+                            </ul>
+                        </div>
+                        
+                        <div id="map-canvas"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-
-  <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Plugin JavaScript -->
-  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-  <!-- Contact form JavaScript -->
-  <script src="js/jqBootstrapValidation.js"></script>
-  <script src="js/contact_me.js"></script>
-
-  <!-- Custom scripts for this template -->
-  <script src="js/agency.min.js"></script>
-
+ 
+    <footer id="main-footer">
+        <div id="footer"> 
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p id="copyright">&copy; Next Streaming <span id="year"> </span></p><!-- Copyright Text -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/blazy.min.js"></script>
+    <script src="js/particles.js"></script>
+    <script src="js/isotope.pkgd.min.js"></script>
+    <script src="js/lightbox.min.js"></script>
+    <script src="js/jquery-modal-video.min.js"></script>
+    <script src="js/validator.min.js"></script>
+    <script src="js/strider.js"></script>
+    <script src="https://kit.fontawesome.com/b5c6836250.js" crossorigin="anonymous"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBG24yUnfwQh0IdfLdpPegFDndods4_pII"></script>
 </body>
+
 
 </html>
