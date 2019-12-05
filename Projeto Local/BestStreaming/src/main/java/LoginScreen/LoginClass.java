@@ -18,6 +18,7 @@ public class LoginClass extends Login{
     static Database.DatabaseConnection conn;
     static Integer idStreamer;
     static Integer idMaquina = 0;
+    static String nomeStreamer;
     public LoginClass() throws IOException{
 
         conn = new DatabaseConnection();
@@ -35,11 +36,17 @@ public class LoginClass extends Login{
             PreparedStatement ps = connection.prepareStatement(selectSql);
             ResultSet rs = ps.executeQuery();           
             while(rs.next()){
+                
                 this.idStreamer = rs.getInt("idStreamer");
+                String nomePart[] = rs.getString("nome").split(" ");
+                this.nomeStreamer = nomePart[0]+" "+nomePart[nomePart.length-1];
+                
                 String maquina = "SELECT * FROM maquina "
                 + "WHERE idStreamer="+this.idStreamer;
+                
                 PreparedStatement psMaquina = connection.prepareStatement(maquina);
                 ResultSet rsMaquina = psMaquina.executeQuery();
+                
                 while(rsMaquina.next()){
                     if(rsMaquina.getInt("idMaquina")!=0){
                         this.idMaquina = rsMaquina.getInt("idMaquina");
@@ -57,6 +64,10 @@ public class LoginClass extends Login{
         } 
     }
 
+    public static String getNomeStreamer() {
+        return nomeStreamer;
+    }
+    
     public Integer getIdStreamer() {
         return idStreamer;
     }

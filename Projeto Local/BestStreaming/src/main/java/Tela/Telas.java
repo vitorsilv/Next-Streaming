@@ -34,32 +34,35 @@ public class Telas extends javax.swing.JFrame {
     /**
      * Creates new form Init
      */
+    LoginScreen.LoginClass lg  = new LoginScreen.LoginClass();
+    
     String active = "lblNotificacoes";
     SpecClass specClass = new SpecClass();
-    DefaultListModel listModelProcessos = new DefaultListModel();
+    DefaultListModel listModelProcessos;
     DefaultListModel listModelBlack = new DefaultListModel();
     
     Timer timer = new Timer();
     Monitorar monitorar;
+    OtimizarProcessos otimizarProcessos;
+    
     public Telas() throws IOException {
-        try {
-            main.removeAll();
-            main.repaint();
-            main.revalidate();
-            main.add(import_notifi);
-            main.repaint();
-            main.revalidate(); 
-        } catch (Exception e) {
-            
-        }
+        this.otimizarProcessos = new OtimizarProcessos();
         this.monitorar = new Monitorar();
         inicializacao();
         initComponents();
-        TextPrompt log = new TextPrompt("Nome Usuário",txtnome_usuario);
+        esconderBotoes();
+        lbNomeStreamer.setText(lg.getNomeStreamer());
         
     }
-    
+    public void esconderBotoes(){
+        btIn.setVisible(false);
+        btOut.setVisible(false);
+        btSalvarProcessos.setVisible(false);
+        btSalvarSpecs.setVisible(false);
+        btAtualizarSpecs.setVisible(false);
+    }
     public void inicializacao() throws IOException {
+        otimizarProcessos.deletarProcessos();
         monitorar.monitoramento();
         monitorar.alerta();
         timer.schedule(new RemindTask(), 10*1000);
@@ -86,28 +89,25 @@ public class Telas extends javax.swing.JFrame {
         CorpoTela = new javax.swing.JPanel();
         btFechar = new javax.swing.JLabel();
         main = new javax.swing.JPanel();
-        import_notifi = new javax.swing.JPanel();
+        import_inicio = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
+        lbNomeStreamer = new javax.swing.JLabel();
         import_otimizar = new javax.swing.JPanel();
         scrollProcessos = new javax.swing.JScrollPane();
         listProcessos = new javax.swing.JList<>();
         scrollBlack = new javax.swing.JScrollPane();
         listBlack = new javax.swing.JList<>();
+        jLabel1 = new javax.swing.JLabel();
         btIn = new javax.swing.JButton();
         btOut = new javax.swing.JButton();
         btSalvarProcessos = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        import_relatorios = new javax.swing.JPanel();
-        jLabel17 = new javax.swing.JLabel();
         import_specs = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         linux = new javax.swing.JLabel();
         windows = new javax.swing.JLabel();
         lbAtualizarSpecs = new javax.swing.JLabel();
-        btAtualizarSpecs = new javax.swing.JButton();
         lbSalvarSpecs = new javax.swing.JLabel();
-        btSalvarSpecs = new javax.swing.JButton();
         labelsPanel = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
@@ -123,14 +123,8 @@ public class Telas extends javax.swing.JFrame {
         lbGhzProcessador = new javax.swing.JLabel();
         lbTotalMemoria = new javax.swing.JLabel();
         lbQtdMonitores = new javax.swing.JLabel();
-        import_perfil = new javax.swing.JPanel();
-        jLabel22 = new javax.swing.JLabel();
-        corpoForm = new javax.swing.JPanel();
-        lbNome = new javax.swing.JLabel();
-        lbTelefone = new javax.swing.JLabel();
-        btSalvar = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JSeparator();
-        txtnome_usuario = new javax.swing.JTextField();
+        btAtualizarSpecs = new javax.swing.JButton();
+        btSalvarSpecs = new javax.swing.JButton();
         BarraLateral = new javax.swing.JPanel();
         lblOtimizar = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
@@ -166,26 +160,40 @@ public class Telas extends javax.swing.JFrame {
         main.setBackground(new java.awt.Color(255, 255, 255));
         main.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel18.setText("Inicio");
+        import_inicio.setBackground(new java.awt.Color(255, 255, 255));
 
-        javax.swing.GroupLayout import_notifiLayout = new javax.swing.GroupLayout(import_notifi);
-        import_notifi.setLayout(import_notifiLayout);
-        import_notifiLayout.setHorizontalGroup(
-            import_notifiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(import_notifiLayout.createSequentialGroup()
-                .addGap(371, 371, 371)
+        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(50, 0, 114));
+        jLabel18.setText("Olá,");
+
+        lbNomeStreamer.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lbNomeStreamer.setForeground(new java.awt.Color(50, 0, 114));
+        lbNomeStreamer.setText("nome do usuario");
+
+        javax.swing.GroupLayout import_inicioLayout = new javax.swing.GroupLayout(import_inicio);
+        import_inicio.setLayout(import_inicioLayout);
+        import_inicioLayout.setHorizontalGroup(
+            import_inicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(import_inicioLayout.createSequentialGroup()
+                .addGap(152, 152, 152)
                 .addComponent(jLabel18)
-                .addContainerGap(384, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lbNomeStreamer)
+                .addContainerGap(441, Short.MAX_VALUE))
         );
-        import_notifiLayout.setVerticalGroup(
-            import_notifiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(import_notifiLayout.createSequentialGroup()
-                .addGap(212, 212, 212)
-                .addComponent(jLabel18)
-                .addContainerGap(350, Short.MAX_VALUE))
+        import_inicioLayout.setVerticalGroup(
+            import_inicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(import_inicioLayout.createSequentialGroup()
+                .addGap(133, 133, 133)
+                .addGroup(import_inicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel18)
+                    .addComponent(lbNomeStreamer))
+                .addContainerGap(425, Short.MAX_VALUE))
         );
 
-        main.add(import_notifi, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, -20, 790, 580));
+        main.add(import_inicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, -20, 790, 580));
+
+        import_otimizar.setBackground(new java.awt.Color(255, 255, 255));
 
         listProcessos.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -200,6 +208,8 @@ public class Telas extends javax.swing.JFrame {
             public String getElementAt(int i) { return strings[i]; }
         });
         scrollBlack.setViewportView(listBlack);
+
+        jLabel1.setText("Processos Ativos");
 
         btIn.setText("-->");
         btIn.addActionListener(new java.awt.event.ActionListener() {
@@ -221,8 +231,6 @@ public class Telas extends javax.swing.JFrame {
                 btSalvarProcessosActionPerformed(evt);
             }
         });
-
-        jLabel1.setText("Processos Ativos");
 
         jLabel2.setText("BlackList");
 
@@ -275,27 +283,6 @@ public class Telas extends javax.swing.JFrame {
 
         main.add(import_otimizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, -20, 790, 580));
 
-        jLabel17.setText("Relatórios");
-
-        javax.swing.GroupLayout import_relatoriosLayout = new javax.swing.GroupLayout(import_relatorios);
-        import_relatorios.setLayout(import_relatoriosLayout);
-        import_relatoriosLayout.setHorizontalGroup(
-            import_relatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, import_relatoriosLayout.createSequentialGroup()
-                .addContainerGap(365, Short.MAX_VALUE)
-                .addComponent(jLabel17)
-                .addGap(356, 356, 356))
-        );
-        import_relatoriosLayout.setVerticalGroup(
-            import_relatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(import_relatoriosLayout.createSequentialGroup()
-                .addGap(216, 216, 216)
-                .addComponent(jLabel17)
-                .addContainerGap(346, Short.MAX_VALUE))
-        );
-
-        main.add(import_relatorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, -20, 790, 580));
-
         import_specs.setBackground(new java.awt.Color(255, 255, 255));
         import_specs.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -317,34 +304,8 @@ public class Telas extends javax.swing.JFrame {
         lbAtualizarSpecs.setText("Deseja atualizar os dados da sua maquina?");
         import_specs.add(lbAtualizarSpecs, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 70, 300, 20));
 
-        btAtualizarSpecs.setBackground(new java.awt.Color(50, 0, 114));
-        btAtualizarSpecs.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        btAtualizarSpecs.setForeground(new java.awt.Color(255, 255, 255));
-        btAtualizarSpecs.setText("Atualizar Maquina");
-        btAtualizarSpecs.setBorder(null);
-        btAtualizarSpecs.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btAtualizarSpecs.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btAtualizarSpecsActionPerformed(evt);
-            }
-        });
-        import_specs.add(btAtualizarSpecs, new org.netbeans.lib.awtextra.AbsoluteConstraints(316, 470, 190, 50));
-
         lbSalvarSpecs.setText("Deseja salvar as configurações atuais?");
         import_specs.add(lbSalvarSpecs, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 240, 290, 40));
-
-        btSalvarSpecs.setBackground(new java.awt.Color(50, 0, 114));
-        btSalvarSpecs.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        btSalvarSpecs.setForeground(new java.awt.Color(255, 255, 255));
-        btSalvarSpecs.setText("Salvar Maquina");
-        btSalvarSpecs.setBorder(null);
-        btSalvarSpecs.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btSalvarSpecs.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btSalvarSpecsActionPerformed(evt);
-            }
-        });
-        import_specs.add(btSalvarSpecs, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 400, 146, 50));
 
         labelsPanel.setBackground(new java.awt.Color(254, 254, 254));
         labelsPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -454,54 +415,33 @@ public class Telas extends javax.swing.JFrame {
 
         import_specs.add(labelsPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 460, 290));
 
-        main.add(import_specs, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, -20, 790, 580));
-
-        import_perfil.setBackground(new java.awt.Color(255, 255, 255));
-        import_perfil.setMinimumSize(new java.awt.Dimension(818, 550));
-        import_perfil.setPreferredSize(new java.awt.Dimension(818, 550));
-        import_perfil.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/user.png"))); // NOI18N
-        import_perfil.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 140, 130));
-
-        corpoForm.setBackground(new java.awt.Color(66, 3, 155));
-        corpoForm.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        lbNome.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        lbNome.setForeground(new java.awt.Color(255, 255, 255));
-        lbNome.setText("*Nome Usuario*");
-        corpoForm.add(lbNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 80, -1, -1));
-
-        lbTelefone.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        lbTelefone.setForeground(new java.awt.Color(255, 255, 255));
-        lbTelefone.setText("*Telefone*");
-        corpoForm.add(lbTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 110, -1, -1));
-
-        btSalvar.setBackground(new java.awt.Color(50, 0, 114));
-        btSalvar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        btSalvar.setForeground(new java.awt.Color(255, 255, 255));
-        btSalvar.setText("Salvar");
-        btSalvar.setBorder(null);
-        btSalvar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btSalvar.addActionListener(new java.awt.event.ActionListener() {
+        btAtualizarSpecs.setBackground(new java.awt.Color(50, 0, 114));
+        btAtualizarSpecs.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btAtualizarSpecs.setForeground(new java.awt.Color(255, 255, 255));
+        btAtualizarSpecs.setText("Atualizar Maquina");
+        btAtualizarSpecs.setBorder(null);
+        btAtualizarSpecs.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btAtualizarSpecs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btSalvarActionPerformed(evt);
+                btAtualizarSpecsActionPerformed(evt);
             }
         });
-        corpoForm.add(btSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 60, 146, 50));
+        import_specs.add(btAtualizarSpecs, new org.netbeans.lib.awtextra.AbsoluteConstraints(316, 470, 190, 50));
 
-        import_perfil.add(corpoForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 50, 800, 160));
+        btSalvarSpecs.setBackground(new java.awt.Color(50, 0, 114));
+        btSalvarSpecs.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btSalvarSpecs.setForeground(new java.awt.Color(255, 255, 255));
+        btSalvarSpecs.setText("Salvar Maquina");
+        btSalvarSpecs.setBorder(null);
+        btSalvarSpecs.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btSalvarSpecs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSalvarSpecsActionPerformed(evt);
+            }
+        });
+        import_specs.add(btSalvarSpecs, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 400, 146, 50));
 
-        jSeparator1.setForeground(new java.awt.Color(50, 0, 114));
-        import_perfil.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, 310, 10));
-
-        txtnome_usuario.setBackground(new java.awt.Color(196, 196, 196));
-        txtnome_usuario.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        txtnome_usuario.setBorder(null);
-        txtnome_usuario.setOpaque(false);
-        import_perfil.add(txtnome_usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, 310, 50));
-
-        main.add(import_perfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, -50, 790, 580));
+        main.add(import_specs, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, -20, 790, 580));
 
         CorpoTela.add(main, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 780, 560));
 
@@ -655,10 +595,12 @@ public class Telas extends javax.swing.JFrame {
         } catch (Exception e) {
             
         }
-        
+        btIn.setVisible(true);
+        btOut.setVisible(true);
+        btSalvarProcessos.setVisible(true);
         try{
             monitorar.processosAtivos();
-
+            listModelProcessos  = new DefaultListModel();
             OtimizarProcessos otm = new OtimizarProcessos();
             listModelBlack = otm.blackListBanco();
             for(int i = 0; i < monitorar.procsTotal.size(); i++){
@@ -738,10 +680,6 @@ public class Telas extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jLabel5MouseClicked
 
-    private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-        
-    }//GEN-LAST:event_btSalvarActionPerformed
-
     private void btInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInActionPerformed
         listModelBlack.addElement(listProcessos.getSelectedValue());
         listBlack.setModel(listModelBlack);
@@ -758,8 +696,6 @@ public class Telas extends javax.swing.JFrame {
             
             Database.DatabaseConnection conn = getConn();
             Connection connection = conn.getConnection();
-            
-            LoginScreen.LoginClass lg  = new LoginScreen.LoginClass();
             
             String deleteBlackList= "DELETE FROM processos "
             + "WHERE idMaquina = ? AND blackList = 1";
@@ -797,11 +733,15 @@ public class Telas extends javax.swing.JFrame {
     }//GEN-LAST:event_btAtualizarSpecsActionPerformed
 
     private void logoBestMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoBestMousePressed
+        active = "logoBest";
+        
+        lblOtimizar.setBackground(new Color(66, 3, 155));
+        lblSpecs.setBackground(new Color(66, 3, 155));
         try {
             main.removeAll();
             main.repaint();
             main.revalidate();
-            main.add(import_notifi);
+            main.add(import_inicio);
             main.repaint();
             main.revalidate();
             
@@ -810,6 +750,7 @@ public class Telas extends javax.swing.JFrame {
         } catch (Exception e) {
             
         }
+        esconderBotoes();
     }//GEN-LAST:event_logoBestMousePressed
 
     /**
@@ -861,25 +802,19 @@ public class Telas extends javax.swing.JFrame {
     private javax.swing.JLabel btFechar;
     private javax.swing.JButton btIn;
     private javax.swing.JButton btOut;
-    private javax.swing.JButton btSalvar;
     private javax.swing.JButton btSalvarProcessos;
     private javax.swing.JButton btSalvarSpecs;
-    private javax.swing.JPanel corpoForm;
-    private javax.swing.JPanel import_notifi;
+    private javax.swing.JPanel import_inicio;
     private javax.swing.JPanel import_otimizar;
-    private javax.swing.JPanel import_perfil;
-    private javax.swing.JPanel import_relatorios;
     private javax.swing.JPanel import_specs;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
@@ -887,16 +822,14 @@ public class Telas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JPanel labelsPanel;
     private javax.swing.JLabel lbAtualizarSpecs;
     private javax.swing.JLabel lbGhzProcessador;
     private javax.swing.JLabel lbMarcaComputador;
-    private javax.swing.JLabel lbNome;
+    private javax.swing.JLabel lbNomeStreamer;
     private javax.swing.JLabel lbQtdMonitores;
     private javax.swing.JLabel lbSalvarSpecs;
     private javax.swing.JLabel lbSistemaOperacional;
-    private javax.swing.JLabel lbTelefone;
     private javax.swing.JLabel lbTotalDisco;
     private javax.swing.JLabel lbTotalMemoria;
     private javax.swing.JLabel lbVersaoSistemaOperacional;
@@ -909,7 +842,6 @@ public class Telas extends javax.swing.JFrame {
     private javax.swing.JPanel main;
     private javax.swing.JScrollPane scrollBlack;
     private javax.swing.JScrollPane scrollProcessos;
-    private javax.swing.JTextField txtnome_usuario;
     private javax.swing.JLabel windows;
     // End of variables declaration//GEN-END:variables
 

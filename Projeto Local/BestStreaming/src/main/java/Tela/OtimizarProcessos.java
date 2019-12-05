@@ -28,7 +28,7 @@ public class OtimizarProcessos extends LoginClass{
         
     }
     
-    List<String> processosKill = new ArrayList<>();
+    List<String> processosKill;
     
     public Boolean salvarBlackList(Integer PID,String nomeProcesso) throws IOException{
         try{
@@ -80,6 +80,7 @@ public class OtimizarProcessos extends LoginClass{
     public void deletarProcessos() throws IOException{
         Database.DatabaseConnection conn = getConn();
         Connection connection = conn.getConnection();
+        processosKill = new ArrayList<>();
         
         String dados = "SELECT nomeProcesso FROM processos "
                 + "WHERE blackList=1 AND idMaquina="+getIdMaquina();
@@ -92,10 +93,10 @@ public class OtimizarProcessos extends LoginClass{
             }
             
             for (int i = 0; i < processosKill.size(); i++) {
-                kill(processosKill.get(i));
+                kill(processosKill.get(i)+".exe");
             }
         }catch(Exception e){
-            GeracaoLog.GerarLog.GravarLog("Erro ao deletar processos do banco: "+e.getMessage());
+            GeracaoLog.GerarLog.GravarLog("Erro realizar a listagem de processos: "+e.getMessage());
             e.printStackTrace();
         }
     }
@@ -120,5 +121,5 @@ public class OtimizarProcessos extends LoginClass{
             err.printStackTrace();    
         }    
         return false;    
-    } 
+    }
 }
