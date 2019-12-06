@@ -60,6 +60,8 @@ public class Telas extends javax.swing.JFrame {
         btSalvarProcessos.setVisible(false);
         btSalvarSpecs.setVisible(false);
         btAtualizarSpecs.setVisible(false);
+        listBlack.setVisible(false);
+        listProcessos.setVisible(false);
     }
     public void inicializacao() throws IOException {
         otimizarProcessos.deletarProcessos();
@@ -598,6 +600,8 @@ public class Telas extends javax.swing.JFrame {
         btIn.setVisible(true);
         btOut.setVisible(true);
         btSalvarProcessos.setVisible(true);
+        listBlack.setVisible(true);
+        listProcessos.setVisible(true);
         try{
             monitorar.processosAtivos();
             listModelProcessos  = new DefaultListModel();
