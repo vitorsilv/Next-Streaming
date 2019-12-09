@@ -48,12 +48,13 @@ public class Telas extends javax.swing.JFrame {
     public Telas() throws IOException {
         this.otimizarProcessos = new OtimizarProcessos();
         this.monitorar = new Monitorar();
-        inicializacao();
         initComponents();
         esconderBotoes();
         lbNomeStreamer.setText(lg.getNomeStreamer());
-        
+        inicializacao();
     }
+    
+    
     public void esconderBotoes(){
         btIn.setVisible(false);
         btOut.setVisible(false);
