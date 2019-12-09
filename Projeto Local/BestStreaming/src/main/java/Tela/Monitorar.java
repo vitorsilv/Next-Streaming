@@ -251,6 +251,7 @@ public class Monitorar extends LoginClass {
             while(rs.next()){
                 psInsert.setInt(4, rs.getInt("idMonitoramento"));
             }
+            psInsert.setInt(5, 0);
             if(rsProc.next()){
                 while(rsProc.next()){
                     if(rsProc.getString("nomeProcesso").equals(this.nomeProcesso)){
@@ -259,8 +260,6 @@ public class Monitorar extends LoginClass {
                         psInsert.setInt(5, 0);
                     }
                 }
-            }else{
-                psInsert.setInt(5, 0);
             }
             
             psInsert.execute();
