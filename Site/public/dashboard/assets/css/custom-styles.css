@@ -17,6 +17,7 @@ body {
     width: 100%;
 }
 
+
 #page-wrapper {
     padding: 15px 15px;
     min-height: 600px;
@@ -360,8 +361,35 @@ font-size: 14px;
 /*----------------------------------------------
     MENU STYLES    
 ------------------------------------------------*/
-div#sideNav:hover {
-    color: #1f2837;
+.botoes{
+    margin-left: 470px;
+    margin-top: -75px;
+    
+}
+.bt1{
+    float: left;
+    background: #fdcc34;
+    margin-right: 100px;
+    width: 200px;
+    right: 50px;
+    text-align: center;
+    border-radius: 10px;
+    padding: 10px;
+    
+}
+a{
+    text-decoration: none;
+}
+
+.bt2{
+    float: left;
+    background: #fdcc34;
+    margin-right: 100px;
+    width: 200px;
+    right: 50px;
+    text-align: center;
+    border-radius: 10px;
+    padding: 10px;
 }
 .user-image {
     margin: 25px auto;
@@ -370,6 +398,7 @@ div#sideNav:hover {
 border-radius: 10px;
 max-height:170px;
 max-width:170px;
+
 }
 .top-navbar{
 margin:0px;
@@ -384,8 +413,8 @@ display: inline-block;
 margin: 0px;
 padding: 0px;
 }
-.top-navbar .nav > li > a {position: relative;display: block;padding: 17px;color: #484848;margin: 0px;}
-.top-navbar .nav > li > a:hover, .top-navbar .nav > li > a:focus {text-decoration: none;color: #f44336 !important;background: transparent;}
+.top-navbar .nav > li > a {position: relative;display: block;padding: 39px;color: #484848;margin: 0px;}
+.top-navbar .nav > li > a:hover, .top-navbar .nav > li > a:focus {text-decoration: none;color: #ffffff !important;background: transparent;}
 .top-navbar .dropdown-menu{
 min-width: 230px;
 border-radius: 0 0 4px 4px;
@@ -414,7 +443,7 @@ padding-top: 4px;
     background-color: #233342 !important;
     color: #fff !important;
 }
-.active-menu i{color: #f44336 !important;}
+.active-menu i{color: #f0f0f0 !important;}
 .arrow {
     float: right;
     margin-top: 8px;
@@ -468,14 +497,14 @@ ul.nav.nav-second-level.collapse.in {background: #121821;}
  
 .navbar-side {
 	border:none;
-	background: #1F2837;
+	background: rgb(221, 221, 221);
 }
 .top-navbar {
-	background: #ffffff;
+	background: #320072;
 	border-bottom:none;
 }
 .top-navbar .nav > li > a > i {margin-right: 0;}
-.top-navbar .navbar-brand:hover {color: #FFFFFF;background-color: #f44336;}
+.top-navbar .navbar-brand:hover {color: #320072;background-color: #320072;}
 .dropdown-user li {
 margin: 8px 0;
 }
@@ -498,26 +527,7 @@ margin: 8px 0;
   display: inline-block;
   font-weight: 500;
 }
-#sideNav{
-    float: left;
-    left: 0;
-    z-index: 3;
-    color: #f44336;
-    cursor:pointer;
-    border-radius: 0;
-    width: 14px;
-    font-size: 44px;
-    line-height: 33px;
-    margin: 7px 0 0 13px;
-    background: #ffffff;
-    width: 34px;
-    height: 34px;
-    text-align: center;
-    line-height: 34px;
-    padding-top: 5px;
-    margin-top: 14px;
-    border-radius: 50%;
-}
+
 ul.dropdown-menu.dropdown-messages li a div {
   padding: 2px 0;
 }
@@ -546,7 +556,8 @@ ul.dropdown-menu.dropdown-messages li a div {
 	text-transform:uppercase;
 }
 .collection .collection-item{
-	padding: 16px 20px;
+	
+padding: 16px 20px;
 }
 /*----------------------------------------------
     UI ELEMENTS STYLES     
@@ -585,14 +596,16 @@ line-height: 1.428571429;
 }
    
 }
- @media(max-width:768px) {
-	#sideNav{
-	display:none;
-} 
+
+.alerta1{
+    background: #0050e3;
+    width: 100px;
+    height: 50pxs;
+  }
+
  #page-wrapper {
 position: relative;
 top: 59px;
- }
  }
  @media(max-width:480px) {
  #page-wrapper {
@@ -604,9 +617,7 @@ display: block;
 padding-top: 14px;
 font-size: 19px;
 }
-#sideNav{
-	display:none;
-}
+
 .panel-left {
   width: 85px;
   height: 85px; 
@@ -685,9 +696,12 @@ font-size: 19px;
 	color: #f44336;
 }
 .dropdown-content li{
-	padding: 15px;
-	color: #233342;
-	font-size: 13px;
+	
+padding: 15px;
+	
+color: #233342;
+	
+font-size: 13px;
 }
 .taskList li{padding: 20px 15px 5px;background: #fff;font-size: 12px;}
 .taskList > div{
@@ -706,7 +720,7 @@ padding: 0 15px 0px 15px;
  @media(max-width:768px) {
 	  
 	 .navbar-header {
-		background: #f44336;
+		background: #320072;
 	}
 	.navbar-side {
 		z-index: 2;

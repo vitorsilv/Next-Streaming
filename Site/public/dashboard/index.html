@@ -5,9 +5,22 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<link rel="shotcut icon" href="../../../../../Documentação/Logos/favicon.png">
-	<title>BS :: Home</title>
+	<title>Best Streaming</title>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" href="assets/materialize/css/materialize.min.css" media="screen,projection" />
+	<link rel="apple-touch-icon" sizes="57x57" href="../../Images/favicon/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="../../Images/favicon/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="../../Images/favicon/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="../../Images/favicon/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="../../Images/favicon/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="../../Images/favicon/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="../../Images/favicon/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="../../Images/favicon/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../../Images/favicon/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192"  href="../../Images/favicon/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../Images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../../Images/favicon/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../../Images/favicon/favicon-16x16.png">
 
 	<!-- Bootstrap Styles-->
 	<link href="assets/css/bootstrap.css" rel="stylesheet" />
@@ -23,71 +36,64 @@
 	<!-- scripts do Chart.js -->
 	<script type="text/javascript" src="https://www.chartjs.org/dist/2.8.0/Chart.min.js"></script>
 	<script type="text/javascript" src="https://www.chartjs.org/samples/latest/utils.js"></script>
+	
 </head>
 
 <body onload="iniciar()">
 	<div id="wrapper">
 		<nav class="navbar navbar-default top-navbar" role="navigation">
 			<div class="navbar-header">
-				<button type="button" class="navbar-toggle waves-effect waves-dark" data-toggle="collapse"
-					data-target=".sidebar-collapse">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>	
+				<Img src="../images/bs.png" style="width: 150px;"></Img>
 
-				<div id="sideNav" href=""><i class="material-icons dp48">toc</i></div>
+				<div class="botoes">
+						<a href="index.html"><div class="bt1"><i class="fa fa-user fa-fw"></i>Dashboard</div></a>
+					<a href="https://bandteccom.sharepoint.com/:u:/s/BStreaming/EUUWCafuNXhNt0PTVThKIHEBrUYI9m871Gz3X4EsTh_3kw?e=mEf0Vb"><div class="bt2"><i class="fa fa-user fa-fw" style="text-align: center;"></i>Mais detalhes</div></a>
+				</div>
+
+
 			</div>
 
-			<ul class="nav navbar-top-links navbar-right">
-				<!-- <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown4"><i class="fa fa-envelope fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a></li>
-				<li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown3"><i class="fa fa-tasks fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a></li>
-				<li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown2"><i class="fa fa-bell fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a></li> -->
-				<li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown1"><i
-							class="fa fa-user fa-fw"></i> <b id="nomeUsuario">Usuário</b> <i
-							class="material-icons right">arrow_drop_down</i></a></li>
+			<ul class="nav navbar-top-links navbar-right" style="background:#fdcc34;">
+
+				<li><a class="dropdown-button waves-effect waves-dark text-white" href="#!" data-activates="dropdown1">
+					<i class="fa fa-user fa-fw text-white"></i> <b id="nomeUsuario">Usuário</b> 
+					<i class="material-icons right">arrow_drop_down</i></a></li>
 			</ul>
 		</nav>
 		<!-- Dropdown Structure -->
 		<ul id="dropdown1" class="dropdown-content">
 			<li><a href="perfil.html"><i class="fa fa-user fa-fw"></i> Perfil</a>
 			</li>
-			<li><a href="configuracoes.html"><i class="fa fa-gear fa-fw"></i> Configurações</a>
-			</li>
 			<li><a onclick="logout()"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
 			</li>
 		</ul>
 		<!--/. NAV TOP  -->
 		<!-- /. NAV SIDE  -->
+		
 		<center>
-			<div id="page-wrapper">
-				<div class="header">
-					<h1 class="page-header" style="text-align: center">
-						Dashboard
-					</h1>
-				</div>
 				<!-- /. ROW  -->
-				<div class="col-xs-2 col-sm-2 col-md-4">
-					<div class="card-panel text-center">
-						<h4>CPU</h4>
-						<h2 id="cpuData">...%</h2>
+				
+
+				<div class="col-xs-12 col-sm-6 col-md-4" style="margin-top: 150px;">
+					<div class="card-panel text-center" style="background:#320072 ;">
+						<h4 style="color: white;">CPU</h4>
+						<h2 id="cpuData"  style="color: white;">...%</h2>
 						<canvas id="cpuGraph"></canvas>
 					</div>
 				</div>
 
 				<div class="row" style="width: 100%">
-					<div class="col-xs-12 col-sm-6 col-md-4">
-						<div class="card-panel text-center">
-							<h4>MEMÓRIA RAM</h4>
-							<h2 id="ramData">...%</h2>
+					<div class="col-xs-12 col-sm-6 col-md-4" style="margin-top: 150px;">
+						<div class="card-panel text-center" style="background:#320072 ;">
+							<h4  style="color: white;">MEMÓRIA RAM</h4>
+							<h2 id="ramData"  style="color: white;">...%</h2>
 							<canvas id="ramGraph"></canvas>
 						</div>
 					</div>
-					<div class="col-xs-12 col-sm-6 col-md-4">
-						<div class="card-panel text-center">
-							<h4>DISCO</h4>
-							<h2 id="diskData">...%</h2>
+					<div class="col-xs-12 col-sm-6 col-md-4" style="margin-top: 150px;">
+						<div class="card-panel text-center" style="background:#320072 ;">
+							<h4  style="color: white;">DISCO</h4>
+							<h2 id="diskData"  style="color: white;">...%</h2>
 							<canvas id="diskGraph"></canvas>
 						</div>
 					</div>
@@ -96,14 +102,16 @@
 				<div id="page-inner">
 					<div class="row">
 						<div style="width: 100%; height: 10%;">
-							<div class="card">
+							<div class="card" style="background:#320072 ;">
 								<canvas id="lineGraph"></canvas>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
+
+				
 	</div>
+	<div class="alerta1"></div>
 
 	</center>
 
@@ -168,7 +176,7 @@
 function iniciar(){
 	getAtual();
 	getGraph();
-	setInterval
+	setTimeout(iniciar,5*1000)
 }
 
 
@@ -262,7 +270,7 @@ function iniciar(){
                     disk.push(element.disco);
                 });
                 const corCpu = 'rgba(255, 0, 0)';
-                const corRam = 'rgba(0, 162, 255)';
+                const corRam = 'rgba(0, 255, 26)';
                 const corDisco = 'rgba(255, 166, 0)';
                 var ctx = document.getElementById('lineGraph').getContext('2d');
                 var lineGraph = new Chart(ctx, {
@@ -288,7 +296,7 @@ function iniciar(){
                                 borderWidth: 1,
                             },
                             {
-                                label: 'DISCO',
+								label: 'DISCO',
                                 data: disk,
                                 backgroundColor: corDisco,
                                 borderColor: corDisco,

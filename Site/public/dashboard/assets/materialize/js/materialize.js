@@ -2195,13 +2195,7 @@ $(document).ready(function(){
         }
 
         // Add Touch Area
-        var $dragTarget;
-        if (options.draggable) {
-          $dragTarget = $('<div class="drag-target"></div>').attr('data-sidenav', $this.attr('data-activates'));
-          $('body').append($dragTarget);
-        } else {
-          $dragTarget = $();
-        }
+     
 
         if (options.edge == 'left') {
           menu_id.css('transform', 'translateX(-100%)');
@@ -2212,97 +2206,6 @@ $(document).ready(function(){
             .css('transform', 'translateX(100%)');
           $dragTarget.css({'right': 0}); // Add Touch Area
         }
-
-        // If fixed sidenav, bring menu out
-        if (menu_id.hasClass('fixed')) {
-            if (window.innerWidth > 992) {
-              menu_id.css('transform', 'translateX(0)');
-            }
-          }
-
-        // Window resize to reset on large screens fixed
-        if (menu_id.hasClass('fixed')) {
-          $(window).resize( function() {
-            if (window.innerWidth > 992) {
-              // Close menu if window is resized bigger than 992 and user has fixed sidenav
-              if ($('#sidenav-overlay').length !== 0 && menuOut) {
-                removeMenu(true);
-              }
-              else {
-                // menu_id.removeAttr('style');
-                menu_id.css('transform', 'translateX(0%)');
-                // menu_id.css('width', options.menuWidth);
-              }
-            }
-            else if (menuOut === false){
-              if (options.edge === 'left') {
-                menu_id.css('transform', 'translateX(-100%)');
-              } else {
-                menu_id.css('transform', 'translateX(100%)');
-              }
-
-            }
-
-          });
-        }
-
-        // if closeOnClick, then add close event for all a tags in side sideNav
-        if (options.closeOnClick === true) {
-          menu_id.on("click.itemclick", "a:not(.collapsible-header)", function(){
-            removeMenu();
-          });
-        }
-
-        var removeMenu = function(restoreNav) {
-          panning = false;
-          menuOut = false;
-          // Reenable scrolling
-          $('body').css({
-            overflow: '',
-            width: ''
-          });
-
-          $('#sidenav-overlay').velocity({opacity: 0}, {duration: 200,
-              queue: false, easing: 'easeOutQuad',
-            complete: function() {
-              $(this).remove();
-            } });
-          if (options.edge === 'left') {
-            // Reset phantom div
-            $dragTarget.css({width: '', right: '', left: '0'});
-            menu_id.velocity(
-              {'translateX': '-100%'},
-              { duration: 200,
-                queue: false,
-                easing: 'easeOutCubic',
-                complete: function() {
-                  if (restoreNav === true) {
-                    // Restore Fixed sidenav
-                    menu_id.removeAttr('style');
-                    menu_id.css('width', options.menuWidth);
-                  }
-                }
-
-            });
-          }
-          else {
-            // Reset phantom div
-            $dragTarget.css({width: '', right: '0', left: ''});
-            menu_id.velocity(
-              {'translateX': '100%'},
-              { duration: 200,
-                queue: false,
-                easing: 'easeOutCubic',
-                complete: function() {
-                  if (restoreNav === true) {
-                    // Restore Fixed sidenav
-                    menu_id.removeAttr('style');
-                    menu_id.css('width', options.menuWidth);
-                  }
-                }
-              });
-          }
-        };
 
 
 
@@ -2328,12 +2231,7 @@ $(document).ready(function(){
               var y = e.gesture.center.y;
               var velocityX = e.gesture.velocityX;
 
-              // Disable Scrolling
-              var $body = $('body');
-              var $overlay = $('#sidenav-overlay');
-              var oldWidth = $body.innerWidth();
-              $body.css('overflow', 'hidden');
-              $body.width(oldWidth);
+
 
               // If overlay does not exist, create one and if it is clicked, close menu
               if ($overlay.length === 0) {
